@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Short science chapters for Grade 5 Unit 4: Growth, Reproduction and Change.">
+  <title>Grade 5 Science Reader — Growth, Reproduction and Change</title>
+  <style>
+    :root {
+      --sp-blue: #0f6cbd;
+      --sp-blue-dark: #0b4f8a;
+      --sp-blue-soft: #e8f3fb;
+      --ink: #242424;
+      --muted: #616161;
+      --line: #d1d1d1;
+      --line-soft: #e8e8e8;
+      --canvas: #f5f5f5;
+      --white: #ffffff;
+      --success: #107c10;
+      --warning: #8a4b08;
+      --warning-soft: #fff4ce;
+      --focus: #605e5c;
+      --radius: 4px;
+      --content: 1120px;
+      --reading: 720px;
+      --reader-size: 1.125rem;
+      --secondary: #006b68;
+      --secondary-soft: #e6f4f2;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--canvas);
+      font-family: "Segoe UI", SegoeUI, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    button, select { font: inherit; }
+    button, select, summary { cursor: pointer; }
+    a { color: var(--sp-blue); }
+    a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+    .skip-link {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 100;
+      padding: 8px 12px;
+      color: var(--white);
+      background: var(--sp-blue-dark);
+      transform: translateY(-160%);
+    }
+    .skip-link:focus { transform: none; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 5px 16px rgba(0, 0, 0, 0.08);
+    }
+    .header-inner, .page-shell, .footer-inner {
+      width: min(calc(100% - 40px), var(--content));
+      margin-inline: auto;
+    }
+    .header-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: max-content;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      color: var(--white);
+      background: var(--sp-blue);
+      font-weight: 700;
+    }
+    .brand-copy { line-height: 1.15; }
+    .brand-copy strong { display: block; font-size: 18px; }
+    .brand-copy span { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; }
+    .chapter-picker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .chapter-picker label { font-size: 14px; font-weight: 600; }
+    .chapter-picker select {
+      width: min(390px, 46vw);
+      padding: 9px 34px 9px 11px;
+      color: var(--ink);
+      background: var(--white);
+      border: 1px solid #8a8886;
+      border-radius: var(--radius);
+    }
+
+    .page-shell { padding: 24px 0 72px; }
+    .breadcrumb { margin: 0 0 16px; color: var(--muted); font-size: 14px; }
+    .breadcrumb a { text-decoration: none; }
+    .breadcrumb span { padding: 0 8px; }
+    .unit-band {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 24px;
+      padding: 26px 30px;
+      background: var(--white);
+      border-top: 5px solid var(--sp-blue);
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      margin-bottom: 8px;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      font-weight: 650;
+    }
+    .unit-question { max-width: 70ch; margin: 0; color: #3b3a39; font-size: 18px; }
+    .unit-meta { color: var(--muted); font-size: 14px; text-align: right; }
+    .progress-track { height: 5px; background: #dbeaf5; }
+    .progress-fill { width: 16.666%; height: 100%; background: var(--sp-blue); }
+
+    .reader-layout {
+      display: grid;
+      grid-template-columns: minmax(0, var(--reading)) 300px;
+      justify-content: center;
+      align-items: start;
+      gap: 28px;
+      margin-top: 28px;
+    }
+    .chapter-page {
+      min-width: 0;
+      padding: clamp(26px, 5vw, 52px);
+      background: var(--white);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+    .chapter-position { margin-bottom: 10px; color: var(--sp-blue-dark); font-size: 14px; font-weight: 700; }
+    .chapter-title {
+      margin-bottom: 18px;
+      font-size: clamp(30px, 5vw, 46px);
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      font-weight: 650;
+    }
+    .learning-goal {
+      margin: 0 0 32px;
+      padding: 18px 20px;
+      background: var(--sp-blue-soft);
+    }
+    .learning-goal strong { display: block; margin-bottom: 4px; color: var(--sp-blue-dark); }
+    .learning-goal p { margin: 0; font-size: 17px; }
+    .chapter-intro { font-size: 20px; line-height: 1.5; font-weight: 600; }
+    .reading-text { font-size: var(--reader-size); line-height: 1.72; }
+    .reading-text h2 {
+      margin: 42px 0 12px;
+      font-size: 25px;
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+      font-weight: 650;
+    }
+    .reading-text p { margin-bottom: 20px; }
+    .reader-sentence {
+      border-radius: 3px;
+      transition: background-color 130ms ease-out, color 130ms ease-out;
+    }
+    .reader-sentence:hover { background: #f0f6fa; }
+    .reader-sentence.is-active {
+      color: #1c1c1c;
+      background: #fff1a8;
+      box-shadow: 0 2px 0 #d6a400;
+    }
+    .reading-text.spotlight .reader-sentence:not(.is-active) { color: #767676; }
+    .reading-text.spotlight .reader-sentence.is-active { color: #1c1c1c; }
+
+    .science-figure {
+      margin: 30px 0 34px;
+      padding: 22px;
+      background: #fafafa;
+      border: 1px solid var(--line);
+    }
+    .science-figure svg { display: block; width: 100%; height: auto; max-height: 310px; }
+    .science-figure img { display: block; width: 100%; height: auto; }
+    .science-figure { padding: 0; background: transparent; border: 0; }
+    .vocab-word { color: var(--secondary); font-weight: 750; }
+    .reading-bar { position: sticky; top: 78px; z-index: 10; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 12px 0; margin-bottom: 22px; background: var(--white); border-bottom: 1px solid var(--line-soft); }
+    .reading-help { width: 100%; margin: 0; color: var(--muted); font-size: 13px; }
+    .reading-count { color: var(--muted); font-size: 13px; }
+    .concept-question { padding: 24px 0; border-top: 1px solid var(--line-soft); }
+    .concept-question h3 { margin: 0 0 10px; font-size: 21px; line-height: 1.35; }
+    .question-kind { color: var(--secondary); font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .concept-question label { display: block; margin-bottom: 7px; color: var(--muted); font-size: 14px; }
+    .concept-question textarea { width: 100%; min-height: 100px; resize: vertical; padding: 12px; border: 1px solid #8a8886; border-radius: 4px; font: inherit; line-height: 1.5; background: #fcfcfc; }
+    textarea:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    .reasoning { margin-top: 14px; }
+    .reasoning summary { color: var(--sp-blue-dark); font-weight: 600; }
+    .reasoning p { margin: 12px 0 0; padding: 16px; background: var(--sp-blue-soft); }
+    .flashcard-panel { grid-column: 1 / -1; width: min(100%, var(--reading)); background: var(--white); }
+    .flashcard-panel > summary { padding: 18px 22px; color: var(--secondary); font-size: 18px; font-weight: 650; }
+    .flashcard-body { padding: 0 22px 24px; }
+    .flashcard-controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+    .flashcard-controls select { max-width: 100%; padding: 8px; background: white; border: 1px solid #8a8886; border-radius: 4px; }
+    .flashcard { width: 100%; min-height: 230px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; padding: 30px; background: var(--secondary-soft); border: 1px solid #9ecac7; border-radius: 4px; color: var(--secondary); text-align: center; }
+    .flashcard-face { font-size: 28px; font-weight: 700; line-height: 1.3; }
+    .flashcard-hint { color: #365c59; font-size: 14px; font-weight: 400; }
+    .flashcard-nav { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; margin-top: 16px; }
+    .flashcard-status { color: var(--muted); font-size: 14px; }
+    @media (max-width: 900px) { .reading-bar { top: 132px; } }
+    @media (max-width: 600px) { .reading-bar { top: 126px; } .reading-bar .tool-button { width: auto; } .flashcard { padding: 22px; } }
+    @media print { .reading-bar, .flashcard-panel { display: none !important; } }
+    .science-figure figcaption { margin-top: 14px; color: #4a4a4a; font-size: 14px; }
+    .science-figure strong { color: var(--ink); }
+    .think-prompt {
+      margin: 30px 0;
+      padding: 18px 20px;
+      color: #4f3204;
+      background: var(--warning-soft);
+    }
+    .think-prompt strong { display: block; margin-bottom: 4px; color: var(--warning); }
+    .chapter-summary {
+      margin: 40px 0 0;
+      padding-top: 24px;
+      border-top: 2px solid var(--sp-blue);
+    }
+    .chapter-summary h2 { margin: 0 0 10px; font-size: 23px; }
+    .chapter-summary ul { margin: 0; padding-left: 22px; }
+    .chapter-summary li + li { margin-top: 8px; }
+
+    :root { --reader-header-height: 76px; }
+    .reader-main { min-width: 0; display: grid; gap: 28px; }
+    .reader-main > * { min-width: 0; width: 100%; }
+    .side-rail {
+      position: sticky; top: calc(var(--reader-header-height) + 16px);
+      max-height: calc(100dvh - var(--reader-header-height) - 80px);
+      overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable;
+      display: grid; gap: 18px; align-self: start; min-width: 0;
+    }
+    .side-rail .tools-panel { margin: 0; grid-column: auto; }
+    .side-rail .tools-panel > summary { gap: 8px; }
+    .side-rail .tool-status { display: block; font-size: 12px; font-weight: 400; }
+    .side-rail .reading-bar { position: static; padding: 0 20px 16px; margin: 0; }
+    .side-rail .reading-help { font-size: 12px; }
+    .side-rail .tools-row { padding: 16px 20px; }
+    .side-rail .tool-button { font-size: 13px; }
+    .flashcard { perspective: 900px; }
+    .flashcard.is-turning { animation: card-turn 360ms cubic-bezier(.16, 1, .3, 1); }
+    @keyframes card-turn {
+      0% { transform: perspective(900px) rotateY(0) scale(1); }
+      49% { transform: perspective(900px) rotateY(85deg) scale(.97); }
+      50% { transform: perspective(900px) rotateY(-85deg) scale(.97); }
+      100% { transform: perspective(900px) rotateY(0) scale(1); }
+    }
+    @media (prefers-reduced-motion: reduce) { .flashcard.is-turning { animation: none; } }
+    .side-section { padding: 20px; background: var(--white); border-top: 3px solid var(--sp-blue); }
+    .side-section h2 { margin-bottom: 12px; font-size: 19px; }
+    .side-section p { color: #4a4a4a; font-size: 14px; }
+    .keyword-list { display: grid; gap: 10px; margin: 0; }
+    .keyword-list div { padding-top: 10px; border-top: 1px solid var(--line-soft); }
+    .keyword-list div:first-child { padding-top: 0; border-top: 0; }
+    .keyword-list dt { color: var(--secondary); font-weight: 700; }
+    .keyword-list dd { margin: 2px 0 0; color: #4a4a4a; font-size: 14px; }
+    .lesson-link { display: inline-flex; margin-top: 6px; font-size: 14px; font-weight: 600; }
+
+    .tools-panel { grid-column: 1 / -1; margin-top: 2px; background: var(--white); }
+    .tools-panel > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 20px;
+      font-weight: 650;
+      list-style: none;
+    }
+    .tools-panel > summary::-webkit-details-marker { display: none; }
+    .tools-panel > summary::after { content: "+"; color: var(--sp-blue); font-size: 22px; }
+    .tools-panel[open] > summary::after { content: "−"; }
+    .tools-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      padding: 0 20px 20px;
+      border-top: 1px solid var(--line-soft);
+    }
+    .tools-row:first-of-type { padding-top: 18px; }
+    .tool-button {
+      min-height: 40px;
+      padding: 8px 12px;
+      color: var(--ink);
+      background: var(--white);
+      border: 1px solid #8a8886;
+      border-radius: var(--radius);
+      font-weight: 600;
+    }
+    .tool-button:hover { background: #f3f2f1; }
+    .tool-button.primary { color: var(--white); background: var(--sp-blue); border-color: var(--sp-blue); }
+    .tool-button.primary:hover { background: var(--sp-blue-dark); }
+    .tool-button[aria-pressed="true"] { color: var(--white); background: var(--sp-blue-dark); border-color: var(--sp-blue-dark); }
+    .tool-status { color: var(--muted); font-size: 14px; }
+
+    .knowledge-check, .glossary-panel {
+      grid-column: 1 / -1;
+      width: min(100%, var(--reading));
+      justify-self: start;
+      background: var(--white);
+    }
+    .knowledge-check > summary, .glossary-panel > summary {
+      padding: 18px 22px;
+      color: var(--sp-blue-dark);
+      font-size: 18px;
+      font-weight: 650;
+    }
+    .check-body, .glossary-body { padding: 0 22px 24px; }
+    .question { margin: 0; padding: 18px 0; border: 0; border-top: 1px solid var(--line-soft); }
+    .question legend { padding: 0; font-weight: 650; }
+    .option { display: flex; align-items: flex-start; gap: 10px; margin-top: 11px; }
+    .option input { margin-top: 6px; }
+    .feedback { min-height: 24px; margin: 14px 0 0; font-weight: 600; }
+    .feedback.correct { color: var(--success); }
+    .feedback.try-again { color: #a4262c; }
+    .glossary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 24px; }
+    .glossary-entry { padding: 14px 0; border-top: 1px solid var(--line-soft); }
+    .glossary-entry strong { display: block; color: var(--sp-blue-dark); }
+    .glossary-entry span { color: #4a4a4a; font-size: 14px; }
+
+    .chapter-nav {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 4px;
+    }
+    .chapter-nav button {
+      min-height: 44px;
+      padding: 9px 16px;
+      color: var(--sp-blue-dark);
+      background: var(--white);
+      border: 1px solid var(--sp-blue);
+      border-radius: var(--radius);
+      font-weight: 650;
+    }
+    .chapter-nav button:hover { background: var(--sp-blue-soft); }
+    .chapter-nav button:disabled { color: #8a8886; background: #ededed; border-color: #d1d1d1; cursor: not-allowed; }
+
+    .site-footer { padding: 34px 0; color: #4a4a4a; background: #ededed; border-top: 1px solid var(--line); }
+    .footer-inner { font-size: 13px; }
+    .footer-inner p { max-width: 90ch; margin-bottom: 10px; }
+
+    @media (max-width: 900px) {
+      .header-inner { align-items: flex-start; flex-direction: column; padding: 14px 0; }
+      .chapter-picker { width: 100%; }
+      .chapter-picker select { flex: 1; width: auto; }
+      .unit-band { grid-template-columns: 1fr; }
+      .unit-meta { text-align: left; }
+      .reader-layout { grid-template-columns: 1fr; }
+      .side-rail { position: static; grid-template-columns: 1fr; max-height: none; overflow: visible; }
+      .tools-panel, .knowledge-check, .glossary-panel, .chapter-nav { grid-column: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .header-inner, .page-shell, .footer-inner { width: min(calc(100% - 24px), var(--content)); }
+      .brand-copy span, .chapter-picker label { display: none; }
+      .chapter-picker select { width: 100%; }
+      .page-shell { padding-top: 16px; }
+      .unit-band { padding: 22px 20px; }
+      .chapter-page { padding: 26px 20px 34px; }
+      .side-rail { grid-template-columns: 1fr; }
+      .glossary-grid { grid-template-columns: 1fr; }
+      .chapter-nav { flex-direction: column; }
+      .chapter-nav button { width: 100%; }
+      .tools-row { align-items: stretch; flex-direction: column; }
+      .tool-button { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; }
+    }
+
+    @media print {
+      .site-header, .breadcrumb, .tools-panel, .knowledge-check, .glossary-panel, .chapter-nav, .side-rail { display: none !important; }
+      body { background: var(--white); }
+      .page-shell { width: 100%; padding: 0; }
+      .unit-band { border-top-width: 3px; }
+      .reader-layout { display: block; margin-top: 16px; }
+      .chapter-page { box-shadow: none; padding: 0; }
+      .science-figure { break-inside: avoid; }
+      .reader-sentence.is-active { background: transparent; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <!--
+  THESIS: One calm chapter at a time; the reader refuses the crowded control wall that competes with science text.
+  OWN-WORLD: The curriculum map's SharePoint blue, white teaching surfaces, square details, and restrained Segoe UI hierarchy.
+  STORY: A Grade 3 reader sees the learning goal, reads a short Québec-centred chapter, checks understanding, and moves on.
+  FIRST VIEWPORT: A familiar curriculum header, unit title, chapter goal, and the opening paragraph; optional tools remain collapsed.
+  FORM: Focused digital textbook, extending the established curriculum-map world; seed key not required for an inherited surface.
+  FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+  -->
+  <a class="skip-link" href="#chapter-article">Skip to the chapter</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../mockups/SciTech_Curriculum_Map_Grades_3_to_6.html#g5u4" aria-label="Return to the Grade 5 Unit 4 curriculum map">
+        <span class="brand-mark" aria-hidden="true">ST</span>
+        <span class="brand-copy"><strong>Elementary SciTech Reader</strong><span>Grade 5 · Unit 4</span></span>
+      </a>
+      <div class="chapter-picker">
+        <label for="chapter-select">Choose a chapter</label>
+        <select id="chapter-select" aria-label="Choose a chapter"></select>
+      </div>
+    </div>
+    <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progress-fill"></div></div>
+  </header>
+
+  <main class="page-shell">
+    <p class="breadcrumb"><a href="Reader_Library_Grades_3_to_6.html">Reader library</a><span>›</span><a href="../mockups/SciTech_Curriculum_Map_Grades_3_to_6.html#g5u4">Grade 5 Unit 4</a><span>›</span>Science reader</p>
+
+    <section class="unit-band" aria-labelledby="unit-title">
+      <div>
+        <h1 id="unit-title">Growth, Reproduction and Change</h1>
+        <p class="unit-question">How do organisms grow, reproduce and change across generations?</p>
+      </div>
+      <div class="unit-meta"><strong>6 short chapters</strong><br>Short readings for lesson discussion</div>
+    </section>
+
+    <div class="reader-layout">
+      <article class="chapter-page" id="chapter-article" aria-labelledby="chapter-title">
+        <p class="chapter-position" id="chapter-position"></p>
+        <h2 class="chapter-title" id="chapter-title"></h2>
+        <section class="learning-goal" aria-labelledby="goal-label">
+          <strong id="goal-label">Learning goal</strong>
+          <p id="learning-goal"></p>
+        </section>
+        <div class="reading-bar" aria-label="Classroom sentence highlighting">
+          <button class="tool-button primary" id="read-together" type="button" aria-pressed="false">Read together</button>
+          <button class="tool-button" id="class-previous" type="button" aria-label="Highlight the previous sentence">Previous</button>
+          <button class="tool-button" id="class-next" type="button" aria-label="Highlight the next sentence">Next</button>
+          <button class="tool-button" id="download-chapter" type="button">Download Word</button>
+          <span class="reading-count" id="reading-count" aria-live="polite">Choose a sentence to begin</span>
+          <p class="reading-help">Space / Right / Down: next sentence · Left / Up: previous · Escape: finish. You can also click a sentence.</p>
+        </div>
+        <div class="reading-text" id="reading-text"></div>
+      </article>
+
+      <aside class="side-rail" aria-label="Chapter support">
+        <section class="side-section">
+          <h2>Words to know</h2>
+          <dl class="keyword-list" id="keyword-list"></dl>
+        </section>
+        <section class="side-section">
+          <h2>Lesson connection</h2>
+          <p id="lesson-connection"></p><details><summary>Map POL focus</summary><ul id="chapter-pol"></ul></details>
+          <a class="lesson-link" href="../mockups/SciTech_Curriculum_Map_Grades_3_to_6.html#g5u4">Open the unit map</a>
+        </section>
+      </aside>
+
+      <details class="tools-panel">
+        <summary>Reading tools <span class="tool-status" id="tool-status">Optional supports</span></summary>
+        <div class="tools-row">
+          <button class="tool-button primary" id="read-aloud" type="button">Read chapter aloud</button>
+          <button class="tool-button" id="read-sentence" type="button">Read highlighted sentence</button>
+          <label for="speech-speed">Speed</label>
+          <select id="speech-speed">
+            <option value="0.8">Slow</option>
+            <option value="0.92" selected>Comfortable</option>
+            <option value="1">Standard</option>
+          </select>
+        </div>
+        <div class="tools-row">
+          <button class="tool-button" id="previous-sentence" type="button">Previous sentence</button>
+          <button class="tool-button" id="next-sentence" type="button">Next sentence</button>
+          <button class="tool-button" id="spotlight" type="button" aria-pressed="false">Sentence spotlight</button>
+          <button class="tool-button" id="clear-highlight" type="button">Clear highlight</button>
+        </div>
+        <div class="tools-row">
+          <button class="tool-button" id="smaller-text" type="button" aria-label="Make reading text smaller">Smaller text</button>
+          <button class="tool-button" id="larger-text" type="button" aria-label="Make reading text larger">Larger text</button>
+          <button class="tool-button" id="print-chapter" type="button">Print chapter</button>
+        </div>
+      </details>
+
+      <details class="knowledge-check" id="knowledge-check">
+        <summary>Check my understanding</summary>
+        <div class="check-body" id="check-body"></div>
+      </details>
+
+      <details class="flashcard-panel" id="flashcard-panel">
+        <summary>Practise words with flashcards</summary>
+        <div class="flashcard-body">
+          <p>Say the meaning before you turn the card. Try an example from the chapter, too.</p>
+          <div class="flashcard-controls"><label for="flashcard-mode">Practise</label><select id="flashcard-mode"><option value="word">Word → meaning</option><option value="meaning">Meaning → word</option></select><button class="tool-button" id="shuffle-cards" type="button">Shuffle cards</button></div>
+          <button class="flashcard" id="flashcard" type="button" aria-label="Turn the flashcard"><span class="flashcard-face" id="flashcard-face"></span><span class="flashcard-hint" id="flashcard-hint">Click or press Enter to turn the card</span></button>
+          <div class="flashcard-nav"><button class="tool-button" id="previous-card" type="button">Previous card</button><span class="flashcard-status" id="flashcard-status" aria-live="polite"></span><button class="tool-button" id="next-card" type="button">Next card</button></div>
+        </div>
+      </details>
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <button id="previous-chapter" type="button">Previous chapter</button>
+        <button id="next-chapter" type="button">Next chapter</button>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p><strong>About this reader:</strong> Written for the Sir Wilfrid Laurier School Board elementary SciTech curriculum. Canadian spelling, metric units and familiar Québec settings are used throughout.</p>
+      <p>This reader contains original short readings informed by Core Knowledge Foundation science materials including Life Cycles, Human Hormones and Reproduction, Natural Selection and Common Ancestry. Source works are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>. This adaptation is shared under the same licence and does not imply endorsement by the Core Knowledge Foundation.</p>
+    </div>
+  </footer>
+
+  <script>
+    const chapters = [{"title":"Metabolism Supports Growth","lessons":[1],"pol":[1],"goal":"I can connect metabolism to energy use, growth and maintenance.","keywords":{"metabolism":"all the chemical processes that sustain life","growth":"increase and development of an organism","maintenance":"processes that keep a system functioning"},"intro":"Even a person sitting quietly uses energy and materials.","sections":[{"heading":"A body stays active inside","paragraphs":[["Metabolism includes processes that transform substances and energy in cells. Food supplies materials and stored energy. Respiration releases energy used for growth, repair and other activities."],["The body maintains tissues and regulates internal conditions. Humans generate thermal energy through metabolism; their bodies regulate temperature through several responses."]]},{"heading":"Growth is more than getting bigger","paragraphs":[["Development changes structures and functions as well as size. Nutrients, inherited features and environmental conditions influence growth. People do not all develop at the same pace."],["Body systems work together: digestion supplies usable materials, breathing supports gas exchange, circulation transports substances, and cells use them."],["Use diagrams and general examples rather than comparing classmates’ bodies. A scientific description of growth should explain processes without treating different timelines as a contest."]]}],"think":"Why does a resting person still need energy?","summary":["Metabolism supports growth, repair and maintenance even during rest.","Body systems supply and use materials and energy together."],"quiz":[["Explain your thinking","Why does a resting person still need energy?","Maintenance, temperature regulation and other cellular processes continue even without visible movement."],["Apply the idea","Why is measuring height alone an incomplete description of development?","Development also changes structures and functions, and growth patterns vary."]],"lesson":"Lesson 1 · Metabolism and growth","mapPol":["Describe metabolism through energy transformation, growth, system maintenance and body temperature."],"image":"assets/g5u4-chapter-1.jpg","imageOriginal":"assets/g5u4-chapter-1-original.png","imageAlt":"A child reading in a classroom with ordinary food and water on the table.","caption":"A child reading in a classroom with ordinary food and water on the table. Metabolism supports growth, repair and maintenance even during rest. Generated contextual illustration; not a scale model.","wordFile":"word/g5u4-chapter-1.docx"},{"title":"Life Cycles and Metamorphosis","lessons":[2,3],"pol":[5],"goal":"I can compare human development with an animal life cycle involving metamorphosis.","keywords":{"life_cycle":"stages of an organism’s life","metamorphosis":"a major change of body form during development","larva":"an immature stage with a form different from the adult"},"intro":"A caterpillar and an adult butterfly belong to one life cycle but live differently.","sections":[{"heading":"Stages can have different jobs","paragraphs":[["A butterfly develops through egg, larva, pupa and adult. The larva eats and grows. During the pupal stage, major changes produce adult structures. The adult can reproduce."],["A frog also undergoes metamorphosis, changing from a tadpole to an adult. Its pattern is not identical to a butterfly’s; there is no frog pupa."]]},{"heading":"Compare without forcing a pattern","paragraphs":[["Human development includes infancy, childhood, adolescence and adulthood, followed by later life. Humans grow and change but do not undergo a butterfly-like metamorphosis."],["Stages describe general patterns rather than exact deadlines for every individual. An organism’s needs and abilities change through development."],["A cycle connects generations. Adults may produce offspring; the same adult does not turn into its own earlier stage. Identify both shared processes and genuine differences between examples."]]}],"think":"Why should a frog’s cycle not include a pupa just because a butterfly’s does?","summary":["Different organisms have different developmental stages.","Life cycles connect growth and reproduction across successive generations."],"quiz":[["Explain your thinking","Why should a frog’s cycle not include a pupa just because a butterfly’s does?","Different organisms have different development patterns. Metamorphosis does not imply identical stages."],["Apply the idea","What do human and butterfly life cycles share despite different body changes?","Both involve development and growth, possible reproduction and eventual death."]],"lesson":"Lesson 2 · Life cycles / Lesson 3 · Metamorphosis","mapPol":["Describe metamorphosis and stages of human growth and development."],"image":"assets/g5u4-chapter-2.jpg","imageOriginal":"assets/g5u4-chapter-2-original.png","imageAlt":"A composite illustration comparing butterfly, frog and human developmental stages.","caption":"A composite illustration comparing butterfly, frog and human developmental stages. Different organisms have different developmental stages. Generated contextual illustration; not a scale model.","wordFile":"word/g5u4-chapter-2.docx"},{"title":"Sexual Reproduction in Animals","lessons":[4],"pol":[2],"goal":"I can explain the roles of sperm, egg cells and fertilization.","keywords":{"sexual_reproduction":"reproduction involving the joining of reproductive cells","sperm":"a male reproductive cell","egg_cell":"a female reproductive cell","fertilization":"joining of sperm and an egg cell"},"intro":"A fertilized bird egg and a developing mammal begin through a shared cellular event.","sections":[{"heading":"A new organism begins","paragraphs":[["Sexual reproduction involves sperm and an egg cell. Fertilization joins these cells and begins development of a new organism. Offspring inherit information from both contributing parents."],["In some animals, fertilization occurs outside bodies; in others it occurs inside. Embryos may develop in laid eggs or inside a parent. These are different ways to support development after fertilization."]]},{"heading":"Roles and stages differ","paragraphs":[["Producing reproductive cells, fertilization, embryo development and caring for young are different parts of reproduction. Not every animal provides the same care."],["Inherited variation means offspring are not exact copies of their parents. Appearance alone does not reveal every inherited feature."],["Use scientific vocabulary and appropriate diagrams. Questions about human experiences belong in respectful classroom discussions following school guidance; no one needs to share private information."]]}],"think":"Why are fertilization and caring for young different processes?","summary":["Sexual reproduction begins through joining sperm and an egg cell.","Fertilization, embryo development and parental care are distinct processes."],"quiz":[["Explain your thinking","Why are fertilization and caring for young different processes?","Fertilization begins a new organism through joining cells; care supports offspring after or during development."],["Apply the idea","Why can offspring resemble both parents without being identical to either?","They inherit a combination of information from the two reproductive cells, creating variation."]],"lesson":"Lesson 4 · Sexual reproduction","mapPol":["Describe sexual reproduction in animals and the roles of male and female organisms."],"image":"assets/g5u4-chapter-3.jpg","imageOriginal":"assets/g5u4-chapter-3-original.png","imageAlt":"A robin beside intact pale blue eggs in its nest.","caption":"A robin beside intact pale blue eggs in its nest. Sexual reproduction begins through joining sperm and an egg cell. Generated contextual illustration; not a scale model.","wordFile":"word/g5u4-chapter-3.docx"},{"title":"Plants Can Reproduce Without Seeds","lessons":[5],"pol":[3],"goal":"I can explain asexual reproduction and compare it with sexual reproduction.","keywords":{"asexual_reproduction":"producing offspring without joining reproductive cells","runner":"a horizontal stem that can form a new plant","cutting":"a plant piece used to grow a new plant"},"intro":"A garden strawberry plant can form a new plant at the end of a runner.","sections":[{"heading":"A strawberry sends out runners","paragraphs":[["Asexual reproduction can produce offspring from one parent without fertilization. Runners, bulbs and suitable cuttings are examples in plants. New growth can develop roots and become a separate organism."],["These offspring usually have genetic information very similar to their parent. Growing a cutting is not the same as joining sperm and an egg cell."]]},{"heading":"Compare advantages and limits","paragraphs":[["Asexual reproduction can maintain useful traits in cultivated plants. Sexual reproduction usually combines information from two reproductive cells and can create greater variation."],["Similar plants may share susceptibility to the same disease or conditions. Variation can matter when surroundings change."],["Not every broken plant part can grow independently. A cutting needs suitable tissue and conditions. In a classroom test, compare similar cuttings and document roots and new growth over time."]]}],"think":"Why does growing a new plant from a runner count as reproduction?","summary":["Asexual reproduction can produce a new plant without fertilization.","Genetic similarity can preserve traits and also share vulnerabilities."],"quiz":[["Explain your thinking","Why does growing a new plant from a runner count as reproduction?","A new organism develops from the parent, even without seeds or fertilization."],["Apply the idea","Why might many genetically similar crop plants share a vulnerability?","They can have similar responses to a disease or environmental condition, so the same challenge may affect many."]],"lesson":"Lesson 5 · Asexual reproduction","mapPol":["Describe asexual reproduction in plants."],"image":"assets/g5u4-chapter-4.jpg","imageOriginal":"assets/g5u4-chapter-4-original.png","imageAlt":"A strawberry parent plant connected by a runner to a rooted young plant.","caption":"A strawberry parent plant connected by a runner to a rooted young plant. Asexual reproduction can produce a new plant without fertilization. Generated contextual illustration; not a scale model.","wordFile":"word/g5u4-chapter-4.docx"},{"title":"Human Development and Puberty","lessons":[6],"pol":[4,5,6],"goal":"I can describe reproductive organs and puberty changes using respectful scientific terms.","keywords":{"puberty":"developmental changes associated with reproductive maturity","testes":"organs that produce sperm and hormones","ovaries":"organs that contain egg cells and produce hormones","uterus":"an organ in which an embryo can develop"},"intro":"Puberty is part of human development, and its timing differs from person to person.","sections":[{"heading":"Organs have functions","paragraphs":[["In typical male reproductive anatomy, testes produce sperm; the penis and related ducts form part of the route by which sperm can leave the body. In typical female reproductive anatomy, ovaries contain egg cells, fallopian tubes provide a route toward the uterus, and the vagina connects the uterus to the outside. The uterus can support development of an embryo and later a fetus during pregnancy."],["These organs have specific functions. Bodies vary, and a scientific description is not a rule about someone’s identity or family."]]},{"heading":"Changes do not happen on one schedule","paragraphs":[["Hormones help coordinate puberty. Changes may include growth, body hair, skin changes, voice changes and development of reproductive functions. Menstruation involves shedding of the uterine lining when pregnancy has not begun."],["Not every change happens at the same age or in the same order. Do not compare classmates or require private disclosures."],["Discuss questions respectfully with the teacher or a trusted adult. This reading is general science education and should be used with school guidance for this lesson."]]}],"think":"Why should puberty not be taught as one exact timetable?","summary":["Reproductive organs have different functions that support reproductive processes.","Puberty involves coordinated changes whose timing varies among individuals."],"quiz":[["Explain your thinking","Why should puberty not be taught as one exact timetable?","People vary in timing and sequence. General stages do not impose a single deadline on every body."],["Apply the idea","How do ovaries and the uterus have different functions?","Ovaries contain egg cells and produce hormones; the uterus can support embryo development."]],"lesson":"Lesson 6 · Human development and puberty","mapPol":["Describe anatomy and functions of the principal male and female reproductive organs.","Describe metamorphosis and stages of human growth and development.","Describe physical changes during puberty."],"image":"assets/g5u4-chapter-5.jpg","imageOriginal":"assets/g5u4-chapter-5-original.png","imageAlt":"Several pairs of shoes of different sizes on a classroom table.","caption":"Several pairs of shoes of different sizes on a classroom table. Reproductive organs have different functions that support reproductive processes. Generated contextual illustration; not a scale model.","wordFile":"word/g5u4-chapter-5.docx"},{"title":"Life Has Changed Over Time","lessons":[7],"pol":[7],"goal":"I can place major developments in life’s history and explain what fossils can show.","keywords":{"evolution":"change in inherited features of populations across generations","fossil":"preserved remains or traces of past life","extinction":"the end of a species"},"intro":"Fossils in rocks show that living things have not always been the same as those around us today.","sections":[{"heading":"Evidence across long times","paragraphs":[["The earliest life was microscopic. Multicellular organisms later developed. Over long periods, life diversified in water and on land, including plants, invertebrates and different vertebrate groups."],["Humans appeared very late in this long history. Organisms alive today are not arranged from unfinished to finished; they have different evolutionary histories."]]},{"heading":"A branching history","paragraphs":[["Evolution involves populations across generations, not an individual deciding to change during its life. Variation and changing environments help explain why some inherited features become more common."],["Extinctions remove branches of life’s history. Fossils and other evidence help scientists reconstruct patterns, but the fossil record is incomplete."],["Use a branching diagram or timeline rather than a ladder with humans at its goal. Many groups coexist, and evolution does not move toward a predetermined best organism."]]}],"think":"Why is growth of one caterpillar not the same as evolution?","summary":["Evolution changes inherited features of populations across generations.","Life’s history branches and does not form a ladder toward a predetermined goal."],"quiz":[["Explain your thinking","Why is growth of one caterpillar not the same as evolution?","Growth changes an individual; evolution changes inherited features of populations across generations."],["Apply the idea","Why is a ladder ending in humans a misleading model of life’s history?","Evolution branches, many groups coexist, and it has no predetermined final goal."]],"lesson":"Lesson 7 · Life through time","mapPol":["Describe principal stages in the evolution of life forms."],"image":"assets/g5u4-chapter-6.jpg","imageOriginal":"assets/g5u4-chapter-6-original.png","imageAlt":"A fossil-bearing rock, fern specimen and magnifying lens on a classroom display.","caption":"A fossil-bearing rock, fern specimen and magnifying lens on a classroom display. Evolution changes inherited features of populations across generations. Generated contextual illustration; not a scale model.","wordFile":"word/g5u4-chapter-6.docx"}];
+    const chapterSelect = document.querySelector('#chapter-select');
+    // Both reading and practice stay in the left column; support never overlays them.
+    const readerLayout = document.querySelector('.reader-layout');
+    const readerRail = document.querySelector('.side-rail');
+    const readerTools = document.querySelector('.tools-panel');
+    readerTools.querySelector('summary').innerHTML = '<span>Reading tools<span class="tool-status" id="tool-status">Click to open</span></span>';
+    readerTools.querySelector('summary').after(document.querySelector('.reading-bar'));
+    readerRail.prepend(readerTools);
+    const readerMain = document.createElement('div');
+    readerMain.className = 'reader-main';
+    [...readerLayout.children].filter(node => node !== readerRail).forEach(node => readerMain.append(node));
+    readerLayout.prepend(readerMain);
+    readerMain.append(document.querySelector('.site-footer'));
+    const measureReaderHeader = () => document.documentElement.style.setProperty('--reader-header-height', document.querySelector('.site-header').getBoundingClientRect().height + 'px');
+    new ResizeObserver(measureReaderHeader).observe(document.querySelector('.site-header'));
+    measureReaderHeader();
+    const article = document.querySelector('#chapter-article');
+    const readingText = document.querySelector('#reading-text');
+    const root = document.documentElement;
+    let currentChapter = Math.max(0, Math.min(chapters.length - 1, location.hash.match(/chapter-(\d+)/) ? Number(location.hash.match(/chapter-(\d+)/)[1]) - 1 : (location.hash.match(/chapter-(\d+)/) ? Number(location.hash.match(/chapter-(\d+)/)[1]) - 1 : Number(localStorage.getItem('g5u4-reader-chapter') || 0))));
+    let activeSentence = -1;
+    let textSize = 1.125;
+    let speaking = false;
+    let together = false;
+    let cardOrder = [], cardIndex = 0, cardFlipped = false;
+
+    chapters.forEach((chapter, index) => {
+      const option = document.createElement('option');
+      option.value = index;
+      option.textContent = `Chapter ${index + 1}: ${chapter.title}`;
+      chapterSelect.append(option);
+    });
+
+    function labelFor(term) {
+      return term.replaceAll('_', ' ');
+    }
+
+    function vocabMarkup(text) {
+      const terms = Object.keys(chapters[currentChapter].keywords).map(labelFor).sort((a, b) => b.length - a.length);
+      const variants = { state: 'states?', solid: 'solids?', liquid: 'liquids?', gas: 'gas(?:es)?', property: 'propert(?:y|ies)', fibre: 'fibres?', raw_material: 'raw materials?', physical_change: 'physical changes?', manufacture: 'manufactur(?:e|ed|ing|ers?)', melt: 'melt(?:s|ed|ing)?', freeze: 'freez(?:e|es|ing)|frozen', dissolve: 'dissolv(?:e|es|ed|ing)', recycle: 'recycl(?:e|es|ed|ing|able)' };
+      const patterns = terms.map(term => variants[term.replaceAll(' ', '_')] || (term + 's?'));
+      return text.replace(new RegExp(`\\b(${patterns.join('|')})\\b`, 'gi'), '<strong class="vocab-word">$1</strong>');
+    }
+    function sentenceMarkup(sentences) {
+      const chunks = sentences.flatMap(sentence => typeof Intl.Segmenter === 'function' ? [...new Intl.Segmenter('en-CA', {granularity: 'sentence'}).segment(sentence)].map(part => part.segment.trim()) : sentence.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [sentence]);
+      return chunks.map(sentence => `<span class="reader-sentence">${vocabMarkup(sentence)}</span>`).join(' ');
+    }
+
+    function renderChapter(index) {
+      currentChapter = index;
+      activeSentence = -1;
+      stopSpeech();
+      const chapter = chapters[index];
+      chapterSelect.value = String(index);
+      localStorage.setItem('g5u4-reader-chapter', String(index));
+      document.title = `Chapter ${index + 1}: ${chapter.title} — Grade 5 Science Reader`;
+      document.querySelector('#progress-fill').style.width = `${((index + 1) / chapters.length) * 100}%`;
+      document.querySelector('#chapter-position').textContent = `Chapter ${index + 1} of ${chapters.length} · ${chapter.lesson}`;
+      document.querySelector('#chapter-title').textContent = chapter.title;
+      document.querySelector('#learning-goal').textContent = chapter.goal;
+      document.querySelector('#lesson-connection').textContent = `${chapter.lesson}. Read this chapter before or during the lesson, then use the investigation to test the ideas.`;
+
+      document.querySelector('#keyword-list').innerHTML = Object.entries(chapter.keywords).map(([term, definition]) =>
+        `<div><dt>${labelFor(term)}</dt><dd>${definition}</dd></div>`
+      ).join('');
+
+      let content = `<p class="chapter-intro">${sentenceMarkup([chapter.intro])}</p>`;
+      chapter.sections.forEach((section, sectionIndex) => {
+        content += `<section><h2>${section.heading}</h2>`;
+        section.paragraphs.forEach(paragraph => { content += `<p>${sentenceMarkup(paragraph)}</p>`; });
+        if (sectionIndex === 0) {
+          content += `<figure class="science-figure"><img src="${chapter.image}" alt="${chapter.imageAlt}" width="1536" height="1024"><figcaption>${chapter.caption}</figcaption></figure>`;
+        }
+        content += `</section>`;
+      });
+      content += `<aside class="think-prompt"><strong>Stop and think</strong>${vocabMarkup(chapter.think)}</aside>`;
+      content += `<section class="chapter-summary"><h2>What to remember</h2><ul>${chapter.summary.map(item => `<li>${sentenceMarkup([item])}</li>`).join('')}</ul></section>`;
+      readingText.innerHTML = content;
+
+      document.querySelector('#chapter-pol').innerHTML = chapter.mapPol.map(p => '<li>'+p+'</li>').join('');
+      cardOrder = Object.entries(chapter.keywords); cardIndex = 0; cardFlipped = false; renderCard();
+      document.querySelector('#reading-count').textContent = 'Choose a sentence to begin';
+
+      renderQuiz(chapter.quiz);
+      document.querySelector('#previous-chapter').disabled = index === 0;
+      document.querySelector('#next-chapter').disabled = index === chapters.length - 1;
+      document.querySelector('#previous-chapter').textContent = index === 0 ? 'Previous chapter' : `Previous: ${chapters[index - 1].title}`;
+      document.querySelector('#next-chapter').textContent = index === chapters.length - 1 ? 'End of reader' : `Next: ${chapters[index + 1].title}`;
+      bindSentences();
+      if (together) activateSentence(0, false);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderQuiz(questions) {
+      document.querySelector('#check-body').innerHTML = '<p>Think first, then explain aloud, sketch, or write. Use an idea or example from the chapter as evidence.</p>' + questions.map(([kind, question, explanation], qIndex) => `<section class="concept-question"><p class="question-kind">${qIndex + 1} · ${kind}</p><h3>${question}</h3><label for="response-${qIndex}">My thinking (optional — stays on this page until I change chapters)</label><textarea id="response-${qIndex}" placeholder="I think… because…"></textarea><details class="reasoning"><summary>Discuss the reasoning</summary><p>${explanation}</p></details></section>`).join('');
+    }
+
+    function renderCard(preserveTurn = false) {
+      if (!preserveTurn) {
+        clearTimeout(cardTurnTimer);
+        cardTurnTimer = null;
+        document.querySelector('#flashcard').classList.remove('is-turning');
+      }
+      const [term, definition] = cardOrder[cardIndex];
+      const wordFirst = document.querySelector('#flashcard-mode').value === 'word';
+      const showWord = cardFlipped ? !wordFirst : wordFirst;
+      document.querySelector('#flashcard-face').textContent = showWord ? labelFor(term) : definition;
+      document.querySelector('#flashcard-hint').textContent = cardFlipped ? 'Say an example. Turn the card to try again.' : 'Think of the answer. Click or press Enter to turn.';
+      document.querySelector('#flashcard-status').textContent = `Card ${cardIndex + 1} of ${cardOrder.length}`;
+      document.querySelector('#flashcard').setAttribute('aria-label', `${showWord ? 'Word' : 'Meaning'}: ${showWord ? labelFor(term) : definition}. Turn the card.`);
+    }
+
+    function bindSentences() {
+      sentenceNodes().forEach((sentence, index) => {
+        sentence.addEventListener('click', () => { setTogether(true); activateSentence(index); });
+      });
+    }
+
+    function sentenceNodes() { return [...readingText.querySelectorAll('.reader-sentence')]; }
+
+    function activateSentence(index, scroll = true) {
+      const sentences = sentenceNodes();
+      if (!sentences.length) return;
+      activeSentence = Math.max(0, Math.min(sentences.length - 1, index));
+      sentences.forEach((sentence, sentenceIndex) => sentence.classList.toggle('is-active', sentenceIndex === activeSentence));
+      if (scroll) sentences[activeSentence].scrollIntoView({ block: 'center', behavior: 'smooth' });
+      document.querySelector('#tool-status').textContent = `Sentence ${activeSentence + 1} of ${sentences.length}`;
+      document.querySelector('#reading-count').textContent = `Sentence ${activeSentence + 1} of ${sentences.length}${activeSentence === sentences.length - 1 ? ' · Last sentence' : ''}`;
+    }
+    function setTogether(value) {
+      together = value;
+      const button = document.querySelector('#read-together');
+      button.setAttribute('aria-pressed', String(value));
+      button.textContent = value ? 'Finish reading together' : 'Read together';
+      if (value) { article.setAttribute('tabindex', '-1'); article.focus({preventScroll: true}); }
+      else { activeSentence = -1; sentenceNodes().forEach(node => node.classList.remove('is-active')); document.querySelector('#reading-count').textContent = 'Choose a sentence to begin'; }
+    }
+
+    function preferredVoice() {
+      const voices = speechSynthesis.getVoices();
+      return voices.find(voice => voice.lang === 'en-CA') || voices.find(voice => voice.lang.startsWith('en')) || null;
+    }
+
+    function speak(text, onEnd) {
+      if (!('speechSynthesis' in window)) {
+        document.querySelector('#tool-status').textContent = 'Read-aloud is not available in this browser.';
+        return;
+      }
+      speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-CA';
+      utterance.rate = Number(document.querySelector('#speech-speed').value);
+      utterance.voice = preferredVoice();
+      utterance.onend = () => { speaking = false; document.querySelector('#read-aloud').textContent = 'Read chapter aloud'; if (onEnd) onEnd(); };
+      utterance.onerror = utterance.onend;
+      speaking = true;
+      speechSynthesis.speak(utterance);
+    }
+
+    function stopSpeech() {
+      if ('speechSynthesis' in window) speechSynthesis.cancel();
+      speaking = false;
+      const button = document.querySelector('#read-aloud');
+      if (button) button.textContent = 'Read chapter aloud';
+    }
+
+    function chapterPlainText() {
+      const chapter = chapters[currentChapter];
+      const body = chapter.sections.map(section => `${section.heading}\n${section.paragraphs.flat().join(' ')}`).join('\n\n');
+      return `${chapter.title}\n\nLearning goal: ${chapter.goal}\n\n${chapter.intro}\n\n${body}\n\nStop and think: ${chapter.think}\n\nWhat to remember:\n${chapter.summary.map(item => `• ${item}`).join('\n')}`;
+    }
+
+    function downloadChapter() {
+      const chapter = chapters[currentChapter];
+      const link = document.createElement('a');
+      link.href = chapter.wordFile;
+      link.download = `Grade_5_Unit_4_Chapter_${currentChapter + 1}.docx`;
+      document.body.append(link);
+      link.click();
+      link.remove();
+    }
+
+    chapterSelect.addEventListener('change', event => renderChapter(Number(event.target.value)));
+    document.querySelector('#previous-chapter').addEventListener('click', () => { if (currentChapter > 0) renderChapter(currentChapter - 1); });
+    document.querySelector('#next-chapter').addEventListener('click', () => { if (currentChapter < chapters.length - 1) renderChapter(currentChapter + 1); });
+    document.querySelector('#next-sentence').addEventListener('click', () => activateSentence(activeSentence + 1));
+    document.querySelector('#previous-sentence').addEventListener('click', () => activateSentence(activeSentence < 0 ? 0 : activeSentence - 1));
+    document.querySelector('#clear-highlight').addEventListener('click', () => {
+      setTogether(false);
+      activeSentence = -1;
+      sentenceNodes().forEach(sentence => sentence.classList.remove('is-active'));
+      document.querySelector('#tool-status').textContent = 'Optional supports';
+    });
+    document.querySelector('#spotlight').addEventListener('click', event => {
+      const active = event.currentTarget.getAttribute('aria-pressed') !== 'true';
+      event.currentTarget.setAttribute('aria-pressed', String(active));
+      readingText.classList.toggle('spotlight', active);
+      if (active && activeSentence < 0) activateSentence(0);
+    });
+    document.querySelector('#read-sentence').addEventListener('click', () => {
+      if (activeSentence < 0) activateSentence(0);
+      const sentence = sentenceNodes()[activeSentence];
+      if (sentence) speak(sentence.textContent);
+    });
+    document.querySelector('#read-aloud').addEventListener('click', event => {
+      if (speaking) { stopSpeech(); return; }
+      event.currentTarget.textContent = 'Stop reading';
+      speak(chapterPlainText());
+    });
+    document.querySelector('#larger-text').addEventListener('click', () => {
+      textSize = Math.min(1.5, textSize + 0.125);
+      root.style.setProperty('--reader-size', `${textSize}rem`);
+    });
+    document.querySelector('#smaller-text').addEventListener('click', () => {
+      textSize = Math.max(1, textSize - 0.125);
+      root.style.setProperty('--reader-size', `${textSize}rem`);
+    });
+    document.querySelector('#print-chapter').addEventListener('click', () => window.print());
+    document.querySelector('#download-chapter').addEventListener('click', downloadChapter);
+    document.querySelector('#read-together').addEventListener('click', () => { setTogether(!together); if (together) activateSentence(activeSentence < 0 ? 0 : activeSentence); });
+    document.querySelector('#class-next').addEventListener('click', () => { setTogether(true); activateSentence(activeSentence + 1); });
+    document.querySelector('#class-previous').addEventListener('click', () => { setTogether(true); activateSentence(activeSentence < 0 ? 0 : activeSentence - 1); });
+    let cardTurnTimer = null;
+    document.querySelector('#flashcard').addEventListener('click', () => {
+      const card = document.querySelector('#flashcard');
+      if (card.classList.contains('is-turning')) return;
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        cardFlipped = !cardFlipped; renderCard(); return;
+      }
+      card.classList.add('is-turning');
+      cardTurnTimer = setTimeout(() => { cardTurnTimer = null; cardFlipped = !cardFlipped; renderCard(true); }, 176);
+    });
+    document.querySelector('#flashcard').addEventListener('animationend', event => {
+      if (event.animationName === 'card-turn') event.currentTarget.classList.remove('is-turning');
+    });
+    document.querySelector('#next-card').addEventListener('click', () => { cardIndex = (cardIndex + 1) % cardOrder.length; cardFlipped = false; renderCard(); });
+    document.querySelector('#previous-card').addEventListener('click', () => { cardIndex = (cardIndex - 1 + cardOrder.length) % cardOrder.length; cardFlipped = false; renderCard(); });
+    document.querySelector('#flashcard-mode').addEventListener('change', () => { cardFlipped = false; renderCard(); });
+    document.querySelector('#shuffle-cards').addEventListener('click', () => { for (let i = cardOrder.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [cardOrder[i], cardOrder[j]] = [cardOrder[j], cardOrder[i]]; } cardIndex = 0; cardFlipped = false; renderCard(); });
+    window.addEventListener('keydown', event => {
+      if (!together || event.altKey || event.ctrlKey || event.metaKey || event.repeat) return;
+      if (document.activeElement.closest('input, select, textarea, button, summary, a, [contenteditable="true"]')) return;
+      if (event.key === 'Escape') { event.preventDefault(); setTogether(false); document.querySelector('#read-together').focus({preventScroll: true}); }
+      if ([' ', 'ArrowRight', 'ArrowDown'].includes(event.key)) { event.preventDefault(); activateSentence(activeSentence + 1); }
+      if (['ArrowLeft', 'ArrowUp'].includes(event.key)) { event.preventDefault(); activateSentence(activeSentence < 0 ? 0 : activeSentence - 1); }
+    });
+    window.addEventListener('beforeunload', stopSpeech);
+
+    renderChapter(currentChapter);
+  </script>
+</body>
+</html>

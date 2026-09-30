@@ -1,0 +1,1203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Elementary SciTech Curriculum Map — Grades 3 to 6</title>
+  <style>
+    :root {
+      --sp-blue: #0f6cbd;
+      --sp-blue-dark: #0b4f8a;
+      --sp-blue-soft: #e8f3fb;
+      --ink: #242424;
+      --muted: #616161;
+      --line: #d1d1d1;
+      --line-soft: #e8e8e8;
+      --canvas: #f5f5f5;
+      --white: #ffffff;
+      --success: #107c10;
+      --focus: #605e5c;
+      --radius: 4px;
+      --content: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--canvas);
+      font-family: "Segoe UI", SegoeUI, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    a { color: var(--sp-blue); }
+
+    a:focus-visible,
+    button:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    .suite-bar {
+      min-height: 48px;
+      color: var(--white);
+      background: var(--sp-blue-dark);
+    }
+
+    .suite-inner,
+    .site-inner,
+    .page-shell {
+      width: min(calc(100% - 40px), var(--content));
+      margin-inline: auto;
+    }
+
+    .suite-inner {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .suite-name {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .waffle {
+      width: 18px;
+      height: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, 4px);
+      grid-template-rows: repeat(3, 4px);
+      gap: 3px;
+      flex: 0 0 auto;
+    }
+
+    .waffle span { background: currentColor; }
+
+    .suite-tools {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 14px;
+      color: #f3f9fd;
+    }
+
+    .site-header {
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .site-identity {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: max-content;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      color: var(--white);
+      background: var(--sp-blue);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-name {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: stretch;
+      gap: 4px;
+      min-height: 74px;
+    }
+
+    .site-nav a {
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      color: #323130;
+      text-decoration: none;
+      border-bottom: 3px solid transparent;
+    }
+
+    .site-nav a:hover { background: #f3f2f1; }
+
+    .site-nav a[aria-current="page"] {
+      color: var(--sp-blue-dark);
+      border-bottom-color: var(--sp-blue);
+      font-weight: 600;
+    }
+
+    .page-shell { padding: 28px 0 72px; }
+
+    .breadcrumb {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .breadcrumb a { text-decoration: none; }
+
+    .breadcrumb span { padding: 0 8px; }
+
+    .title-area {
+      padding: 34px 38px 36px;
+      background: var(--white);
+      border-top: 5px solid var(--sp-blue);
+    }
+
+    h1,
+    h2,
+    h3,
+    p { margin-top: 0; }
+
+    h1 {
+      max-width: 820px;
+      margin-bottom: 12px;
+      font-size: clamp(34px, 4vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      font-weight: 650;
+    }
+
+    .anchor-question {
+      max-width: 760px;
+      margin-bottom: 20px;
+      color: #3b3a39;
+      font-size: clamp(20px, 2vw, 26px);
+      line-height: 1.35;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      margin-bottom: 24px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .meta-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--sp-blue);
+    }
+
+    .unit-purpose {
+      max-width: 72ch;
+      margin-bottom: 26px;
+      color: #3b3a39;
+      font-size: 17px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 18px;
+      border: 1px solid var(--sp-blue);
+      border-radius: 2px;
+      color: var(--sp-blue);
+      background: var(--white);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .button:hover { background: var(--sp-blue-soft); }
+
+    .button.primary {
+      color: var(--white);
+      background: var(--sp-blue);
+    }
+
+    .button.primary:hover { background: var(--sp-blue-dark); }
+
+    .section-block {
+      margin-top: 24px;
+      padding: 30px 36px;
+      background: var(--white);
+    }
+
+    .section-heading {
+      margin-bottom: 8px;
+      font-size: 26px;
+      line-height: 1.2;
+      letter-spacing: -0.015em;
+      font-weight: 650;
+    }
+
+    .section-intro {
+      max-width: 70ch;
+      margin-bottom: 24px;
+      color: var(--muted);
+    }
+
+    .prepare-grid {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .prepare-item { padding: 0; }
+    .prepare-item + .prepare-item { border-top: 1px solid var(--line); }
+    .prepare-item > summary {
+      display: grid;
+      grid-template-columns: 148px minmax(0, 1fr) 20px;
+      align-items: start;
+      gap: 16px;
+      padding: 16px 0;
+      list-style: none;
+      cursor: pointer;
+    }
+    .prepare-item > summary::-webkit-details-marker { display: none; }
+    .prepare-label { font-weight: 650; }
+    .prepare-preview { color: var(--muted); }
+    .prepare-item .chevron { margin-top: 6px; }
+    .prepare-item[open] > summary .chevron { transform: rotate(225deg); }
+    .prepare-item > summary:hover .prepare-label { color: var(--sp-blue-dark); }
+    .prepare-item ul { margin: 0; padding: 0 12px 18px 22px; }
+    .prepare-item li + li { margin-top: 8px; }
+    .prepare-safety { margin: 16px 0 0; }
+    .preparation-draft-note { margin-top: 16px; color: var(--muted); }
+    .preparation-draft-note summary { cursor: pointer; }
+    .preparation-draft-note p { margin-top: 10px; }
+    .preparation-checklist { margin-top: 22px; }
+    .preparation-checklist summary { cursor: pointer; color: var(--sp-blue-dark); font-weight: 600; }
+    .preparation-checklist li + li { margin-top: 8px; }
+
+    @media (min-width: 901px) and (max-width: 1150px) {
+      .site-identity { align-items: flex-start; flex-direction: column; padding-top: 18px; gap: 0; }
+      .site-nav { width: 100%; min-height: 48px; }
+      .site-nav a { min-height: 48px; white-space: nowrap; }
+    }
+
+    .placeholder {
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .roadmap {
+      margin: 20px 0 0;
+      width: 100%;
+      border-collapse: collapse;
+      border-top: 1px solid var(--line);
+    }
+    .roadmap th, .roadmap td {
+      padding: 13px 0;
+      padding-right: 16px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .roadmap th { font-weight: 650; color: var(--ink); }
+    .roadmap th:first-child { width: 72px; }
+    .roadmap th:nth-child(2) { width: 34%; }
+    .roadmap th:last-child, .roadmap td:last-child { padding-right: 0; }
+
+    .roadmap-number {
+      color: var(--white);
+      background: var(--sp-blue);
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .roadmap-title { font-weight: 600; }
+
+    .roadmap-purpose { color: var(--muted); }
+
+    .persistent-map-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+    .map-main { min-width: 0; }
+    .persistent-map-layout .content-grid { display: block; }
+    .persistent-map-layout > .toolkit-column {
+      position: sticky;
+      top: 16px;
+      max-height: calc(100dvh - 100px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
+    }
+    @media (max-width: 900px) {
+      .persistent-map-layout { display: flex; flex-direction: column; }
+      .persistent-map-layout > .map-main { width: 100%; }
+      .persistent-map-layout > .toolkit-column { position: static; max-height: none; overflow: visible; margin-bottom: 24px; }
+      .persistent-map-layout .toolkit-column .toolkit-panel + .toolkit-panel { display: block; }
+    }
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+      gap: 24px;
+      align-items: start;
+      margin-top: 24px;
+    }
+
+    .lesson-column,
+    .toolkit-column {
+      min-width: 0;
+    }
+
+    .column-heading {
+      margin: 0;
+      padding: 24px 28px 18px;
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+      font-size: 25px;
+      letter-spacing: -0.015em;
+    }
+
+    .lesson-list { background: var(--white); }
+
+    .lesson {
+      margin: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .lesson > summary {
+      min-height: 84px;
+      display: grid;
+      grid-template-columns: 46px 1fr auto;
+      gap: 14px;
+      align-items: center;
+      padding: 16px 24px;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .lesson > summary::-webkit-details-marker { display: none; }
+
+    .lesson > summary:hover { background: #fafafa; }
+
+    .lesson[open] > summary { background: var(--sp-blue-soft); }
+
+    .lesson-number {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      color: var(--sp-blue-dark);
+      background: var(--white);
+      border: 1px solid var(--sp-blue);
+      font-weight: 700;
+    }
+
+    .lesson[open] .lesson-number {
+      color: var(--white);
+      background: var(--sp-blue);
+    }
+
+    .lesson-title {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 650;
+    }
+
+    .lesson-subtitle {
+      display: block;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .chevron {
+      width: 11px;
+      height: 11px;
+      border-right: 2px solid var(--muted);
+      border-bottom: 2px solid var(--muted);
+      transform: rotate(45deg);
+      transition: transform 180ms ease-out;
+      margin-right: 5px;
+    }
+
+    .lesson[open] .chevron { transform: rotate(225deg); }
+
+    .lesson-body { padding: 6px 28px 30px 84px; }
+
+    .learning-destination {
+      margin-bottom: 24px;
+      padding: 18px 20px;
+      background: #f8f8f8;
+      border: 1px solid var(--line-soft);
+    }
+
+    .learning-destination strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .sequence {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+
+    .sequence > li, .learn-activities > li {
+      display: grid;
+      grid-template-columns: 116px 1fr;
+      gap: 18px;
+      padding: 16px 12px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .sequence .flexible-activity, .sequence .flexible-note { background: var(--sp-blue-soft); }
+    .sequence .flexible-note { display: block; margin: 0; padding: 10px 12px; color: var(--sp-blue-dark); border-bottom: 1px solid var(--line-soft); }
+    .flexible-note strong { font-weight: 600; }
+    .sequence > .learn-phase { grid-template-columns: 44px minmax(0, 1fr); gap: 0; padding: 0; }
+    .learn-label {
+      margin: 0;
+      align-self: center;
+      justify-self: center;
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      letter-spacing: .12em;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--sp-blue-dark);
+    }
+    .learn-content { min-width: 0; }
+    .learn-activities { margin: 0; padding: 0; list-style: none; }
+    .learn-activities > li:last-child { border-bottom: 0; }
+
+    .sequence-label {
+      color: var(--sp-blue-dark);
+      font-weight: 700;
+    }
+
+    .lesson-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 7px 0;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .lesson-options {
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .lesson-options summary {
+      color: var(--sp-blue);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .lesson-options p { margin: 12px 0 0; }
+
+    .toolkit-panel {
+      margin-bottom: 24px;
+      padding: 24px;
+      background: var(--white);
+    }
+
+    .toolkit-panel h2 {
+      margin-bottom: 14px;
+      font-size: 21px;
+      line-height: 1.2;
+    }
+
+    .quick-links {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+
+    .quick-links a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 47px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line-soft);
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .quick-links a:hover .quick-link-name { text-decoration: underline; }
+
+    .quick-link-name {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .file-icon {
+      width: 24px;
+      height: 28px;
+      position: relative;
+      display: inline-block;
+      flex: 0 0 auto;
+      border: 1.5px solid var(--sp-blue);
+      background: var(--white);
+    }
+
+    .file-icon::after {
+      content: "";
+      position: absolute;
+      top: -1.5px;
+      right: -1.5px;
+      width: 8px;
+      height: 8px;
+      background: var(--sp-blue-soft);
+      border-left: 1.5px solid var(--sp-blue);
+      border-bottom: 1.5px solid var(--sp-blue);
+    }
+
+    .arrow {
+      width: 8px;
+      height: 8px;
+      border-top: 1.5px solid var(--sp-blue);
+      border-right: 1.5px solid var(--sp-blue);
+      transform: rotate(45deg);
+      flex: 0 0 auto;
+    }
+
+    .lesson-nav {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+
+    .lesson-nav a {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 0;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .lesson-nav a:hover span:last-child { text-decoration: underline; }
+
+    .lesson-nav-number {
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      color: var(--sp-blue-dark);
+      border: 1px solid var(--sp-blue);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .whole-unit-sections { margin-top: 24px; }
+
+    .whole-unit-section {
+      margin-bottom: 12px;
+      background: var(--white);
+      border: 1px solid var(--line);
+    }
+
+    .whole-unit-section > summary {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+      min-height: 68px;
+      padding: 16px 24px;
+      cursor: pointer;
+      list-style: none;
+      font-size: 19px;
+      font-weight: 650;
+    }
+
+    .whole-unit-section > summary::-webkit-details-marker { display: none; }
+
+    .whole-unit-section[open] > summary { background: #f8f8f8; }
+
+    .whole-unit-body {
+      padding: 22px 24px 26px;
+      border-top: 1px solid var(--line-soft);
+    }
+
+    .two-col-placeholder {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .placeholder-block {
+      min-height: 120px;
+      padding: 18px;
+      background: #f8f8f8;
+      border: 1px dashed #a19f9d;
+    }
+
+    .placeholder-block strong {
+      display: block;
+      margin-bottom: 8px;
+      font-style: normal;
+    }
+
+    .page-footer {
+      margin-top: 34px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .mobile-only { display: none; }
+
+    @media (max-width: 900px) {
+      .site-identity { align-items: flex-start; flex-direction: column; padding-top: 18px; }
+      .site-nav { width: 100%; min-height: 48px; flex-wrap: wrap; overflow-x: visible; }
+      .site-nav a { min-height: 48px; white-space: nowrap; }
+      .brand { min-width: 0; }
+      .content-grid { grid-template-columns: 1fr; }
+      .toolkit-column { order: -1; }
+      .toolkit-column .toolkit-panel + .toolkit-panel { display: none; }
+      .mobile-only { display: inline-flex; }
+    }
+
+    @media (max-width: 680px) {
+      .suite-inner,
+      .site-inner,
+      .page-shell { width: min(calc(100% - 24px), var(--content)); }
+      .suite-tools { display: none; }
+      .title-area,
+      .section-block { padding: 26px 22px; }
+      .two-col-placeholder { grid-template-columns: 1fr; }
+      .prepare-item > summary { grid-template-columns: minmax(0, 1fr) 20px; gap: 4px 12px; }
+      .prepare-preview { grid-column: 1; grid-row: 2; }
+      .prepare-item .chevron { grid-column: 2; grid-row: 1; }
+      .roadmap, .roadmap thead, .roadmap tbody { display: block; }
+      .roadmap tr { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 6px 12px; padding: 14px 0; border-bottom: 1px solid var(--line-soft); }
+      .roadmap th, .roadmap td { display: block; padding: 0; width: auto !important; border: 0; }
+      .roadmap th:last-child, .roadmap-purpose { grid-column: 2; }
+      .roadmap td:first-child { grid-row: 1 / 3; }
+      .lesson > summary { grid-template-columns: 42px 1fr auto; padding-inline: 18px; }
+      .lesson-body { padding: 4px 20px 26px; }
+      .sequence > li, .learn-activities > li { grid-template-columns: 1fr; gap: 4px; }
+      .sequence > .learn-phase { grid-template-columns: 32px minmax(0, 1fr); gap: 0; }
+      .learn-label { font-size: 14px; }
+      .column-heading { padding-inline: 20px; }
+      .actions { align-items: stretch; flex-direction: column; }
+      .button { width: 100%; }
+    }
+
+    @media print {
+      .persistent-map-layout { display: block; }
+      .suite-bar,
+      .site-nav,
+      .actions,
+      .toolkit-column { display: none !important; }
+      body { background: var(--white); }
+      .page-shell { width: 100%; padding: 0; }
+      .title-area,
+      .section-block,
+      .lesson-list { break-inside: avoid; }
+      .content-grid { grid-template-columns: 1fr; }
+    }
+  
+    .map-switcher {
+      margin-bottom: 24px;
+      padding: 24px 28px 26px;
+      background: var(--white);
+      border: 1px solid var(--line);
+    }
+
+    .map-switcher h2 {
+      margin-bottom: 8px;
+      font-size: 22px;
+      line-height: 1.25;
+    }
+
+    .map-switcher-intro {
+      max-width: 72ch;
+      margin-bottom: 18px;
+      color: var(--muted);
+    }
+
+    .grade-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .grade-tab {
+      min-height: 44px;
+      padding: 8px 18px;
+      border: 0;
+      border-bottom: 3px solid transparent;
+      color: #323130;
+      background: transparent;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .grade-tab:hover { background: #f3f2f1; }
+
+    .grade-tab[aria-selected="true"] {
+      color: var(--sp-blue-dark);
+      border-bottom-color: var(--sp-blue);
+    }
+
+    .unit-choice-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+    }
+
+    .unit-choice {
+      min-height: 76px;
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 16px;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink);
+      background: var(--white);
+      text-align: left;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .unit-choice:nth-child(odd) { border-right: 1px solid var(--line); }
+    .unit-choice:hover { background: #f8f8f8; }
+    .unit-choice[aria-current="true"] { background: var(--sp-blue-soft); }
+
+    .unit-choice-number {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      color: var(--sp-blue-dark);
+      border: 1px solid var(--sp-blue);
+      font-weight: 700;
+    }
+
+    .unit-choice[aria-current="true"] .unit-choice-number {
+      color: var(--white);
+      background: var(--sp-blue);
+    }
+
+    .unit-choice-title { display: block; font-weight: 650; }
+    .unit-choice-time { display: block; color: var(--muted); font-size: 13px; }
+
+    .coverage-list {
+      margin: 0;
+      padding-left: 22px;
+      columns: 2;
+      column-gap: 42px;
+    }
+
+    .coverage-list li {
+      margin: 0 0 10px;
+      break-inside: avoid;
+    }
+
+    .build-note {
+      margin: 18px 0 0;
+      padding: 14px 16px;
+      background: #f8f8f8;
+      border: 1px solid var(--line-soft);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 680px) {
+      .map-switcher { padding: 22px; }
+      .grade-tabs { overflow-x: auto; }
+      .grade-tab { white-space: nowrap; }
+      .unit-choice-grid { grid-template-columns: 1fr; }
+      .unit-choice:nth-child(odd) { border-right: 0; }
+      .coverage-list { columns: 1; }
+    }
+</style>
+</head>
+<body>
+  <!--
+    THESIS: The complete curriculum map is one consistent teaching pathway across sixteen units, not sixteen unrelated resource menus.
+    OWN-WORLD: The edited Grade 3 Unit 1 mockup remains the authority: SharePoint proportions, Segoe UI, white sections, neutral dividers and Microsoft blue for action and selection.
+    STORY: A teacher chooses a grade and unit, understands the scope, prepares once, follows the recommended lessons and verifies POL coverage without leaving the page.
+    FIRST VIEWPORT: Familiar SharePoint site navigation, a grade-and-unit chooser, then the selected unit's title, anchor question and primary action.
+    FORM: An established SharePoint teaching pathway extended into a complete Grades 3–6 prototype.
+    FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+  -->
+
+  <header>
+    <div class="site-header">
+      <div class="site-inner site-identity">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">ST</div>
+          <div class="brand-name">Elementary SciTech Curriculum</div>
+        </div>
+        <nav class="site-nav" aria-label="Curriculum grades">
+          <a href="#g3u1" data-grade-link="3">Grade 3</a>
+          <a href="#g4u1" data-grade-link="4">Grade 4</a>
+          <a href="#g5u1" data-grade-link="5">Grade 5</a>
+          <a href="#g6u1" data-grade-link="6">Grade 6</a>
+          <a href="../readers/Reader_Library_Grades_3_to_6.html">Reader library</a>
+          <a href="#planning-tools">Planning tools</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-shell" id="top">
+    <!-- SharePoint: Text web part + Button web parts + Quick Links web part in grid layout -->
+    <section class="map-switcher" aria-labelledby="map-switcher-title">
+      <h2 id="map-switcher-title">Choose a grade and unit</h2>
+      <p class="map-switcher-intro">Each grade contains four coherent units. Grades 3 and 4 form Cycle 2; Grades 5 and 6 form Cycle 3.</p>
+      <div class="grade-tabs" role="tablist" aria-label="Choose a grade"></div>
+      <div class="unit-choice-grid" aria-live="polite"></div>
+    </section>
+
+    <p class="breadcrumb"><a href="#" id="breadcrumb-grade">Grade 3</a><span aria-hidden="true">›</span><span id="breadcrumb-unit">Unit 1</span></p>
+
+    <!-- SharePoint: Title area + Text web part + two Button web parts -->
+    <section class="title-area" aria-labelledby="unit-title">
+      <h1 id="unit-title"></h1>
+      <p class="anchor-question" id="anchor-question"></p>
+      <div class="meta-row" id="unit-meta" aria-label="Unit scope"></div>
+      <p class="unit-purpose" id="unit-purpose"></p>
+      <div class="actions">
+        <a class="button primary" href="#lesson-1">Start with Lesson 1</a>
+        <a class="button" id="slides-download" href="">Open the unit PowerPoint</a>
+      </div>
+    </section>
+
+    <section class="section-block" aria-labelledby="prepare-title">
+      <h2 class="section-heading" id="prepare-title">Before you begin</h2>
+      <p class="section-intro">Draft preparation for team review. Scan the essentials; expand a row for the full notes.</p>
+      <div class="prepare-grid">
+        <details class="prepare-item"><summary><span class="prepare-label">Starting knowledge</span><span class="prepare-preview" id="prepare-know-preview"></span><span class="chevron" aria-hidden="true"></span></summary><ul id="prepare-know"></ul></details>
+        <details class="prepare-item"><summary><span class="prepare-label">Materials</span><span class="prepare-preview" id="prepare-gather-preview"></span><span class="chevron" aria-hidden="true"></span></summary><ul id="prepare-gather"></ul></details>
+        <details class="prepare-item"><summary><span class="prepare-label">Student work</span><span class="prepare-preview" id="prepare-produce-preview"></span><span class="chevron" aria-hidden="true"></span></summary><ul id="prepare-produce"></ul></details>
+      </div>
+      <p class="prepare-safety"><strong>Safety:</strong> <span id="prepare-safety"></span></p>
+      <div class="actions" style="margin-top: 22px;"><a class="button" href="#preparation-checklist">Open the preparation checklist</a></div>
+      <details class="preparation-checklist" id="preparation-checklist">
+        <summary>Preparation checklist for this unit</summary>
+        <ol id="prepare-checklist-items"></ol>
+      </details>
+      <details class="preparation-draft-note"><summary>About this draft</summary><p>First draft for team review, based on the unit reader and PowerPoint. Materials and student products are proposed; some slide activities and recording pages still need to be completed. Review the starting ideas if units are taught in a different order within the cycle.</p></details>
+    </section>
+
+    <section class="section-block" aria-labelledby="roadmap-title">
+      <h2 class="section-heading" id="roadmap-title">Unit roadmap</h2>
+      <table class="roadmap" aria-labelledby="roadmap-title">
+        <thead><tr><th scope="col">Lesson number</th><th scope="col">Lesson title</th><th scope="col">Short description</th></tr></thead>
+        <tbody id="roadmap"></tbody>
+      </table>
+    </section>
+
+    <div class="content-grid">
+      <section class="lesson-column" aria-labelledby="lessons-title">
+        <h2 class="column-heading" id="lessons-title">Teach the unit</h2>
+        <div class="lesson-list" id="lesson-list"></div>
+      </section>
+
+      <aside class="toolkit-column" aria-label="Unit tools">
+        <section class="toolkit-panel" id="unit-toolkit" aria-labelledby="toolkit-title">
+          <h2 id="toolkit-title">Unit toolkit</h2>
+          <ul class="quick-links">
+            <li><a href="#"><span class="quick-link-name"><span class="file-icon" aria-hidden="true"></span>Unit overview</span><span class="arrow" aria-hidden="true"></span></a></li>
+            <li><a id="toolkit-reader" href="#"><span class="quick-link-name"><span class="file-icon" aria-hidden="true"></span>Complete reader</span><span class="arrow" aria-hidden="true"></span></a></li>
+            <li><a href="#preparation-checklist"><span class="quick-link-name"><span class="file-icon" aria-hidden="true"></span>Materials and preparation</span><span class="arrow" aria-hidden="true"></span></a></li>
+            <li><a href="#"><span class="quick-link-name"><span class="file-icon" aria-hidden="true"></span>Student notebook</span><span class="arrow" aria-hidden="true"></span></a></li>
+            <li><a href="#assessment"><span class="quick-link-name"><span class="file-icon" aria-hidden="true"></span>Assessment package</span><span class="arrow" aria-hidden="true"></span></a></li>
+            <li><a href="#alignment"><span class="quick-link-name"><span class="file-icon" aria-hidden="true"></span>Curriculum alignment</span><span class="arrow" aria-hidden="true"></span></a></li>
+            <li><a id="toolkit-slides" href=""><span class="quick-link-name"><span class="file-icon" aria-hidden="true"></span>Teaching slides</span><span class="arrow" aria-hidden="true"></span></a></li>
+          </ul>
+        </section>
+        <section class="toolkit-panel" aria-labelledby="jump-title">
+          <h2 id="jump-title">Jump to a lesson</h2>
+          <ol class="lesson-nav" id="lesson-nav"></ol>
+        </section>
+      </aside>
+    </div>
+
+    <section class="whole-unit-sections" aria-label="Whole-unit information">
+      <details class="whole-unit-section" id="assessment">
+        <summary><span>Final assessment</span><span class="chevron" aria-hidden="true"></span></summary>
+        <div class="whole-unit-body two-col-placeholder">
+          <div class="placeholder-block placeholder"><strong>Assessment overview</strong>[Add the task purpose, student product and evidence of learning.]</div>
+          <div class="placeholder-block placeholder"><strong>Assessment files</strong>[Add the student task, success criteria, rubric, knowledge check and answer key.]</div>
+        </div>
+      </details>
+      <details class="whole-unit-section" id="alignment">
+        <summary><span>Curriculum alignment</span><span class="chevron" aria-hidden="true"></span></summary>
+        <div class="whole-unit-body">
+          <ul class="coverage-list" id="coverage-list"></ul>
+          <p class="build-note">In SharePoint, turn this list into the one-page POL crosswalk showing the lesson, activity and assessment evidence for every statement.</p>
+        </div>
+      </details>
+      <details class="whole-unit-section" id="optional-resources">
+        <summary><span>Additional supports and extensions</span><span class="chevron" aria-hidden="true"></span></summary>
+        <div class="whole-unit-body"><div class="placeholder-block placeholder"><strong>Optional resource links</strong>[Group resources by instructional purpose and label every item core, optional or enrichment.]</div></div>
+      </details>
+      <details class="whole-unit-section" id="planning-tools">
+        <summary><span>Planning and production tools</span><span class="chevron" aria-hidden="true"></span></summary>
+        <div class="whole-unit-body two-col-placeholder">
+          <div class="placeholder-block placeholder"><strong>Team ownership</strong>[Unit lead, independent reviewer, target date and current status.]</div>
+          <div class="placeholder-block placeholder"><strong>Quality gates</strong>[Scope, coherence, feasibility, assessment, accessibility, pilot and publication checks.]</div>
+        </div>
+      </details>
+    </section>
+
+    <footer class="page-footer">
+      <p id="footer-unit"></p>
+      <p><a href="#top">Return to the top of the unit</a></p>
+    </footer>
+  </main>
+
+  <script src="../readers/reader_links.js"></script>
+  <script>
+    // Reserve a real column for the menus throughout the unit, including assessment.
+    const mapShell = document.querySelector('main.page-shell');
+    const mapRail = document.querySelector('.toolkit-column');
+    const mapLayout = document.createElement('div');
+    mapLayout.className = 'persistent-map-layout';
+    const mapMain = document.createElement('div');
+    mapMain.className = 'map-main';
+    const gradeChooser = document.querySelector('.map-switcher');
+    mapRail.remove();
+    [...mapShell.children].filter(node => node !== gradeChooser).forEach(node => mapMain.append(node));
+    mapLayout.append(mapMain, mapRail);
+    mapShell.append(mapLayout);
+    const units = [{"key":"g3u1","grade":3,"unit":1,"classes":"7","title":"Matter, Materials and Making","anchor":"How can the properties of matter help us identify, compare and make things?","overview":"Build concrete observation and measurement habits, then use properties to explain material behaviour and manufacturing.","readerChapters":6,"pol":["Describe the shape, colour and texture of an object or substance.","Distinguish mass (quantity of matter) from weight (gravitational force acting on mass).","Classify solids according to density using equal volumes or equal masses.","Connect buoyancy in liquids to relative density.","Demonstrate that physical changes do not change the properties or identity of matter.","Explain how familiar household products, such as soap or paper, are made."],"outputFile":"G3-U1_Matter_Materials_and_Making.pptx","lessons":[{"title":"Matter and states","focus":"Establish that matter occupies space and has mass, and recognize solids, liquids and gases as forms of matter."},{"title":"Observable properties","focus":"Describe the shape, colour and texture of an object or substance."},{"title":"Mass, volume and weight","focus":"Distinguish mass from weight and relate mass to the amount of matter."},{"title":"Density and buoyancy","focus":"Classify solids by density and connect buoyancy to relative density."},{"title":"Physical change","focus":"Demonstrate that physical changes do not change the identity of matter."},{"title":"Materials and manufacturing","focus":"Explain how familiar household products, such as soap or paper, are made."},{"title":"Design and explanation task","focus":"Apply the unit's POL statements in one explanation and design task."}]},{"key":"g3u2","grade":3,"unit":2,"classes":"7","title":"Energy Around Us","anchor":"Where does energy come from, how does it move, and how do people use it?","overview":"Merge energy forms, transformations, conservation and renewable energy into one causal storyline.","readerChapters":7,"pol":["Describe mechanical, electrical, light, chemical, heat, sound and nuclear energy.","Identify energy sources in the local environment.","Identify sound characteristics such as volume, timbre and echo.","Explain convection in liquids and gases.","Describe human energy use and ways to conserve energy.","Describe transformations from one form of energy to another.","Explain that the Sun is Earth's main energy source.","Identify sunlight, wind and moving water as renewable sources.","Describe solar panels, wind turbines and hydroelectric dams as energy-transforming technologies."],"outputFile":"G3-U2_Energy_Around_Us.pptx","lessons":[{"title":"Forms and sources","focus":"Describe common forms of energy and distinguish an energy form from an energy source."},{"title":"Evidence of energy","focus":"Identify evidence that energy is present in familiar objects, movements and events."},{"title":"Sound","focus":"Identify sound characteristics such as volume, timbre and echo."},{"title":"Energy transformations","focus":"Describe transformations from one form of energy to another."},{"title":"Heat and convection","focus":"Explain convection in liquids and gases."},{"title":"The Sun and renewable energy","focus":"Explain that the Sun is Earth's main energy source and describe solar, wind and hydroelectric technologies."},{"title":"Energy design and audit","focus":"Describe human energy use and propose realistic ways to conserve energy."}]},{"key":"g3u3","grade":3,"unit":3,"classes":"6–7","title":"Soil, Water, Air and a Changing Earth","anchor":"How do Earth's materials and water support living things?","overview":"Join soil, fossils, crystals, water movement and environmental quality in one observable Earth-systems unit.","readerChapters":5,"pol":["Compare soils by composition, water retention and heat retention.","Describe how water, soil and air quality affect living things.","Distinguish a fossil or trace of a living thing from a rock.","Describe observable properties of crystals.","Explain evaporation, condensation, precipitation, runoff and infiltration in the water cycle."],"outputFile":"G3-U3_Soil_Water_Air_and_a_Changing_Earth.pptx","lessons":[{"title":"What soil contains","focus":"Compare soils by composition and identify mineral particles and organic matter."},{"title":"Soil properties","focus":"Compare soils by water retention and heat retention."},{"title":"Rocks, fossils and crystals","focus":"Distinguish fossils from rocks and describe observable properties of crystals."},{"title":"Water changes state","focus":"Explain evaporation and condensation as changes of state in the water cycle."},{"title":"Water-cycle processes","focus":"Explain precipitation, runoff and infiltration as connected water-cycle processes."},{"title":"Environmental quality","focus":"Describe how water, soil and air quality affect living things."},{"title":"Earth materials investigation and design","focus":"Use evidence about soil or water to make and justify an environmental design decision."}]},{"key":"g3u4","grade":3,"unit":4,"classes":"8–9","title":"The Living World","anchor":"How can structures, behaviours and life cycles help us understand living things?","overview":"Create one foundational life-science storyline linking needs, classification, anatomy, reproduction, growth and movement.","readerChapters":7,"pol":["Explain basic metabolic needs, including nutrition and respiration.","Distinguish viviparous, oviparous and ovoviviparous development.","Describe sexual reproduction in flowering plants.","Describe and classify microorganisms, fungi, plants and animals by kingdom.","Classify mammals, reptiles, birds, fish and amphibians.","Describe plant structures and connect each part to its function.","Connect animal structures and systems to their functions.","Explain sensory functions of skin, eyes, mouth, ears and nose.","Describe growth stages of flowering plants and animals.","Describe animal locomotion and reasons for movement, including defence and mating."],"outputFile":"G3-U4_The_Living_World.pptx","lessons":[{"title":"Needs of life","focus":"Explain basic metabolic needs, including nutrition and respiration."},{"title":"Kingdoms and classification","focus":"Describe and classify microorganisms, fungi, plants and animals by kingdom."},{"title":"Animal groups","focus":"Classify mammals, reptiles, birds, fish and amphibians."},{"title":"Plant structures","focus":"Describe plant structures and connect each part to its function."},{"title":"Animal structures and senses","focus":"Connect animal structures and sensory systems to their functions."},{"title":"Plant reproduction","focus":"Describe sexual reproduction in flowering plants."},{"title":"Life cycles","focus":"Describe growth stages and distinguish major patterns of animal development."},{"title":"Animal movement","focus":"Describe animal locomotion and reasons for movement, including defence and mating."}]},{"key":"g4u1","grade":4,"unit":1,"classes":"8–9","title":"Forces, Motion and Machines","anchor":"How do forces and machines cause, change and control motion?","overview":"Teach machines as designed applications of force and motion, eliminating two separate module launches.","readerChapters":7,"pol":["Describe electrostatic attraction.","Describe motion using direction and speed.","Identify pushes, pulls, throws, squeezes and stretches as forces.","Describe how forces start, stop or change motion and affect materials or structures.","Recognize levers, inclined planes, screws, pulleys, winches and wheels in objects.","Explain how simple machines adjust the force required.","Identify gears, cams, springs, simple machines and connecting rods.","Distinguish rotation and translation and trace a sequence of moving parts.","Recognize effects of transportation and electronic technologies on people and surroundings."],"outputFile":"G4-U1_Forces_Motion_and_Machines.pptx","lessons":[{"title":"Forces","focus":"Identify common forces and describe electrostatic attraction."},{"title":"Describing motion","focus":"Describe motion using direction and speed, and explain how forces change motion."},{"title":"Forces on structures","focus":"Describe how forces affect materials and structures."},{"title":"Simple machines","focus":"Recognize levers and explain how a simple machine adjusts the force required."},{"title":"Mechanical components","focus":"Recognize wheels, pulleys, winches, gears, cams, springs and connecting rods."},{"title":"Rotation and translation","focus":"Distinguish rotation from translation in moving systems."},{"title":"Mechanism sequences","focus":"Trace a sequence of moving parts and explain how motion is transmitted."},{"title":"Technology and design","focus":"Apply force-and-motion ideas in a mechanism and consider effects of transportation or electronic technologies."}]},{"key":"g4u2","grade":4,"unit":2,"classes":"7","title":"Earth, Moon, Sky and Weather","anchor":"How do repeating movements in the sky produce patterns we observe from Earth?","overview":"Turn day and night into the opening chapter of a complete sky-patterns unit.","readerChapters":6,"pol":["Associate day and night with Earth's rotation.","Describe rotational and revolutionary motion of Earth and the Moon.","Illustrate new moon, first quarter, full moon and last quarter.","Illustrate lunar and solar eclipses.","Recognize stars and constellations on a star map.","Connect weather conditions to cloud types.","Recognize the effects of Earth, atmospheric and space technologies on life and surroundings."],"outputFile":"G4-U2_Earth_Moon_Sky_and_Weather.pptx","lessons":[{"title":"Rotation and day and night","focus":"Associate day and night with Earth's rotation."},{"title":"Revolution and orbit","focus":"Describe rotational and revolutionary motion of Earth and the Moon."},{"title":"Moon phases","focus":"Illustrate new moon, first quarter, full moon and last quarter."},{"title":"Eclipses","focus":"Illustrate lunar and solar eclipses."},{"title":"Stars and constellations","focus":"Recognize stars and constellations on a star map."},{"title":"Clouds and weather","focus":"Connect weather conditions to cloud types."},{"title":"Observation technologies","focus":"Recognize effects of Earth, atmospheric and space technologies on life and surroundings."}]},{"key":"g4u3","grade":4,"unit":3,"classes":"7–8","title":"Food, Habitats and Interdependence","anchor":"How does energy move through habitats, and how do organisms depend on one another?","overview":"Place nutrition and food chains beside habitats, relationships and adaptation, where the ideas become mutually explanatory.","readerChapters":7,"pol":["Explain animals' common needs for water, sugars, lipids, proteins, vitamins and minerals.","Classify familiar animals as herbivores, carnivores or omnivores.","Describe agricultural and food technologies.","Illustrate a simple food chain with three or four links.","Identify habitats and their plant and animal populations.","Explain how animals meet basic needs within habitats.","Describe predation and parasitism.","Explain adaptations such as mimicry and camouflage."],"outputFile":"G4-U3_Food_Habitats_and_Interdependence.pptx","lessons":[{"title":"Animal nutrition","focus":"Explain animals' common nutritional needs and connect food to energy."},{"title":"Diets","focus":"Classify familiar animals as herbivores, carnivores or omnivores."},{"title":"Producers and consumers","focus":"Explain how plants supply energy that moves to animal consumers."},{"title":"Food chains","focus":"Illustrate a simple food chain with three or four links."},{"title":"Habitats and populations","focus":"Identify habitats and their populations, and explain how animals meet basic needs."},{"title":"Ecological relationships","focus":"Describe predation and parasitism."},{"title":"Adaptation","focus":"Explain adaptations such as mimicry and camouflage."},{"title":"Local habitat study","focus":"Use local evidence to describe populations, relationships and adaptations in a habitat."}]},{"key":"g4u4","grade":4,"unit":4,"classes":"5–6","title":"Human Impact and Environmental Design","anchor":"How can we meet human needs while protecting the systems that support life?","overview":"Use broad environmental POL statements as a cycle-ending synthesis and engineering capstone.","readerChapters":4,"pol":["Describe environmental effects of resource use, pollution, waste management, land use, urbanization and agriculture.","Explain science and technology concepts involved in recycling and composting, including properties, changes, food chains and energy."],"outputFile":"G4-U4_Human_Impact_and_Environmental_Design.pptx","lessons":[{"title":"Environmental systems","focus":"Connect water, soil, air and biodiversity to the systems that support life."},{"title":"Human pressures","focus":"Describe environmental effects of resource use, pollution, waste, land use, urbanization and agriculture."},{"title":"Product and material life cycles","focus":"Trace how resource extraction, manufacture, use and disposal affect the environment."},{"title":"Recycling","focus":"Explain how material properties, physical changes and energy are involved in recycling."},{"title":"Composting","focus":"Explain composting through decomposition, food chains and changes in matter."},{"title":"Local design response","focus":"Use local evidence to justify a waste-reduction, water-filter or environmental design response."}]},{"key":"g5u1","grade":5,"unit":1,"classes":"7","title":"Matter, Properties and Chemical Change","anchor":"How do properties help us identify matter and predict how it will behave or change?","overview":"Extend Cycle 2 matter knowledge into characteristic properties, relative density and evidence of chemical change.","readerChapters":6,"pol":["Explain buoyancy using the relative densities of substances.","Describe elasticity, hardness, solubility and other physical properties.","Recognize the materials from which an object is made.","Demonstrate that cooking, combustion, oxidation and acid-base reactions can produce chemical changes.","Explain how household products such as soap and paper are made."],"outputFile":"G5-U1_Matter_Properties_and_Chemical_Change.pptx","lessons":[{"title":"Objects and materials","focus":"Recognize the materials from which an object is made."},{"title":"Characteristic properties","focus":"Describe elasticity, hardness, solubility and other physical properties."},{"title":"Density and buoyancy","focus":"Explain buoyancy using the relative densities of substances."},{"title":"Physical and chemical change","focus":"Distinguish physical changes from chemical changes by tracking the identity of matter."},{"title":"Evidence of reaction","focus":"Use evidence to explain chemical changes in cooking, combustion, oxidation and acid-base reactions."},{"title":"Manufacturing","focus":"Explain how household products such as soap and paper are made."},{"title":"Materials design and application","focus":"Select materials and predict changes using evidence about properties, density and chemical change."}]},{"key":"g5u2","grade":5,"unit":2,"classes":"9","title":"Energy, Heat, Light and Electricity","anchor":"How is energy transferred, transformed and controlled in useful systems?","overview":"Unify heat, light, circuits, insulation, fossil fuels and energy transformations in one physical-science unit.","readerChapters":7,"pol":["Identify environmental energy sources and human energy use.","Distinguish thermal conductors from thermal insulators.","Distinguish electrical conductors from electrical insulators.","Identify circuit components and explain their functions.","Describe reflection and refraction of light.","Explain insulating properties and recognize energy transformations in devices.","Describe conduction, convection and radiation.","Identify fossil fuels and explain why they are nonrenewable.","Name fossil fuels including natural gas and petroleum-derived fuels such as gasoline and fuel oil, and identify propane and butane as fuels from petroleum or natural-gas processing."],"outputFile":"G5-U2_Energy_Heat_Light_and_Electricity.pptx","lessons":[{"title":"Sources and transformations","focus":"Identify environmental energy sources, human energy use and transformations in devices."},{"title":"Thermal energy","focus":"Explain that thermal energy transfers from warmer matter to colder matter."},{"title":"Three heat-transfer methods","focus":"Describe conduction, convection and radiation."},{"title":"Insulation","focus":"Distinguish thermal conductors from thermal insulators and explain insulating properties."},{"title":"Electrical materials","focus":"Distinguish electrical conductors from electrical insulators."},{"title":"Circuits","focus":"Identify circuit components and explain their functions."},{"title":"Light","focus":"Describe reflection and refraction of light."},{"title":"Fossil fuels","focus":"Identify fossil fuels, explain why they are nonrenewable and name common petroleum-derived fuels."},{"title":"Energy-system design","focus":"Apply heat, light or circuit knowledge in an alarm, insulation or energy-system design."}]},{"key":"g5u3","grade":5,"unit":3,"classes":"7","title":"Plants as Energy-Making Systems","anchor":"How do plants obtain what they need, respond to their environment and support ecosystems?","overview":"Place plant tropisms beside plant needs, photosynthesis and ecosystem energy so the responses have an explanatory context.","readerChapters":6,"pol":["Describe photosynthesis and distinguish it from respiration.","Explain why plants need water, light, mineral salts and carbon dioxide.","Describe agricultural and food technologies.","Describe an ecological pyramid for a given environment.","Distinguish geotropism, hydrotropism and phototropism.","Explain how tropisms enable plants to meet basic needs."],"outputFile":"G5-U3_Plants_as_Energy_Making_Systems.pptx","lessons":[{"title":"Plant needs","focus":"Explain why plants need water, light, mineral salts and carbon dioxide."},{"title":"Photosynthesis","focus":"Describe photosynthesis as an energy transformation that produces food for the plant."},{"title":"Respiration comparison","focus":"Distinguish photosynthesis from respiration."},{"title":"Water and minerals","focus":"Explain how plant structures obtain and transport water and mineral salts."},{"title":"Tropisms","focus":"Distinguish geotropism, hydrotropism and phototropism and explain how they meet plant needs."},{"title":"Ecological pyramids","focus":"Describe an ecological pyramid and explain how plant energy supports higher levels."},{"title":"Agriculture and design","focus":"Describe agricultural or food technologies and apply plant-system knowledge in a design task."}]},{"key":"g5u4","grade":5,"unit":4,"classes":"7","title":"Growth, Reproduction and Change","anchor":"How do organisms grow, reproduce and change across generations?","overview":"Create a biological progression from metabolism and life cycles to reproduction, puberty and evolution.","readerChapters":6,"pol":["Describe metabolism through energy transformation, growth, system maintenance and body temperature.","Describe sexual reproduction in animals and the roles of male and female organisms.","Describe asexual reproduction in plants.","Describe anatomy and functions of the principal male and female reproductive organs.","Describe metamorphosis and stages of human growth and development.","Describe physical changes during puberty.","Describe principal stages in the evolution of life forms."],"outputFile":"G5-U4_Growth_Reproduction_and_Change.pptx","lessons":[{"title":"Metabolism and growth","focus":"Describe metabolism through energy transformation, growth, system maintenance and body temperature."},{"title":"Life cycles","focus":"Describe stages of human growth and development and compare life-cycle patterns."},{"title":"Metamorphosis","focus":"Describe metamorphosis and compare it with growth that does not include metamorphosis."},{"title":"Sexual reproduction","focus":"Describe sexual reproduction in animals and the roles of male and female organisms."},{"title":"Asexual reproduction","focus":"Describe asexual reproduction in plants."},{"title":"Human development and puberty","focus":"Describe reproductive anatomy and physical changes during puberty."},{"title":"Life through time","focus":"Describe principal stages in the evolution of life forms."}]},{"key":"g6u1","grade":6,"unit":1,"classes":"8","title":"Forces, Fields, Pressure and Tides","anchor":"How can forces act through contact, pressure or attraction, even across a distance?","overview":"Connect magnetic, gravitational and pressure effects, then use tides as a gravitational application.","readerChapters":7,"pol":["Distinguish a permanent magnet from an electromagnet.","Identify technologies that use electromagnetism.","Describe gravitational attraction and free fall.","Recognize manifestations of pressure.","Describe compression, displacement and temperature effects produced by pressure.","Predict combined effects of several forces on stationary or straight-moving objects.","Describe the ebb and flow of tides."],"outputFile":"G6-U1_Forces_Fields_Pressure_and_Tides.pptx","lessons":[{"title":"Contact and non-contact forces","focus":"Distinguish contact forces from forces that act across a distance."},{"title":"Magnetism","focus":"Describe permanent magnets and magnetic fields."},{"title":"Electromagnetism","focus":"Distinguish a permanent magnet from an electromagnet and identify technologies that use electromagnetism."},{"title":"Gravity","focus":"Describe gravitational attraction and free fall."},{"title":"Pressure","focus":"Recognize pressure and describe compression, displacement and temperature effects."},{"title":"Combined forces","focus":"Predict the combined effects of several forces on stationary or straight-moving objects."},{"title":"Earth, Moon and tides","focus":"Describe the ebb and flow of tides as an application of gravitational attraction."},{"title":"Forces design investigation","focus":"Use evidence from a magnet, pressure or parachute investigation to explain and improve a design."}]},{"key":"g6u2","grade":6,"unit":2,"classes":"7","title":"Machines, Mechanisms and Robots","anchor":"How do interacting components transmit and transform motion in designed systems?","overview":"Use Grade 4 vocabulary to analyze and create increasingly complex mechanisms and robotic systems.","readerChapters":6,"pol":["Identify the main function of complex machines such as carts, waterwheels and wind turbines.","Identify gears, cams, springs, simple machines and connecting rods.","Distinguish rotation and translation.","Trace a sequence of mechanical components in motion.","Recognize robotic structures that use servomechanisms.","Evaluate the influence of transportation technologies.","Evaluate the influence of electrical and electronic technologies."],"outputFile":"G6-U2_Machines_Mechanisms_and_Robots.pptx","lessons":[{"title":"Complex machines","focus":"Identify the main function of complex machines and the simple machines within them."},{"title":"Motion types","focus":"Distinguish rotation and translation."},{"title":"Gears","focus":"Explain how gears transmit rotation and affect direction or speed."},{"title":"Cams and connecting rods","focus":"Identify cams and connecting rods and trace how they transform motion."},{"title":"Springs and stored energy","focus":"Explain how springs store energy and influence the motion of a mechanism."},{"title":"Servos and robots","focus":"Recognize robotic structures that use servomechanisms and trace their controlled motion."},{"title":"Technology and design","focus":"Build or analyze a mechanism and evaluate effects of transportation and electronic technologies."}]},{"key":"g6u3","grade":6,"unit":3,"classes":"8","title":"Earth in Space, Seasons and Climate","anchor":"How do Earth's position and movements help explain patterns on Earth and in the sky?","overview":"Link solar-system position, orbital motion, seasons and regional climate while separating weather from climate.","readerChapters":7,"pol":["Identify the Sun, planets and natural satellites as solar-system components.","Compare their composition, size, orbit and temperature.","Connect seasons to Earth's revolution and axial tilt.","Distinguish stars, constellations and galaxies.","Relate average precipitation to dry and humid climates.","Relate average temperature to polar, cold, temperate, mild and hot climates.","Recognize the influence of Earth, atmospheric and space technologies."],"outputFile":"G6-U3_Earth_in_Space_Seasons_and_Climate.pptx","lessons":[{"title":"Earth's address","focus":"Locate Earth within the solar system and Milky Way galaxy."},{"title":"Solar-system components","focus":"Identify the Sun, planets and natural satellites as solar-system components."},{"title":"Planet comparisons","focus":"Compare solar-system bodies by composition, size, orbit and temperature."},{"title":"Rotation, revolution and tilt","focus":"Describe Earth's rotation, revolution and axial tilt."},{"title":"Seasons","focus":"Connect seasons to Earth's revolution and axial tilt."},{"title":"Stars and galaxies","focus":"Distinguish stars, constellations and galaxies."},{"title":"Weather and climate","focus":"Relate average precipitation and temperature to major climate types."},{"title":"Earth and space technology","focus":"Recognize the influence of Earth, atmospheric and space technologies."}]},{"key":"g6u4","grade":6,"unit":4,"classes":"7","title":"Dynamic Earth and Sustainable Technologies","anchor":"How do natural processes and human decisions change Earth?","overview":"Connect Earth materials and hazards to resource use, environmental impacts and technological responses.","readerChapters":6,"pol":["Distinguish rocks from minerals.","Classify rocks by strata and crystal size and minerals by colour, texture, lustre and hardness.","Describe continents, oceans, ice caps, mountains and volcanoes.","Describe erosion, lightning, tornadoes, hurricanes and other natural phenomena.","Explain effects of natural phenomena on environments and people.","Describe effects of resource use, pollution, waste, land use, urbanization and agriculture.","Explain scientific and technological concepts involved in recycling and composting."],"outputFile":"G6-U4_Dynamic_Earth_and_Sustainable_Technologies.pptx","lessons":[{"title":"Minerals","focus":"Distinguish rocks from minerals and classify minerals by colour, texture, lustre and hardness."},{"title":"Rocks","focus":"Classify rocks by strata and crystal size and explain how major rock types form."},{"title":"Earth's surface","focus":"Describe continents, oceans, ice caps, mountains and volcanoes."},{"title":"Slow change and erosion","focus":"Describe erosion and explain how slow processes reshape Earth's surface."},{"title":"Rapid hazards","focus":"Describe major natural hazards and explain their effects on environments and people."},{"title":"Human pressures","focus":"Describe effects of resource use, pollution, waste, land use, urbanization and agriculture."},{"title":"Sustainable responses","focus":"Explain recycling and composting, then justify a sustainable technology or design response."}]}];
+    const preparationDrafts = {"g3u1":{"know":["Describe familiar objects using everyday words for shape, colour and texture.","Compare more/less and larger/smaller, and record an observation with a drawing or short sentence.","Recall familiar solids and liquids. Air, mass, density and weight are ideas to teach here, not entry requirements."],"gather":["Prepare contrasting everyday materials, a balance, metric masses and equal-volume containers or measuring cups.","Have a water tub, towels, safe floating/sinking samples, paper, clay and ice for before-and-after comparisons.","Use the reader and slides for paper/soap process examples. If trying papermaking, prepare soaked scrap paper and a screen; treat this as optional.","Use trays for spills. Teach soap manufacture with images or video, without lye, hot oils or student soap-making."],"produce":["A property-sorting record and a simple mass/volume comparison table.","A floating/sinking explanation and before-and-after evidence of a physical change.","A labelled useful-product sketch, justified material choice and sequence showing how the product could be made."],"safety":"Use safe samples and spill trays. Keep caustic soap ingredients and hot processes out of student investigations."},"g3u2":{"know":["Describe changes they can see, hear or feel in familiar objects.","Recall that a push can change an object’s motion, and distinguish an observation from a guess.","Recognize familiar energy sources such as sunlight and batteries. The scientific forms and transformation vocabulary are taught in this unit."],"gather":["Gather a flashlight, a battery-powered toy and safe sound-makers such as a ruler or shaker.","Prepare picture examples of a toaster, solar panel, wind turbine and Québec hydroelectric dam; students do not need working versions.","For convection, choose an adult-run warm-water demonstration or a recorded demonstration before class.","Prepare a simple school energy-use tally in notebooks. Keep sound levels comfortable and use no flames, hot plates or wall-socket investigations."],"produce":["An evidence-of-energy record and annotated transformation chains for familiar devices.","A comparison of sounds and a drawing explaining a convection pattern.","A school energy-use tally and a justified, realistic energy-saving proposal."],"safety":"Test demonstrations beforehand. Adults handle warm water and electrical appliances; students use approved battery devices."},"g3u3":{"know":["Recognize water, air, rocks and soil in their surroundings and explain a basic plant or animal need.","Describe properties and compare amounts using drawings, labels or simple tables.","Recall that water can be liquid, ice or water vapour. Review this briefly if the matter unit has not yet been taught."],"gather":["Collect clean soil samples with contrasting composition, clear cups, trays, hand lenses and equal measures of water.","Choose a fair water-retention setup and, if available, thermometers for an adult-prepared heat-retention comparison.","Use rock, fossil and crystal specimens or clear photos. Prepare a sealed water-cycle model or a recorded condensation demonstration.","For a final soil or water design, gather only the materials needed for the chosen test. Wash hands after soil work and never drink filtered model water."],"produce":["A soil-description table and evidence from a controlled retention comparison.","A fossil/crystal observation sketch and a labelled water-cycle explanation.","An evidence-based soil or water design recommendation, with a prediction, test record and explanation of its limits."],"safety":"Use clean samples, contain spills and wash hands. Model filtration does not establish that water is safe to drink."},"g3u4":{"know":["Recognize familiar living things and describe some of their needs.","Compare visible features and explain a sorting rule.","Observe respectfully and keep a dated record. Classification, reproductive processes and structure/function explanations are taught here."],"gather":["Prepare a diverse set of organism photos, including fungi and microorganisms, plus vertebrate and life-cycle examples.","Use a potted plant, safe seeds, hand lenses and flower photos or an allergy-checked flower specimen.","Start any seed observations early enough to show growth across weekly lessons; use dated photos when live observations are impractical.","Plan safe schoolyard observation and hygiene. Do not collect unknown fungi, culture microorganisms or ask students to taste or handle unknown organisms."],"produce":["Classification records that name the features supporting each grouping.","Labelled plant/animal structure-and-function drawings and an explanation of how senses or movement meet a need.","A plant reproduction sequence and a comparison of life-cycle stages, supported by observations or provided images."],"safety":"Check allergies and outdoor procedures. Observe unknown organisms without handling or tasting them."},"g4u1":{"know":["Describe a push or pull and a visible change in motion.","Compare directions and distances and read a simple observation table.","Recognize familiar wheels, ramps and handles. Review simple-machine names if students have not studied them; do not assume a fixed Grade 3 sequence."],"gather":["Gather toy carts, a ramp, rulers, a timer, a lever with a fulcrum and small safe loads.","Prepare strips of card, elastic bands and approved parts for comparing bending, stretching or compression.","Choose low-speed pulley/gear models or clear videos; a complete mechanical kit is optional.","Preview a safe static-attraction demonstration. Keep loads small, moving parts slow and fingers clear of pinch points."],"produce":["A direction/speed record and a force diagram linked to an observed motion or deformation.","A fair simple-machine comparison and an annotated sequence tracing turning or sliding parts.","A small mechanism model or labelled design, with a test record, one improvement and a benefit/tradeoff explanation."],"safety":"Use light loads and slow models. Check elastic bands and keep fingers away from moving joints, gears and pinch points."},"g4u2":{"know":["Recognize the Sun, Earth and Moon and describe daily changes in daylight.","Describe a shadow and distinguish a light source from something reflecting light.","Read simple diagrams and record an observation by date. Rotation, revolution, phases and eclipse alignments are taught here."],"gather":["Prepare a globe or ball, a lamp/flashlight and a smaller ball for Earth–Moon–Sun models.","Choose a local star map, Moon-phase photos and dated cloud photos; live night observations are optional.","Arrange a short weather record using a thermometer or supplied data. Select only the observation technologies needed for the final comparison.","Use indoor models for eclipses. Never ask students to look at the Sun; provide photos or recorded observations instead."],"produce":["Annotated day/night and orbit models, distinguishing the motions of the bodies.","Moon-phase and eclipse explanations showing light and shadow relationships.","A dated cloud/weather record and a comparison explaining what an observation tool helps us find out."],"safety":"Use indoor light models and recorded eclipse evidence. No direct solar viewing or unsupervised night observation."},"g4u3":{"know":["Explain basic needs of plants and animals and connect a structure to a function.","Identify familiar animals and use observable evidence to describe a habitat.","Read arrows as a stated relationship in a diagram. The direction of energy-flow arrows and ecological terms need explicit teaching."],"gather":["Prepare organism/diet cards, nutrient examples from labels or images, and blank paper for food-chain diagrams.","Select a schoolyard habitat, local photos or a provided observation set; plan a manageable route and observation time.","Use images for predation, parasites, camouflage and mimicry. Include a Québec food-production example for technology discussion.","Check allergies if using food packaging. Do not require tasting, touch parasites or approach wildlife; establish outdoor boundaries."],"produce":["Evidence-based diet classifications and a three- or four-link food chain with explained arrows.","A habitat map or observation record showing how organisms meet needs.","A local-habitat explanation connecting populations, relationships and an adaptation, plus a food-technology benefit or tradeoff."],"safety":"Use pictures for parasites and predation. Keep wildlife at a distance and follow school outdoor and allergy procedures."},"g4u4":{"know":["Connect living things to water, soil, air and food, and explain a simple food-chain relationship.","Recall observable material properties and familiar changes in matter.","Use evidence to justify a choice. Review these ideas through one shared example if Cycle 2 units were taught in a different order."],"gather":["Choose one local issue, such as lunch packaging or paper waste, before collecting a small baseline tally.","Prepare clean examples or photos of product stages, resource use and accepted school recycling materials.","Use compost photos or an approved closed observation container. A water-filter or compost build is optional; one design response is enough.","Prepare small quantities of reused craft materials and blank planning pages. Confirm current school collection rules and handle no mixed waste or mouldy material."],"produce":["A connected-systems diagram and a product life-cycle explanation.","A baseline waste/material record and explanations of recycling or decomposition.","One feasible school environmental design or action proposal, with evidence, criteria, expected effects and a plan to check improvement."],"safety":"Use clean examples rather than sorting mixed waste. Follow school compost rules and never taste model-filtered water."},"g5u1":{"know":["Describe observable material properties and recognize solids, liquids and gases.","Distinguish mass from volume and recall a simple floating/sinking comparison.","Explain a physical change using before-and-after evidence. Revisit these Cycle 2 foundations if needed; chemical-change evidence is taught here."],"gather":["Prepare contrasting material samples, a balance, equal-volume containers, water and safe test loads.","Choose controlled hardness, elasticity and solubility comparisons using approved samples and identical test conditions.","Select a small teacher-approved reaction demonstration and dated oxidation/cooking evidence. Use the reader and slides for combustion and soap manufacture.","Provide blank comparison tables and material-design pages. Do not use flames, caustic soap ingredients or unknown chemicals in student investigations."],"produce":["A material/property comparison table and a relative-density explanation.","Before-and-after evidence distinguishing physical changes from possible chemical reactions.","A justified material-selection design and a manufacturing sequence identifying the changes involved."],"safety":"Use only approved substances and protocols. Demonstrate hazardous or hot processes through images/video, and do not taste investigation materials."},"g5u2":{"know":["Identify familiar energy sources and trace a simple energy transformation.","Describe a fair comparison and read measurements in a table.","Recall basic material properties and warmer/colder conditions. Circuit functions, heat-transfer mechanisms and light paths are taught here."],"gather":["Prepare thermometers, identical containers and contrasting insulation materials for a fair warm-water comparison.","Use approved battery holders, wires, switches and suitable bulbs/buzzers or motors; collect clean conductor/insulator samples.","Gather flashlights, mirrors and clear water containers for reflection/refraction; use images for fossil fuels and large energy technologies.","Choose one final insulation, light or circuit design. Test equipment first; avoid wall sockets, lasers, hot water burns and direct battery short circuits."],"produce":["Energy-path diagrams and a temperature/time record with a justified insulation conclusion.","Circuit diagrams and conductor/insulator evidence, plus an annotated reflection/refraction explanation.","One tested energy-system design, documenting material choices, results, improvements and an energy-use tradeoff."],"safety":"Use approved low-voltage circuits with a suitable load. Keep water away from circuits; adults handle warm water and electrical appliances."},"g5u3":{"know":["Connect roots, stems and leaves to their functions and explain basic plant needs.","Distinguish a producer from a consumer and read energy-flow arrows.","Record change over time and identify a controlled variable. Photosynthesis, respiration and tropism mechanisms are taught here."],"gather":["Start several similar seedlings before the unit, or prepare dated plant-growth photos as a fallback.","Gather transparent containers, growing medium, water measures and a light arrangement for one manageable response-to-conditions comparison.","Choose a plant-transport demonstration or provided evidence, and simple food-path/pyramid data for discussion.","Set a watering/storage routine between weekly classes. Use food colouring only in an approved demonstration, handle no unknown plants, and keep lamps away from wet areas."],"produce":["A plant-input explanation and a comparison of photosynthesis with respiration.","A dated growth or transport record, with a fair-test plan and an evidence-based tropism explanation.","An energy-pyramid interpretation and a plant-growing system proposal considering resources and tradeoffs."],"safety":"Check plant allergies and lamp placement. Arrange care between lessons and use provided evidence when growth cannot be observed reliably."},"g5u4":{"know":["Explain that organisms need energy and materials to grow and maintain their bodies.","Describe familiar life-cycle stages and distinguish growth from a change in body form.","Use respectful scientific language and understand that people develop at different times. Reproductive anatomy and puberty processes are taught here."],"gather":["Prepare animal/human life-cycle images, metamorphosis sequences and fossil/evolution timeline evidence.","Use an approved plant cutting, runner/tuber example or photos to compare reproduction without seeds with sexual reproduction.","Review the human-development reader and copied slides through school procedures before teaching; prepare accurate anatomical diagrams and an anonymous question method.","Use diagrams and general examples. Do not request students’ personal puberty experiences or compare classmates’ bodies or development."],"produce":["A metabolism explanation and a comparison of life cycles with and without metamorphosis.","A sexual/asexual reproduction comparison and a respectful explanation of reproductive functions and variable puberty timing.","An annotated life-through-time sequence, distinguishing fossil evidence from what a timeline alone can tell us."],"safety":"Follow school guidance for human-development teaching. Protect privacy, allow anonymous questions and avoid personal disclosures or body comparisons."},"g6u1":{"know":["Identify pushes/pulls and use direction arrows to describe force and motion.","Recall mass/weight and simple battery-circuit ideas, reviewing them if these units have not yet been taught.","Plan a fair comparison and support a claim with recorded evidence. Fields, pressure and combined-force predictions are developed here."],"gather":["Gather bar magnets, safe magnetic/nonmagnetic samples and approved low-voltage electromagnet equipment or a demonstration video.","Prepare light objects for falling/air-resistance comparisons and safe pressure models such as modelling clay with different contact areas.","Use needle-free syringes only in an approved setup; provide tide-height data or paired shoreline images rather than requiring a coastal visit.","Choose one magnet, pressure or parachute design. Keep magnets away from electronics, prevent short circuits, and use only low-height drop tests."],"produce":["Contact/non-contact force diagrams and a permanent/electromagnet comparison.","Pressure or fall-test records and combined-force predictions supported by evidence.","A tide-pattern explanation and one tested design with a documented improvement and account of model limits."],"safety":"Use light loads, low drops and approved low-voltage equipment. Avoid sealed heated containers, needle attachments and coastal fieldwork near moving tides."},"g6u2":{"know":["Recognize simple machines and explain the job of a familiar component.","Distinguish turning from sliding motion and trace a short input/output sequence.","Use a labelled sketch and safe testing routine. Review Cycle 2 machine vocabulary; gears, cams, springs and feedback receive further teaching here."],"gather":["Prepare a cart or familiar machine to analyse, plus slow gear and crank-slider models or clear videos.","Choose an accessible cam/follower and approved spring example; use images or simulations if mechanical parts are unavailable.","A robotics kit is optional. Prepare a servo/feedback video or simulation so no lesson depends on purchasing hardware.","For the final mechanism, gather card, fasteners and reused parts. Keep spring loads small and fingers away from gears, joints and pinch points."],"produce":["An annotated machine analysis identifying input, components and output.","Gear-direction/speed predictions and a sequence showing how rotation can become repeated linear motion.","A tested mechanism or detailed design, a feedback-system explanation, and a reasoned technology benefit/tradeoff evaluation."],"safety":"Use slow mechanisms and light spring loads. Check joints and fasteners, and keep fingers clear of moving connections."},"g6u3":{"know":["Recognize the Sun, planets and natural satellites and distinguish rotation from revolution.","Recall a simple day/night model and interpret a labelled spatial diagram.","Read tables and averages. Review Cycle 2 sky ideas where needed; seasonal sunlight patterns and climate comparisons are taught here."],"gather":["Prepare a globe, lamp, orbit markers and labelled solar-system comparison data with units and scale notes.","Choose Québec seasonal/daylight examples, star maps and long-term temperature/precipitation datasets alongside daily weather examples.","Use images or supplied data for satellites and observation technologies; telescope or night-time fieldwork is optional.","Test the globe model so its axis stays approximately parallel through the orbit. Check copied season slides against the reader: teach sunlight angle and day length, not distance from the Sun as the cause."],"produce":["A solar-system comparison and annotated rotation/revolution/tilt model.","An explanation of Québec seasons and a distinction between stars, constellations and galaxies.","A weather-versus-climate data interpretation and a comparison of an observation technology’s evidence, benefits and limitations."],"safety":"Use indoor models and supplied sky evidence. Never look at the Sun or require unsupervised night observations."},"g6u4":{"know":["Describe rock/soil properties and connect water movement to erosion or transport.","Recall that human resource use can affect water, land and living things.","Distinguish an observation from an explanation and support a design choice with evidence. Rock-forming processes and hazard comparisons are taught here."],"gather":["Prepare safe labelled rock/mineral samples or close-up photos, hand lenses and an approved hardness comparison.","Use surface maps, a shallow sediment tray and measured water for one contained erosion/deposition model.","Select recorded hazard cases and reliable provided data. Confirm school emergency procedures rather than attempting live storm observations.","Choose one local resource/waste issue and gather clean material examples for a proposed sustainable response. Avoid sharp samples, mixed waste and drinking model-filtered water."],"produce":["A rock/mineral classification record and an explanation using strata or crystal size as evidence.","An erosion/deposition model record and a hazard comparison distinguishing causes, effects and risk reduction.","One sustainable-response proposal with supporting evidence, resource/energy considerations, tradeoffs and a plan to evaluate its effects."],"safety":"Contain sediment and water, handle samples safely and follow emergency procedures. Study hazards through recorded cases, not exposure to real events."}};
+    const gradeTabs = document.querySelector('.grade-tabs');
+    const unitGrid = document.querySelector('.unit-choice-grid');
+    let currentUnit = units[0];
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, function (character) {
+        return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character];
+      });
+    }
+
+    function deckHref(unit) {
+      return '../curriculum_map_powerpoints/' + encodeURIComponent(unit.outputFile);
+    }
+
+    function readerHref(unit) {
+      const plan = (window.scitechReaderPlan || {})[unit.key];
+      return plan ? '../readers/' + plan.file : '#';
+    }
+
+    function lessonReaderLinks(unit, number) {
+      const plan = (window.scitechReaderPlan || {})[unit.key];
+      if (!plan) return 'Reader is not available.';
+      return plan.chapters.filter(function (chapter) { return chapter.lessons.includes(number); }).map(function (chapter) {
+        return '<a href="' + readerHref(unit) + '#chapter-' + chapter.index + '">Chapter ' + chapter.index + ': ' + escapeHtml(chapter.title) + '</a>';
+      }).join(' · ');
+    }
+
+    function renderGradeTabs(selectedGrade) {
+      gradeTabs.innerHTML = [3,4,5,6].map(function (grade) {
+        return '<button class="grade-tab" type="button" role="tab" data-grade="' + grade + '" aria-selected="' + (grade === selectedGrade) + '">Grade ' + grade + '</button>';
+      }).join('');
+      gradeTabs.querySelectorAll('button').forEach(function (button) {
+        button.addEventListener('click', function () {
+          const first = units.find(function (unit) { return unit.grade === Number(button.dataset.grade); });
+          selectUnit(first.key, true);
+        });
+      });
+    }
+
+    function renderUnitChoices(selected) {
+      const gradeUnits = units.filter(function (unit) { return unit.grade === selected.grade; });
+      unitGrid.innerHTML = gradeUnits.map(function (unit) {
+        return '<button type="button" class="unit-choice" data-unit-key="' + unit.key + '" aria-current="' + (unit.key === selected.key) + '">' +
+          '<span class="unit-choice-number">' + unit.unit + '</span>' +
+          '<span><span class="unit-choice-title">' + escapeHtml(unit.title) + '</span><span class="unit-choice-time">' + escapeHtml(unit.classes) + ' classes</span></span></button>';
+      }).join('');
+      unitGrid.querySelectorAll('button').forEach(function (button) {
+        button.addEventListener('click', function () { selectUnit(button.dataset.unitKey, true); });
+      });
+    }
+
+    function renderRoadmap(unit) {
+      document.querySelector('#roadmap').innerHTML = unit.lessons.map(function (lesson, index) {
+        return '<tr><td><span class="roadmap-number">' + (index + 1) + '</span></td><td class="roadmap-title">' + escapeHtml(lesson.title) + '</td><td class="roadmap-purpose">' + escapeHtml(lesson.focus) + '</td></tr>';
+      }).join('');
+    }
+
+    const preparationOverviews = {
+      g3u1: ['Describe, compare and record observations of familiar materials.', 'Everyday samples, a balance, measuring containers and a water tub.', 'Sorting and comparison records, explanations and a labelled product design.'],
+      g3u2: ['Notice changes, recognize familiar energy sources and distinguish observations from guesses.', 'Battery devices, sound-makers, energy images and a convection demonstration.', 'Energy diagrams, sound comparisons and a school energy-saving proposal.'],
+      g3u3: ['Recognize Earth materials and living things’ needs; compare and record observations.', 'Soil and rock samples, water containers and water-cycle images.', 'Soil comparisons, Earth-material records and an environmental design.'],
+      g3u4: ['Recognize living things’ needs and describe observable structures and changes.', 'Organism images, plant examples and life-cycle sequences.', 'Classification records, structure/function explanations and life-cycle models.'],
+      g4u1: ['Describe pushes, pulls and changes in motion; revisit simple-machine names as needed.', 'Carts, ramps, light loads, a lever and slow mechanism models.', 'Force/motion records, machine comparisons and a mechanism design.'],
+      g4u2: ['Recognize the Sun, Earth and Moon; describe daylight, shadows and dated observations.', 'A globe, light and ball models; sky images and weather records.', 'Sky-motion models, phase/eclipse explanations and weather observations.'],
+      g4u3: ['Connect organisms’ needs and structures to their habitats.', 'Organism cards, food-chain paper and a local habitat or photo set.', 'Diet classifications, food chains and an evidence-based habitat explanation.'],
+      g4u4: ['Connect living things, resources and material properties; justify choices with evidence.', 'One local issue, clean material examples and reused craft supplies.', 'Systems and life-cycle diagrams, a baseline tally and one environmental proposal.'],
+      g5u1: ['Recall material properties, states, mass/volume and physical changes.', 'Material samples, comparison equipment and an approved reaction demonstration.', 'Property comparisons, change evidence and a justified material-selection design.'],
+      g5u2: ['Trace simple energy transformations and read fair-test measurements.', 'Insulation samples, thermometers, low-voltage circuits and light models.', 'Energy diagrams, test records and one improved energy-system design.'],
+      g5u3: ['Recall plant needs, structure/function and producer/consumer relationships.', 'Seedlings or dated photos, growing supplies and transport/food-path evidence.', 'Plant-process explanations, growth records and a growing-system proposal.'],
+      g5u4: ['Recall growth and life cycles; use respectful scientific language.', 'Life-cycle sequences, reproduction diagrams and an anonymous question method.', 'Life-cycle and reproduction comparisons, development explanations and a timeline.'],
+      g6u1: ['Describe forces with arrows, plan fair comparisons and recall mass/weight.', 'Magnets, approved electromagnet equipment, light loads and pressure models.', 'Force diagrams, comparison records, tide explanations and a tested design.'],
+      g6u2: ['Recognize machine components and trace turning/sliding input–output sequences.', 'Slow mechanism models, reused building parts and optional robotics examples.', 'Machine analyses, motion predictions and a tested mechanism or detailed design.'],
+      g6u3: ['Recall sky bodies and day/night; distinguish rotation from revolution.', 'Globe/light models, sky data and Québec weather/climate examples.', 'Space comparisons, seasons explanations and weather/climate interpretations.'],
+      g6u4: ['Describe Earth materials, water movement and resource-use effects.', 'Rock samples or photos, maps, a sediment tray and recorded hazard cases.', 'Classification and model records, hazard comparisons and a sustainability proposal.']
+    };
+    function renderPreparation(unit) {
+      const draft = preparationDrafts[unit.key];
+      ['know', 'gather', 'produce'].forEach(function (field, index) {
+        document.querySelector('#prepare-' + field + '-preview').textContent = preparationOverviews[unit.key][index];
+        document.querySelector('#prepare-' + field).closest('details').open = false;
+        document.querySelector('#prepare-' + field).innerHTML = draft[field].map(function (item) {
+          return '<li>' + escapeHtml(item) + '</li>';
+        }).join('');
+      });
+      document.querySelector('#prepare-safety').textContent = draft.safety;
+      document.querySelector('.preparation-draft-note').open = false;
+      const checklist = [
+        'Preview the ' + unit.readerChapters + ' reader chapters. Use their goals, vocabulary and questions to select short shared-reading segments.',
+        'Review the ' + unit.lessons.length + ' lesson focuses and the copied PowerPoint slides. Complete the lesson placeholders and check scientific explanations against the reader before teaching.',
+        'Choose one feasible core investigation per lesson from the draft plan. Check the materials above, test the setup and arrange any observations needed between weekly classes.',
+        'Prepare blank notebook spaces or draft recording pages for the proposed student products. Decide what evidence will show that each lesson goal has been met.',
+        draft.safety
+      ];
+      document.querySelector('#prepare-checklist-items').innerHTML = checklist.map(function (item) { return '<li>' + escapeHtml(item) + '</li>'; }).join('');
+      document.querySelector('#preparation-checklist').open = false;
+    }
+
+    function renderLessons(unit) {
+      document.querySelector('#lesson-list').innerHTML = unit.lessons.map(function (lesson, index) {
+        const number = index + 1;
+        const next = index < unit.lessons.length - 1 ? '<a class="text-link" href="#lesson-' + (number + 1) + '">Continue to Lesson ' + (number + 1) + '</a>' : '<a class="text-link" href="#assessment">Continue to final assessment</a>';
+        return '<details class="lesson" id="lesson-' + number + '"' + (number === 1 ? ' open' : '') + '>' +
+          '<summary><span class="lesson-number">' + number + '</span><span><span class="lesson-title">' + escapeHtml(lesson.title) + '</span><span class="lesson-subtitle">Suggested time: 55–60 minutes</span></span><span class="chevron" aria-hidden="true"></span></summary>' +
+          '<div class="lesson-body"><div class="learning-destination"><strong>POL focus and learning destination</strong><span>' + escapeHtml(lesson.focus) + '</span></div>' +
+          '<ul class="sequence">' +
+          '<li><span class="sequence-label">Launch</span><span class="placeholder">[Add the opening phenomenon, object, demonstration or question.]</span></li>' +
+          '<li class="learn-phase"><h3 class="learn-label">LEARN</h3><div class="learn-content"><p class="flexible-note"><strong>Choose at least three in any order</strong></p><ul class="learn-activities">' +
+          '<li class="flexible-activity"><span class="sequence-label">Read</span><span>' + lessonReaderLinks(unit, number) + '. Use the learning goal, vocabulary and conceptual questions to support the lesson.</span></li>' +
+          '<li class="flexible-activity"><span class="sequence-label">Explain</span><span><a class="text-link" href="' + deckHref(unit) + '">Open teaching slides</a><br>Use the slides for Lesson ' + number + ': ' + escapeHtml(lesson.title) + ' in the unit PowerPoint.</span></li>' +
+          '<li class="flexible-activity"><span class="sequence-label">Investigate</span><span class="placeholder">[Add the core investigation, model, data task or design application and student recording page.]</span></li>' +
+          '<li class="flexible-activity"><span class="sequence-label">Make sense</span><span class="placeholder">[Add the shared explanation, diagram or model that connects evidence to the POL focus.]</span></li>' +
+          '</ul></div></li>' +
+          '<li><span class="sequence-label">Land</span><span class="placeholder">[Add a brief independent question and teacher answer guidance.]</span></li>' +
+          '</ul><div class="lesson-actions">' + next + '</div>' +
+          '<details class="lesson-options"><summary>Optional supports and extensions</summary><p class="placeholder">[Add purpose-labelled reading support, alternate activity, simulation or enrichment.]</p></details></div></details>';
+      }).join('');
+
+      document.querySelector('#lesson-nav').innerHTML = unit.lessons.map(function (lesson, index) {
+        return '<li><a href="#lesson-' + (index + 1) + '"><span class="lesson-nav-number">' + (index + 1) + '</span><span>' + escapeHtml(lesson.title) + '</span></a></li>';
+      }).join('');
+    }
+
+    function bindExpandableLinks() {
+      document.querySelectorAll('a[href^="#lesson-"]').forEach(function (link) {
+        link.addEventListener('click', function () {
+          const target = document.querySelector(link.getAttribute('href'));
+          if (target && target.tagName === 'DETAILS') target.open = true;
+        });
+      });
+      document.querySelectorAll('a[href="#assessment"], a[href="#alignment"], a[href="#planning-tools"], a[href="#preparation-checklist"]').forEach(function (link) {
+        link.addEventListener('click', function () {
+          const target = document.querySelector(link.getAttribute('href'));
+          if (target && target.tagName === 'DETAILS') target.open = true;
+        });
+      });
+    }
+
+    function selectUnit(key, updateHash) {
+      const selected = units.find(function (unit) { return unit.key === key; }) || units[0];
+      currentUnit = selected;
+      renderGradeTabs(selected.grade);
+      renderUnitChoices(selected);
+      document.querySelectorAll('[data-grade-link]').forEach(function (link) {
+        if (Number(link.dataset.gradeLink) === selected.grade) link.setAttribute('aria-current', 'page');
+        else link.removeAttribute('aria-current');
+      });
+      document.querySelector('#breadcrumb-grade').textContent = 'Grade ' + selected.grade;
+      document.querySelector('#breadcrumb-grade').href = '#g' + selected.grade + 'u1';
+      document.querySelector('#breadcrumb-unit').textContent = 'Unit ' + selected.unit;
+      document.querySelector('#unit-title').textContent = selected.title;
+      document.querySelector('#anchor-question').textContent = selected.anchor;
+      document.querySelector('#unit-purpose').textContent = selected.overview;
+      document.querySelector('#unit-meta').innerHTML = [
+        selected.lessons.length + ' lessons',
+        'Approximately ' + selected.classes + ' hours',
+        selected.readerChapters + ' reader chapters',
+        '1 culminating task'
+      ].map(function (text) { return '<span class="meta-item"><span class="meta-dot" aria-hidden="true"></span>' + escapeHtml(text) + '</span>'; }).join('');
+      document.querySelector('#slides-download').href = deckHref(selected);
+      document.querySelector('#toolkit-slides').href = deckHref(selected);
+      document.querySelector('#toolkit-reader').href = readerHref(selected);
+      document.querySelector('#coverage-list').innerHTML = selected.pol.map(function (statement) { return '<li>' + escapeHtml(statement) + '</li>'; }).join('');
+      document.querySelector('#footer-unit').textContent = 'Grade ' + selected.grade + ' Unit ' + selected.unit + ' · ' + selected.title + ' · curriculum map prototype';
+      renderRoadmap(selected);
+      renderPreparation(selected);
+      renderLessons(selected);
+      bindExpandableLinks();
+      document.title = 'Grade ' + selected.grade + ' Unit ' + selected.unit + ' — ' + selected.title;
+      if (updateHash) history.replaceState(null, '', '#' + selected.key);
+    }
+
+    const initialKey = location.hash.replace('#', '');
+    selectUnit(units.some(function (unit) { return unit.key === initialKey; }) ? initialKey : 'g3u1', false);
+    window.addEventListener('hashchange', function () {
+      const key = location.hash.replace('#', '');
+      if (units.some(function (unit) { return unit.key === key; })) selectUnit(key, false);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1053 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A six-chapter science reader for Grade 3 Unit 1: Matter, Materials and Making.">
+  <title>Grade 3 Science Reader — Matter, Materials and Making</title>
+  <style>
+    :root {
+      --sp-blue: #0f6cbd;
+      --sp-blue-dark: #0b4f8a;
+      --sp-blue-soft: #e8f3fb;
+      --ink: #242424;
+      --muted: #616161;
+      --line: #d1d1d1;
+      --line-soft: #e8e8e8;
+      --canvas: #f5f5f5;
+      --white: #ffffff;
+      --success: #107c10;
+      --warning: #8a4b08;
+      --warning-soft: #fff4ce;
+      --focus: #605e5c;
+      --radius: 4px;
+      --content: 1120px;
+      --reading: 720px;
+      --reader-size: 1.125rem;
+      --secondary: #006b68;
+      --secondary-soft: #e6f4f2;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--canvas);
+      font-family: "Segoe UI", SegoeUI, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    button, select { font: inherit; }
+    button, select, summary { cursor: pointer; }
+    a { color: var(--sp-blue); }
+    a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+    .skip-link {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 100;
+      padding: 8px 12px;
+      color: var(--white);
+      background: var(--sp-blue-dark);
+      transform: translateY(-160%);
+    }
+    .skip-link:focus { transform: none; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 5px 16px rgba(0, 0, 0, 0.08);
+    }
+    .header-inner, .page-shell, .footer-inner {
+      width: min(calc(100% - 40px), var(--content));
+      margin-inline: auto;
+    }
+    .header-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: max-content;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      color: var(--white);
+      background: var(--sp-blue);
+      font-weight: 700;
+    }
+    .brand-copy { line-height: 1.15; }
+    .brand-copy strong { display: block; font-size: 18px; }
+    .brand-copy span { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; }
+    .chapter-picker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .chapter-picker label { font-size: 14px; font-weight: 600; }
+    .chapter-picker select {
+      width: min(390px, 46vw);
+      padding: 9px 34px 9px 11px;
+      color: var(--ink);
+      background: var(--white);
+      border: 1px solid #8a8886;
+      border-radius: var(--radius);
+    }
+
+    .page-shell { padding: 24px 0 72px; }
+    .breadcrumb { margin: 0 0 16px; color: var(--muted); font-size: 14px; }
+    .breadcrumb a { text-decoration: none; }
+    .breadcrumb span { padding: 0 8px; }
+    .unit-band {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 24px;
+      padding: 26px 30px;
+      background: var(--white);
+      border-top: 5px solid var(--sp-blue);
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      margin-bottom: 8px;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      font-weight: 650;
+    }
+    .unit-question { max-width: 70ch; margin: 0; color: #3b3a39; font-size: 18px; }
+    .unit-meta { color: var(--muted); font-size: 14px; text-align: right; }
+    .progress-track { height: 5px; background: #dbeaf5; }
+    .progress-fill { width: 16.666%; height: 100%; background: var(--sp-blue); }
+
+    .reader-layout {
+      display: grid;
+      grid-template-columns: minmax(0, var(--reading)) 300px;
+      justify-content: center;
+      align-items: start;
+      gap: 28px;
+      margin-top: 28px;
+    }
+    .chapter-page {
+      min-width: 0;
+      padding: clamp(26px, 5vw, 52px);
+      background: var(--white);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+    .chapter-position { margin-bottom: 10px; color: var(--sp-blue-dark); font-size: 14px; font-weight: 700; }
+    .chapter-title {
+      margin-bottom: 18px;
+      font-size: clamp(30px, 5vw, 46px);
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      font-weight: 650;
+    }
+    .learning-goal {
+      margin: 0 0 32px;
+      padding: 18px 20px;
+      background: var(--sp-blue-soft);
+    }
+    .learning-goal strong { display: block; margin-bottom: 4px; color: var(--sp-blue-dark); }
+    .learning-goal p { margin: 0; font-size: 17px; }
+    .chapter-intro { font-size: 20px; line-height: 1.5; font-weight: 600; }
+    .reading-text { font-size: var(--reader-size); line-height: 1.72; }
+    .reading-text h2 {
+      margin: 42px 0 12px;
+      font-size: 25px;
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+      font-weight: 650;
+    }
+    .reading-text p { margin-bottom: 20px; }
+    .reader-sentence {
+      border-radius: 3px;
+      transition: background-color 130ms ease-out, color 130ms ease-out;
+    }
+    .reader-sentence:hover { background: #f0f6fa; }
+    .reader-sentence.is-active {
+      color: #1c1c1c;
+      background: #fff1a8;
+      box-shadow: 0 2px 0 #d6a400;
+    }
+    .reading-text.spotlight .reader-sentence:not(.is-active) { color: #767676; }
+    .reading-text.spotlight .reader-sentence.is-active { color: #1c1c1c; }
+
+    .science-figure {
+      margin: 30px 0 34px;
+      padding: 22px;
+      background: #fafafa;
+      border: 1px solid var(--line);
+    }
+    .science-figure svg { display: block; width: 100%; height: auto; max-height: 310px; }
+    .science-figure img { display: block; width: 100%; height: auto; }
+    .science-figure { padding: 0; background: transparent; border: 0; }
+    .vocab-word { color: var(--secondary); font-weight: 750; }
+    .reading-bar { position: sticky; top: 78px; z-index: 10; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 12px 0; margin-bottom: 22px; background: var(--white); border-bottom: 1px solid var(--line-soft); }
+    .reading-help { width: 100%; margin: 0; color: var(--muted); font-size: 13px; }
+    .reading-count { color: var(--muted); font-size: 13px; }
+    .concept-question { padding: 24px 0; border-top: 1px solid var(--line-soft); }
+    .concept-question h3 { margin: 0 0 10px; font-size: 21px; line-height: 1.35; }
+    .question-kind { color: var(--secondary); font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .concept-question label { display: block; margin-bottom: 7px; color: var(--muted); font-size: 14px; }
+    .concept-question textarea { width: 100%; min-height: 100px; resize: vertical; padding: 12px; border: 1px solid #8a8886; border-radius: 4px; font: inherit; line-height: 1.5; background: #fcfcfc; }
+    textarea:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    .reasoning { margin-top: 14px; }
+    .reasoning summary { color: var(--sp-blue-dark); font-weight: 600; }
+    .reasoning p { margin: 12px 0 0; padding: 16px; background: var(--sp-blue-soft); }
+    .flashcard-panel { grid-column: 1 / -1; width: min(100%, var(--reading)); background: var(--white); }
+    .flashcard-panel > summary { padding: 18px 22px; color: var(--secondary); font-size: 18px; font-weight: 650; }
+    .flashcard-body { padding: 0 22px 24px; }
+    .flashcard-controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+    .flashcard-controls select { max-width: 100%; padding: 8px; background: white; border: 1px solid #8a8886; border-radius: 4px; }
+    .flashcard { width: 100%; min-height: 230px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; padding: 30px; background: var(--secondary-soft); border: 1px solid #9ecac7; border-radius: 4px; color: var(--secondary); text-align: center; }
+    .flashcard-face { font-size: 28px; font-weight: 700; line-height: 1.3; }
+    .flashcard-hint { color: #365c59; font-size: 14px; font-weight: 400; }
+    .flashcard-nav { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; margin-top: 16px; }
+    .flashcard-status { color: var(--muted); font-size: 14px; }
+    @media (max-width: 900px) { .reading-bar { top: 132px; } }
+    @media (max-width: 600px) { .reading-bar { top: 126px; } .reading-bar .tool-button { width: auto; } .flashcard { padding: 22px; } }
+    @media print { .reading-bar, .flashcard-panel { display: none !important; } }
+    .science-figure figcaption { margin-top: 14px; color: #4a4a4a; font-size: 14px; }
+    .science-figure strong { color: var(--ink); }
+    .think-prompt {
+      margin: 30px 0;
+      padding: 18px 20px;
+      color: #4f3204;
+      background: var(--warning-soft);
+    }
+    .think-prompt strong { display: block; margin-bottom: 4px; color: var(--warning); }
+    .chapter-summary {
+      margin: 40px 0 0;
+      padding-top: 24px;
+      border-top: 2px solid var(--sp-blue);
+    }
+    .chapter-summary h2 { margin: 0 0 10px; font-size: 23px; }
+    .chapter-summary ul { margin: 0; padding-left: 22px; }
+    .chapter-summary li + li { margin-top: 8px; }
+
+    :root { --reader-header-height: 76px; }
+    .reader-main { min-width: 0; display: grid; gap: 28px; }
+    .reader-main > * { min-width: 0; width: 100%; }
+    .side-rail {
+      position: sticky; top: calc(var(--reader-header-height) + 16px);
+      max-height: calc(100dvh - var(--reader-header-height) - 80px);
+      overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable;
+      display: grid; gap: 18px; align-self: start; min-width: 0;
+    }
+    .side-rail .tools-panel { margin: 0; grid-column: auto; }
+    .side-rail .tools-panel > summary { gap: 8px; }
+    .side-rail .tool-status { display: block; font-size: 12px; font-weight: 400; }
+    .side-rail .reading-bar { position: static; padding: 0 20px 16px; margin: 0; }
+    .side-rail .reading-help { font-size: 12px; }
+    .side-rail .tools-row { padding: 16px 20px; }
+    .side-rail .tool-button { font-size: 13px; }
+    .flashcard { perspective: 900px; }
+    .flashcard.is-turning { animation: card-turn 360ms cubic-bezier(.16, 1, .3, 1); }
+    @keyframes card-turn {
+      0% { transform: perspective(900px) rotateY(0) scale(1); }
+      49% { transform: perspective(900px) rotateY(85deg) scale(.97); }
+      50% { transform: perspective(900px) rotateY(-85deg) scale(.97); }
+      100% { transform: perspective(900px) rotateY(0) scale(1); }
+    }
+    @media (prefers-reduced-motion: reduce) { .flashcard.is-turning { animation: none; } }
+    .side-section { padding: 20px; background: var(--white); border-top: 3px solid var(--sp-blue); }
+    .side-section h2 { margin-bottom: 12px; font-size: 19px; }
+    .side-section p { color: #4a4a4a; font-size: 14px; }
+    .keyword-list { display: grid; gap: 10px; margin: 0; }
+    .keyword-list div { padding-top: 10px; border-top: 1px solid var(--line-soft); }
+    .keyword-list div:first-child { padding-top: 0; border-top: 0; }
+    .keyword-list dt { color: var(--secondary); font-weight: 700; }
+    .keyword-list dd { margin: 2px 0 0; color: #4a4a4a; font-size: 14px; }
+    .lesson-link { display: inline-flex; margin-top: 6px; font-size: 14px; font-weight: 600; }
+
+    .tools-panel { grid-column: 1 / -1; margin-top: 2px; background: var(--white); }
+    .tools-panel > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 20px;
+      font-weight: 650;
+      list-style: none;
+    }
+    .tools-panel > summary::-webkit-details-marker { display: none; }
+    .tools-panel > summary::after { content: "+"; color: var(--sp-blue); font-size: 22px; }
+    .tools-panel[open] > summary::after { content: "−"; }
+    .tools-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      padding: 0 20px 20px;
+      border-top: 1px solid var(--line-soft);
+    }
+    .tools-row:first-of-type { padding-top: 18px; }
+    .tool-button {
+      min-height: 40px;
+      padding: 8px 12px;
+      color: var(--ink);
+      background: var(--white);
+      border: 1px solid #8a8886;
+      border-radius: var(--radius);
+      font-weight: 600;
+    }
+    .tool-button:hover { background: #f3f2f1; }
+    .tool-button.primary { color: var(--white); background: var(--sp-blue); border-color: var(--sp-blue); }
+    .tool-button.primary:hover { background: var(--sp-blue-dark); }
+    .tool-button[aria-pressed="true"] { color: var(--white); background: var(--sp-blue-dark); border-color: var(--sp-blue-dark); }
+    .tool-status { color: var(--muted); font-size: 14px; }
+
+    .knowledge-check, .glossary-panel {
+      grid-column: 1 / -1;
+      width: min(100%, var(--reading));
+      justify-self: start;
+      background: var(--white);
+    }
+    .knowledge-check > summary, .glossary-panel > summary {
+      padding: 18px 22px;
+      color: var(--sp-blue-dark);
+      font-size: 18px;
+      font-weight: 650;
+    }
+    .check-body, .glossary-body { padding: 0 22px 24px; }
+    .question { margin: 0; padding: 18px 0; border: 0; border-top: 1px solid var(--line-soft); }
+    .question legend { padding: 0; font-weight: 650; }
+    .option { display: flex; align-items: flex-start; gap: 10px; margin-top: 11px; }
+    .option input { margin-top: 6px; }
+    .feedback { min-height: 24px; margin: 14px 0 0; font-weight: 600; }
+    .feedback.correct { color: var(--success); }
+    .feedback.try-again { color: #a4262c; }
+    .glossary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 24px; }
+    .glossary-entry { padding: 14px 0; border-top: 1px solid var(--line-soft); }
+    .glossary-entry strong { display: block; color: var(--sp-blue-dark); }
+    .glossary-entry span { color: #4a4a4a; font-size: 14px; }
+
+    .chapter-nav {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 4px;
+    }
+    .chapter-nav button {
+      min-height: 44px;
+      padding: 9px 16px;
+      color: var(--sp-blue-dark);
+      background: var(--white);
+      border: 1px solid var(--sp-blue);
+      border-radius: var(--radius);
+      font-weight: 650;
+    }
+    .chapter-nav button:hover { background: var(--sp-blue-soft); }
+    .chapter-nav button:disabled { color: #8a8886; background: #ededed; border-color: #d1d1d1; cursor: not-allowed; }
+
+    .site-footer { padding: 34px 0; color: #4a4a4a; background: #ededed; border-top: 1px solid var(--line); }
+    .footer-inner { font-size: 13px; }
+    .footer-inner p { max-width: 90ch; margin-bottom: 10px; }
+
+    @media (max-width: 900px) {
+      .header-inner { align-items: flex-start; flex-direction: column; padding: 14px 0; }
+      .chapter-picker { width: 100%; }
+      .chapter-picker select { flex: 1; width: auto; }
+      .unit-band { grid-template-columns: 1fr; }
+      .unit-meta { text-align: left; }
+      .reader-layout { grid-template-columns: 1fr; }
+      .side-rail { position: static; grid-template-columns: 1fr; max-height: none; overflow: visible; }
+      .tools-panel, .knowledge-check, .glossary-panel, .chapter-nav { grid-column: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .header-inner, .page-shell, .footer-inner { width: min(calc(100% - 24px), var(--content)); }
+      .brand-copy span, .chapter-picker label { display: none; }
+      .chapter-picker select { width: 100%; }
+      .page-shell { padding-top: 16px; }
+      .unit-band { padding: 22px 20px; }
+      .chapter-page { padding: 26px 20px 34px; }
+      .side-rail { grid-template-columns: 1fr; }
+      .glossary-grid { grid-template-columns: 1fr; }
+      .chapter-nav { flex-direction: column; }
+      .chapter-nav button { width: 100%; }
+      .tools-row { align-items: stretch; flex-direction: column; }
+      .tool-button { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; }
+    }
+
+    @media print {
+      .site-header, .breadcrumb, .tools-panel, .knowledge-check, .glossary-panel, .chapter-nav, .side-rail { display: none !important; }
+      body { background: var(--white); }
+      .page-shell { width: 100%; padding: 0; }
+      .unit-band { border-top-width: 3px; }
+      .reader-layout { display: block; margin-top: 16px; }
+      .chapter-page { box-shadow: none; padding: 0; }
+      .science-figure { break-inside: avoid; }
+      .reader-sentence.is-active { background: transparent; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <!--
+  THESIS: One calm chapter at a time; the reader refuses the crowded control wall that competes with science text.
+  OWN-WORLD: The curriculum map's SharePoint blue, white teaching surfaces, square details, and restrained Segoe UI hierarchy.
+  STORY: A Grade 3 reader sees the learning goal, reads a short Québec-centred chapter, checks understanding, and moves on.
+  FIRST VIEWPORT: A familiar curriculum header, unit title, chapter goal, and the opening paragraph; optional tools remain collapsed.
+  FORM: Focused digital textbook, extending the established curriculum-map world; seed key not required for an inherited surface.
+  FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+  -->
+  <a class="skip-link" href="#chapter-article">Skip to the chapter</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../mockups/SciTech_Curriculum_Map_Grades_3_to_6.html#g3u1" aria-label="Return to the Grade 3 Unit 1 curriculum map">
+        <span class="brand-mark" aria-hidden="true">ST</span>
+        <span class="brand-copy"><strong>Elementary SciTech Reader</strong><span>Grade 3 · Unit 1</span></span>
+      </a>
+      <div class="chapter-picker">
+        <label for="chapter-select">Choose a chapter</label>
+        <select id="chapter-select" aria-label="Choose a chapter"></select>
+      </div>
+    </div>
+    <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progress-fill"></div></div>
+  </header>
+
+  <main class="page-shell">
+    <p class="breadcrumb"><a href="../mockups/SciTech_Curriculum_Map_Grades_3_to_6.html#g3u1">Grade 3 Unit 1</a><span>›</span>Science reader</p>
+
+    <section class="unit-band" aria-labelledby="unit-title">
+      <div>
+        <h1 id="unit-title">Matter, Materials and Making</h1>
+        <p class="unit-question">How can the properties of matter help us identify, compare and make things?</p>
+      </div>
+      <div class="unit-meta"><strong>6 short chapters</strong><br>About 7–10 minutes each</div>
+    </section>
+
+    <div class="reader-layout">
+      <article class="chapter-page" id="chapter-article" aria-labelledby="chapter-title">
+        <p class="chapter-position" id="chapter-position"></p>
+        <h2 class="chapter-title" id="chapter-title"></h2>
+        <section class="learning-goal" aria-labelledby="goal-label">
+          <strong id="goal-label">Learning goal</strong>
+          <p id="learning-goal"></p>
+        </section>
+        <div class="reading-bar" aria-label="Classroom sentence highlighting">
+          <button class="tool-button primary" id="read-together" type="button" aria-pressed="false">Read together</button>
+          <button class="tool-button" id="class-previous" type="button" aria-label="Highlight the previous sentence">Previous</button>
+          <button class="tool-button" id="class-next" type="button" aria-label="Highlight the next sentence">Next</button>
+          <button class="tool-button" id="download-chapter" type="button">Download Word</button>
+          <span class="reading-count" id="reading-count" aria-live="polite">Choose a sentence to begin</span>
+          <p class="reading-help">Space / Right / Down: next sentence · Left / Up: previous · Escape: finish. You can also click a sentence.</p>
+        </div>
+        <div class="reading-text" id="reading-text"></div>
+      </article>
+
+      <aside class="side-rail" aria-label="Chapter support">
+        <section class="side-section">
+          <h2>Words to know</h2>
+          <dl class="keyword-list" id="keyword-list"></dl>
+        </section>
+        <section class="side-section">
+          <h2>Lesson connection</h2>
+          <p id="lesson-connection"></p>
+          <a class="lesson-link" href="../mockups/SciTech_Curriculum_Map_Grades_3_to_6.html#g3u1">Open the unit map</a>
+        </section>
+      </aside>
+
+      <details class="tools-panel">
+        <summary>Reading tools <span class="tool-status" id="tool-status">Optional supports</span></summary>
+        <div class="tools-row">
+          <button class="tool-button primary" id="read-aloud" type="button">Read chapter aloud</button>
+          <button class="tool-button" id="read-sentence" type="button">Read highlighted sentence</button>
+          <label for="speech-speed">Speed</label>
+          <select id="speech-speed">
+            <option value="0.8">Slow</option>
+            <option value="0.92" selected>Comfortable</option>
+            <option value="1">Standard</option>
+          </select>
+        </div>
+        <div class="tools-row">
+          <button class="tool-button" id="previous-sentence" type="button">Previous sentence</button>
+          <button class="tool-button" id="next-sentence" type="button">Next sentence</button>
+          <button class="tool-button" id="spotlight" type="button" aria-pressed="false">Sentence spotlight</button>
+          <button class="tool-button" id="clear-highlight" type="button">Clear highlight</button>
+        </div>
+        <div class="tools-row">
+          <button class="tool-button" id="smaller-text" type="button" aria-label="Make reading text smaller">Smaller text</button>
+          <button class="tool-button" id="larger-text" type="button" aria-label="Make reading text larger">Larger text</button>
+          <button class="tool-button" id="print-chapter" type="button">Print chapter</button>
+        </div>
+      </details>
+
+      <details class="knowledge-check" id="knowledge-check">
+        <summary>Check my understanding</summary>
+        <div class="check-body" id="check-body"></div>
+      </details>
+
+      <details class="flashcard-panel" id="flashcard-panel">
+        <summary>Practise words with flashcards</summary>
+        <div class="flashcard-body">
+          <p>Say the meaning before you turn the card. Try an example from the chapter, too.</p>
+          <div class="flashcard-controls"><label for="flashcard-mode">Practise</label><select id="flashcard-mode"><option value="word">Word → meaning</option><option value="meaning">Meaning → word</option></select><button class="tool-button" id="shuffle-cards" type="button">Shuffle cards</button></div>
+          <button class="flashcard" id="flashcard" type="button" aria-label="Turn the flashcard"><span class="flashcard-face" id="flashcard-face"></span><span class="flashcard-hint" id="flashcard-hint">Click or press Enter to turn the card</span></button>
+          <div class="flashcard-nav"><button class="tool-button" id="previous-card" type="button">Previous card</button><span class="flashcard-status" id="flashcard-status" aria-live="polite"></span><button class="tool-button" id="next-card" type="button">Next card</button></div>
+        </div>
+      </details>
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <button id="previous-chapter" type="button">Previous chapter</button>
+        <button id="next-chapter" type="button">Next chapter</button>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p><strong>About this reader:</strong> Written for the Sir Wilfrid Laurier School Board elementary SciTech curriculum. Canadian spelling, metric units and familiar Québec settings are used throughout.</p>
+      <p>This reader is an original adaptation informed by <em>Properties of Matter</em> and <em>Investigating Matter</em> from the Core Knowledge Foundation. Source works are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>. This adaptation is shared under the same licence and does not imply endorsement by the Core Knowledge Foundation.</p>
+    </div>
+  </footer>
+
+  <script>
+    const iconStroke = 'stroke="#0f6cbd" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"';
+
+    const chapters = [
+      {
+        title: "Matter Is Everywhere",
+        lesson: "Lesson 1 · Matter and states",
+        goal: "I can explain that matter has mass and takes up space, and I can identify solids, liquids and gases.",
+        intro: "Your mitten, the snow on the playground and the air inside a bicycle tire are all made of matter.",
+        keywords: {
+          matter: "anything that has mass and takes up space",
+          mass: "the amount of matter in an object or substance",
+          state: "a form that matter can take",
+          solid: "matter with its own shape",
+          liquid: "matter that flows and takes the shape of its container",
+          gas: "matter that spreads out to fill its container"
+        },
+        sections: [
+          { heading: "How do we know matter is there?", paragraphs: [
+            ["Matter is the stuff that makes up everything around us.", "A desk is matter.", "Water is matter.", "Even air is matter, although we cannot usually see it."],
+            ["Scientists use two clues to decide whether something is matter.", "Matter has mass, and matter takes up space.", "Blow air into a balloon and the balloon grows.", "The invisible air needs room, so it pushes against the balloon."],
+            ["Light and sound are not matter.", "They carry energy, but they do not have mass or take up space in the same way objects and substances do."]
+          ]},
+          { heading: "Three familiar states", paragraphs: [
+            ["A solid keeps its own shape.", "An ice cube stays cube-shaped when you place it on a plate."],
+            ["A liquid flows and takes the shape of its container.", "Maple sap can be poured from a pail into a pan."],
+            ["A gas spreads out in every direction.", "Air fills a classroom, a bicycle tire or a balloon."],
+            ["The same substance can sometimes be found in different states.", "On a cold Québec morning, water may be solid ice on a pond, liquid under the ice and invisible water vapour in the air."]
+          ]}
+        ],
+        think: "Look around your room. Name one solid, one liquid and one gas. What evidence shows that each one is matter?",
+        summary: ["Matter has mass and takes up space.", "Solids keep their shape; liquids flow; gases spread out.", "Water can be a solid, liquid or gas."],
+        visual: `<svg viewBox="0 0 640 250" role="img" aria-labelledby="v1-title v1-desc"><title id="v1-title">Three states of water</title><desc id="v1-desc">Ice keeps its shape, liquid water takes the shape of a glass, and water vapour spreads through the air.</desc><rect x="20" y="20" width="180" height="180" fill="#e8f3fb"/><rect x="60" y="70" width="100" height="100" fill="#9fd5f3" ${iconStroke}/><text x="110" y="225" text-anchor="middle" font-size="20" fill="#242424">solid</text><path d="M250 45h140l-18 150H268z" fill="none" ${iconStroke}/><path d="M270 135q50-18 100 0l-7 50h-86z" fill="#75c5ed"/><text x="320" y="225" text-anchor="middle" font-size="20" fill="#242424">liquid</text><circle cx="485" cy="115" r="21" fill="#cfeafa"/><circle cx="545" cy="75" r="14" fill="#cfeafa"/><circle cx="575" cy="145" r="26" fill="#cfeafa"/><path d="M450 180c15-28 25-45 22-75M530 190c-8-29-8-49 5-72M595 185c-20-25-26-46-16-68" fill="none" ${iconStroke}/><text x="535" y="225" text-anchor="middle" font-size="20" fill="#242424">gas</text></svg>`,
+        caption: "The particles are not shown here. This diagram compares the shapes and spaces taken by three states of water.",
+        quiz: [
+          ["Which statement describes all matter?", ["It is always visible.", "It has mass and takes up space.", "It is always solid."], 1, "Matter can be visible or invisible, but it has mass and takes up space."],
+          ["What happens when water is poured into a new cup?", ["It keeps its old shape.", "It disappears.", "It takes the shape of the new cup."], 2, "A liquid flows and takes the shape of its container."],
+          ["Why does a balloon grow when you blow into it?", ["Air takes up space.", "Air is not matter.", "The rubber turns into water."], 0, "Air is a gas. It takes up space inside the balloon."]
+        ]
+      },
+      {
+        title: "Property Detectives",
+        lesson: "Lesson 2 · Observable properties",
+        goal: "I can use shape, colour, texture and other observable properties to describe and compare materials.",
+        intro: "Scientists observe carefully. They use precise property words so another person can recognize the same material.",
+        keywords: {
+          property: "a characteristic used to describe or identify matter",
+          texture: "how a surface feels or appears to feel",
+          transparent: "allowing light to pass through clearly",
+          flexible: "able to bend without breaking",
+          absorbent: "able to soak up liquid"
+        },
+        sections: [
+          { heading: "Describe what you observe", paragraphs: [
+            ["A property is a characteristic of matter.", "Colour, shape and texture are properties you can observe."],
+            ["A classroom object might be smooth, rough, bumpy or fuzzy.", "It might be shiny or dull, flexible or stiff, transparent or opaque."],
+            ["Scientists choose safe ways to observe.", "They do not taste an unknown material.", "They may use a hand lens, a ruler or a simple test instead."]
+          ]},
+          { heading: "Properties help us choose materials", paragraphs: [
+            ["A material's properties can make it useful for one job and poor for another.", "A classroom window is made from transparent material because people need to see through it."],
+            ["Winter boots need a waterproof outer layer and a warm inner layer.", "A paper towel is useful because it is soft and absorbent."],
+            ["Engineers compare properties before choosing materials.", "They ask what the object must do, then look for matter with the right combination of properties."]
+          ]}
+        ],
+        think: "Compare a metal spoon and a wooden craft stick. Use at least four property words. Which would be better for stirring hot soup, and why?",
+        summary: ["Properties describe matter.", "Useful property words are specific and observable.", "Engineers match material properties to a purpose."],
+        visual: `<svg viewBox="0 0 640 260" role="img" aria-labelledby="v2-title v2-desc"><title id="v2-title">Comparing three materials</title><desc id="v2-desc">A metal spoon is smooth and shiny, a wool mitten is soft and flexible, and a paper towel is soft and absorbent.</desc><rect x="28" y="30" width="175" height="160" fill="#f4f4f4"/><ellipse cx="115" cy="78" rx="42" ry="25" fill="#d9e2e7" ${iconStroke}/><path d="M115 102v65" fill="none" ${iconStroke}/><text x="115" y="220" text-anchor="middle" font-size="18" fill="#242424">smooth · shiny</text><rect x="233" y="30" width="175" height="160" fill="#e8f3fb"/><path d="M275 155V77c0-15 20-15 20 0v32-47c0-15 20-15 20 0v47-55c0-15 20-15 20 0v55-40c0-15 20-15 20 0v57c0 28-18 46-40 46h-12c-15 0-28-7-28-17z" fill="#9fd5f3" ${iconStroke}/><text x="320" y="220" text-anchor="middle" font-size="18" fill="#242424">soft · flexible</text><rect x="438" y="30" width="175" height="160" fill="#fff" ${iconStroke}/><path d="M455 55h140M455 85h140M455 115h140M455 145h140" fill="none" stroke="#9fd5f3" stroke-width="4"/><path d="M525 165c-28-35 6-52 0-78 26 29 30 53 0 78z" fill="#75c5ed"/><text x="525" y="220" text-anchor="middle" font-size="18" fill="#242424">soft · absorbent</text></svg>`,
+        caption: "One material can have many properties. The best choice depends on the job it must do.",
+        quiz: [
+          ["Which word describes texture?", ["Rough", "Blue", "Round"], 0, "Rough describes how a surface feels."],
+          ["Why is transparent material useful for a window?", ["It absorbs water.", "It lets light pass through clearly.", "It bends easily."], 1, "Transparent materials let us see through them."],
+          ["What should an engineer do first when choosing a material?", ["Choose the prettiest colour.", "Ask what the object must do.", "Always choose metal."], 1, "The needed function tells the engineer which properties matter." ]
+        ]
+      },
+      {
+        title: "Measuring Matter",
+        lesson: "Lesson 3 · Mass, volume and weight",
+        goal: "I can distinguish mass from weight and choose metric tools for measuring mass and volume.",
+        intro: "Observation tells us what matter is like. Measurement gives us numbers that make comparisons clearer.",
+        keywords: {
+          mass: "the amount of matter in an object or substance",
+          weight: "the force of gravity pulling on an object's mass",
+          volume: "the amount of space matter takes up",
+          gram: "a metric unit used to measure mass",
+          millilitre: "a metric unit used to measure liquid volume"
+        },
+        sections: [
+          { heading: "Mass and weight are related, but different", paragraphs: [
+            ["Mass tells how much matter an object contains.", "In class, we measure small masses in grams and larger masses in kilograms."],
+            ["A balance compares mass.", "Many classroom scales display a mass in grams or kilograms."],
+            ["Weight is a force caused by gravity pulling on mass.", "Your mass would stay the same on the Moon, but your weight would be less because the Moon's gravity is weaker."],
+            ["In everyday speech, people often use mass and weight as if they mean the same thing.", "In science, keeping the meanings separate helps us explain measurements accurately."]
+          ]},
+          { heading: "Volume measures space", paragraphs: [
+            ["Volume tells how much space matter takes up.", "A graduated cylinder measures liquid volume in millilitres."],
+            ["A millilitre is the same amount of space as one cubic centimetre.", "That link helps when we compare solid objects and liquids."],
+            ["Two objects can have the same volume but different masses.", "A block of wood and an equal-sized block of metal take up the same space, but the metal usually contains more mass."]
+          ]}
+        ],
+        think: "Imagine two sealed boxes that are the same size. One has a mass of 200 g and one has a mass of 800 g. What is the same? What is different?",
+        summary: ["Mass is the amount of matter; weight is gravity's force on that matter.", "Grams and kilograms measure mass.", "Millilitres and cubic centimetres measure volume."],
+        visual: `<svg viewBox="0 0 640 270" role="img" aria-labelledby="v3-title v3-desc"><title id="v3-title">Tools for measuring mass and volume</title><desc id="v3-desc">A balance compares mass in grams, and a graduated cylinder measures liquid volume in millilitres.</desc><path d="M70 195h210M175 55v140M115 195h120M105 90h140" fill="none" ${iconStroke}/><path d="M105 90l-35 70h70zM245 90l-35 70h70z" fill="#e8f3fb" ${iconStroke}/><circle cx="105" cy="138" r="18" fill="#75c5ed"/><rect x="222" y="123" width="46" height="27" fill="#9fd5f3"/><text x="175" y="235" text-anchor="middle" font-size="18" fill="#242424">mass in grams</text><path d="M400 42h120v170c0 22-120 22-120 0z" fill="none" ${iconStroke}/><path d="M410 135h100v77c0 11-100 11-100 0z" fill="#75c5ed"/><path d="M400 75h28M400 105h28M400 135h28M400 165h28" fill="none" ${iconStroke}/><text x="460" y="250" text-anchor="middle" font-size="18" fill="#242424">volume in mL</text></svg>`,
+        caption: "Use the right tool and unit. A balance compares mass; a graduated cylinder measures liquid volume.",
+        quiz: [
+          ["What does mass describe?", ["The amount of matter", "The colour of matter", "The temperature of matter"], 0, "Mass is the amount of matter in an object or substance."],
+          ["Which tool is best for measuring 75 mL of water?", ["A thermometer", "A graduated cylinder", "A metre stick"], 1, "A graduated cylinder measures liquid volume in millilitres."],
+          ["What would change if you travelled to the Moon?", ["Your mass only", "Your weight only", "Neither mass nor weight"], 1, "Your mass stays the same, but weaker gravity means less weight." ]
+        ]
+      },
+      {
+        title: "Why Things Float or Sink",
+        lesson: "Lesson 4 · Density and buoyancy",
+        goal: "I can compare density and use relative density to explain why an object floats or sinks in water.",
+        intro: "A huge ship can float while a small metal bolt sinks. Size alone cannot explain what happens.",
+        keywords: {
+          density: "how much mass is packed into a certain volume",
+          buoyancy: "the upward force a fluid exerts on an object",
+          relative: "compared with something else",
+          float: "to remain at or near a fluid's surface",
+          sink: "to move downward through a fluid"
+        },
+        sections: [
+          { heading: "Density compares mass and volume", paragraphs: [
+            ["Density tells how tightly matter is packed.", "To compare density fairly, scientists can compare equal volumes."],
+            ["Imagine two cubes that are exactly the same size.", "If one cube has more mass, it is denser."],
+            ["Scientists can also compare equal masses.", "If the same mass is squeezed into a smaller volume, that sample is denser."]
+          ]},
+          { heading: "Floating is a comparison", paragraphs: [
+            ["Water pushes upward on objects placed in it.", "This upward force is called buoyancy."],
+            ["An object floats when its overall density is less than the density of the liquid around it.", "It sinks when its overall density is greater."],
+            ["A steel ship contains large spaces filled with air.", "Steel and air together give the whole ship a lower average density than a solid block of steel."],
+            ["Ships travel along the St. Lawrence River because their shape helps them displace enough water.", "Cargo must be loaded carefully so the ship stays balanced and buoyant."],
+            ["Ice is less dense than liquid water, so ice floats.", "That is why winter ice can form at the surface of a Québec lake while liquid water remains underneath."]
+          ]}
+        ],
+        think: "A ball of modelling clay sinks. How could you reshape the same clay so it might float? What would change: its mass, its volume or both?",
+        summary: ["Density compares mass with volume.", "Water exerts an upward buoyant force.", "Relative density helps explain floating and sinking."],
+        visual: `<svg viewBox="0 0 640 285" role="img" aria-labelledby="v4-title v4-desc"><title id="v4-title">Relative density in water</title><desc id="v4-desc">A less dense wood block floats partly above the water, while a denser metal cube rests at the bottom. Water pushes upward on both objects.</desc><rect x="35" y="92" width="570" height="150" fill="#cfeafa"/><path d="M35 92q45-12 90 0t90 0t90 0t90 0t90 0t90 0t30 0" fill="none" ${iconStroke}/><rect x="135" y="60" width="125" height="75" fill="#d6a96b" ${iconStroke}/><text x="197" y="46" text-anchor="middle" font-size="19" fill="#242424">less dense</text><rect x="420" y="170" width="80" height="65" fill="#8aa0ad" ${iconStroke}/><text x="460" y="268" text-anchor="middle" font-size="19" fill="#242424">more dense</text><path d="M197 188v-38M182 165l15-15 15 15M530 218v-48M515 185l15-15 15 15" fill="none" ${iconStroke}/><text x="320" y="218" text-anchor="middle" font-size="17" fill="#0b4f8a">water pushes upward on both objects</text></svg>`,
+        caption: "Floating depends on relative density and buoyancy—not simply on an object's size.",
+        quiz: [
+          ["Two cubes have the same volume. Which is denser?", ["The cube with more mass", "The cube with less mass", "They must have the same density"], 0, "For equal volumes, the sample with more mass is denser."],
+          ["Why can a steel ship float?", ["Steel has no mass.", "Its shape includes air spaces, lowering its overall density.", "River water has no density."], 1, "The ship's overall density includes both its materials and air-filled spaces."],
+          ["Why does ice float in liquid water?", ["Ice is less dense than liquid water.", "Ice has no volume.", "Ice is always warmer."], 0, "Solid ice has a lower density than liquid water." ]
+        ]
+      },
+      {
+        title: "Same Matter, New Form",
+        lesson: "Lesson 5 · Physical change",
+        goal: "I can identify a physical change and explain that the matter keeps its identity.",
+        intro: "Matter can be cut, bent, melted, frozen or dissolved. A new form does not always mean a new substance.",
+        keywords: {
+          physical_change: "a change in form, size or state that does not make a new substance",
+          melt: "to change from a solid to a liquid",
+          freeze: "to change from a liquid to a solid",
+          dissolve: "to mix evenly into a liquid",
+          reversible: "able to change back to an earlier form"
+        },
+        sections: [
+          { heading: "Physical changes affect form", paragraphs: [
+            ["Tearing paper changes its size and shape, but each piece is still paper.", "Bending a metal paper clip changes its shape, but it is still metal."],
+            ["Changes of state are physical changes too.", "When snow melts on a warm boot, solid water becomes liquid water."],
+            ["Freezing reverses that change.", "Water in a puddle may become solid ice when the temperature falls below 0 °C."],
+            ["Not every physical change is easy to reverse.", "A crushed can is still aluminum, but returning it to its exact old shape would be difficult."]
+          ]},
+          { heading: "Where did the salt go?", paragraphs: [
+            ["Road salt can dissolve in melted snow.", "The salt seems to disappear because its tiny particles spread evenly through the water."],
+            ["The salt has not stopped being matter.", "If the water evaporates, solid salt can remain behind."],
+            ["A clue to a physical change is that the substance keeps its identity.", "If a process creates a new substance with new properties, scientists call it a chemical change instead."]
+          ]}
+        ],
+        think: "Classify each change: melting an ice cube, cutting cardboard, rusting a bicycle chain. Which are physical changes?",
+        summary: ["A physical change affects form, size or state.", "The substance keeps its identity during a physical change.", "Some physical changes are reversible and some are not easy to reverse."],
+        visual: `<svg viewBox="0 0 640 250" role="img" aria-labelledby="v5-title v5-desc"><title id="v5-title">Water changing state</title><desc id="v5-desc">Solid ice melts to liquid water, and liquid water freezes back into solid ice.</desc><rect x="65" y="68" width="150" height="110" fill="#9fd5f3" ${iconStroke}/><path d="M260 100h115M350 78l25 22-25 22" fill="none" ${iconStroke}/><path d="M375 150H260M285 128l-25 22 25 22" fill="none" ${iconStroke}/><path d="M455 75c-45 66-60 86-60 113 0 36 27 52 60 52s60-16 60-52c0-27-15-47-60-113z" fill="#75c5ed" ${iconStroke}/><text x="140" y="215" text-anchor="middle" font-size="19" fill="#242424">solid water</text><text x="320" y="88" text-anchor="middle" font-size="17" fill="#0b4f8a">melting</text><text x="320" y="177" text-anchor="middle" font-size="17" fill="#0b4f8a">freezing</text><text x="455" y="215" text-anchor="middle" font-size="19" fill="#242424">liquid water</text></svg>`,
+        caption: "Melting and freezing change water's state, not its identity. It remains water.",
+        quiz: [
+          ["Which change is a physical change?", ["Ice melting", "Iron rusting", "Wood burning"], 0, "Melting changes water's state but does not create a new substance."],
+          ["What stays the same when paper is torn?", ["Its size", "Its shape", "Its identity as paper"], 2, "Tearing changes size and shape, but the material is still paper."],
+          ["How could you recover salt dissolved in water?", ["Let the water evaporate.", "Add more water forever.", "Turn off gravity."], 0, "When the water evaporates, the salt can remain as a solid." ]
+        ]
+      },
+      {
+        title: "From Materials to Useful Products",
+        lesson: "Lesson 6 · Materials and manufacturing",
+        goal: "I can describe how familiar materials are changed and combined to make paper and soap.",
+        intro: "The notebook on your desk and the soap by the sink both began as raw materials. Manufacturing turns materials into useful products.",
+        keywords: {
+          raw_material: "matter used to make a product",
+          manufacture: "to make a product using tools, machines and planned steps",
+          pulp: "a wet mixture of small plant fibres used to make paper",
+          fibre: "a long, thin strand of material",
+          recycle: "to process used material so it can be used again"
+        },
+        sections: [
+          { heading: "How paper is made", paragraphs: [
+            ["Much of the paper used in Québec begins with wood fibre or recycled paper.", "Trees used for fibre are cut into logs and taken to a mill."],
+            ["At the mill, bark is removed and the wood is cut into small chips.", "The chips are softened and separated into fibres to make wet pulp."],
+            ["The pulp is cleaned and spread in a thin layer on a moving screen.", "Water drains away, and rollers press out more water."],
+            ["Heated rollers dry and smooth the sheet.", "Large rolls of paper can then be cut into notebook pages, boxes or other products."],
+            ["Recycled paper follows a similar path.", "It is mixed with water, cleaned and made into new pulp.", "Using recovered fibre can reduce the amount of new wood and waste needed for some products."]
+          ]},
+          { heading: "How soap is made", paragraphs: [
+            ["Soap is manufactured from oils or fats and another carefully controlled material called a strong base.", "In a factory, these materials react and become soap and glycerin."],
+            ["Workers measure the ingredients, temperature and time.", "They test the product to make sure it is safe and works as expected."],
+            ["Making soap with a strong base is not a classroom activity.", "The materials can cause burns before the reaction is complete, so trained adults use protective equipment and controlled equipment."],
+            ["Manufacturing changes matter in planned steps.", "Some steps are physical changes, such as cutting and pressing paper.", "Other steps can be chemical changes that create new substances, as in soap making."]
+          ]},
+          { heading: "Designing with responsibility", paragraphs: [
+            ["Manufacturers choose materials for their properties, cost and environmental effects.", "A package must protect its contents, but it should not use more material than needed."],
+            ["Québec communities collect paper and cardboard for recycling.", "Sorting clean paper correctly helps the fibres return to the manufacturing cycle."],
+            ["A good design works well and uses matter responsibly.", "That can mean making a product durable, repairable, reusable or recyclable."]
+          ]}
+        ],
+        think: "Trace a sheet of used classroom paper. What steps could turn it into a new paper product? Where are properties important?",
+        summary: ["Manufacturing uses planned steps to turn raw materials into products.", "Paper is made by forming, pressing and drying plant fibres.", "Responsible design considers both useful properties and environmental effects."],
+        visual: `<svg viewBox="0 0 680 285" role="img" aria-labelledby="v6-title v6-desc"><title id="v6-title">A simplified paper-making process</title><desc id="v6-desc">Wood and recovered paper become wet pulp. Pulp is spread, pressed and dried into a roll of new paper.</desc><path d="M50 205V92l38-38 38 38v113z" fill="#d6a96b" ${iconStroke}/><path d="M50 122h76M50 152h76" fill="none" stroke="#8a5a28" stroke-width="3"/><path d="M150 135h60M190 115l20 20-20 20" fill="none" ${iconStroke}/><path d="M250 72c-35 48-48 72-48 100 0 30 25 52 58 52s58-22 58-52c0-28-13-52-48-100z" fill="#75c5ed" ${iconStroke}/><text x="260" y="252" text-anchor="middle" font-size="17" fill="#242424">wet pulp</text><path d="M340 135h60M380 115l20 20-20 20" fill="none" ${iconStroke}/><circle cx="448" cy="125" r="38" fill="#d9e2e7" ${iconStroke}/><circle cx="520" cy="125" r="38" fill="#d9e2e7" ${iconStroke}/><path d="M410 125h148" fill="none" stroke="#fff" stroke-width="9"/><text x="484" y="200" text-anchor="middle" font-size="17" fill="#242424">press and dry</text><path d="M580 75h55v125h-55c-32 0-32-40 0-40h35" fill="#fff" ${iconStroke}/><path d="M580 75c-32 0-32 40 0 40h35" fill="none" ${iconStroke}/><text x="610" y="236" text-anchor="middle" font-size="17" fill="#242424">new paper</text><text x="88" y="236" text-anchor="middle" font-size="17" fill="#242424">wood fibre</text></svg>`,
+        caption: "Paper making changes wood or recovered paper into pulp, then removes water to form a new sheet.",
+        quiz: [
+          ["What is paper pulp?", ["A dry metal powder", "A wet mixture of plant fibres", "A type of glass"], 1, "Pulp is a wet mixture of small plant fibres."],
+          ["Which is a physical step in making paper?", ["Pressing water from pulp", "Growing a new tree instantly", "Making matter disappear"], 0, "Pressing changes the form and water content of the pulp."],
+          ["Why do manufacturers test soap?", ["To make sure it is safe and works as expected", "To remove all matter", "To make gravity stronger"], 0, "Careful measurement and testing help manufacturers make a safe, consistent product." ]
+        ]
+      }
+    ];
+
+    const chapterImages = [
+      ['Ice, liquid water and air in an inflated bicycle tire.', 'Ice is solid, water in the glass is liquid, and the tire contains invisible gas.'],
+      ['A smooth metal spoon, soft knitted mitten and absorbent paper towel.', 'Compare the surfaces. Each material has properties that make it useful for different jobs.'],
+      ['A balance with a stone and a measuring cylinder containing water and a submerged stone.', 'A balance measures mass. A rise in water level can help measure the volume of an irregular object.'],
+      ['A cork floating partly above water and a pebble resting on the bottom of the same tank.', 'The cork is less dense than water; the pebble is denser. Water pushes upward on both.'],
+      ['Water shown as ice, melted liquid water and frozen water again in matching bowls.', 'Melting and freezing change the state of water. The substance remains water.'],
+      ['Wood chips and recovered paper, wet pulp, a papermaking screen and finished sheets.', 'This simplified small-scale process shows fibres becoming pulp, then being formed and dried into paper.']
+    ];
+    const conceptualChecks = [
+      [
+        ['Explain with evidence', 'A classmate says air cannot be matter because we cannot see it. How could a balloon help you explain your thinking?', 'An inflated balloon takes up more space than an empty one. The air inside also has mass. Seeing something is not the test for matter; having mass and taking up space is.'],
+        ['Apply the idea', 'You pour the same water from a tall glass into a wide bowl. What changes, and what stays the same?', 'Its shape and depth change to fit the bowl. It is still liquid water. If none spills, the amount of water, its mass and its volume stay the same.'],
+        ['Connect and compare', 'Ice and liquid water can be in the same Québec pond. How can they be the same substance but behave differently?', 'Both are water, but they are in different states. Solid ice keeps its shape; liquid water flows. Temperature can change water from one state to another.']
+      ],
+      [
+        ['Make a design choice', 'Could a paper towel make a useful raincoat? Use two properties to explain your answer.', 'A paper towel is absorbent, so it soaks up rain instead of keeping us dry. It also tears easily when wet. A raincoat needs a flexible material that resists water and lasts.'],
+        ['Explain a tradeoff', 'A clear plastic sheet and a wool mitten are both flexible. Why would one work better for a window and the other for a winter hand covering?', 'Flexibility alone does not decide the job. A window needs transparency so we can see through it. A mitten needs softness and insulation to keep a hand comfortable and warm.'],
+        ['Plan a fair comparison', 'How could you find out which of two paper towels is more absorbent?', 'Use equal-sized pieces and the same amount of water. Give both the same time to soak it up, then compare the water absorbed or left behind. Keep the test conditions the same.']
+      ],
+      [
+        ['Explain a surprising result', 'A large empty box has less mass than a small stone. Why is that possible?', 'The box takes up a lot of space, but much of that space is air. Size does not tell us how much matter an object contains. A balance can compare their masses.'],
+        ['Choose evidence', 'Two containers have different shapes. How could you decide whether they hold the same volume of water?', 'Measure the water with a graduated container using the same units, such as millilitres. Shape or water depth alone can be misleading.'],
+        ['Predict and explain', 'A stone raises the water level in a measuring cylinder. What does that rise tell us, and why?', 'The submerged stone takes up space that water occupied. The difference between the two water readings gives the stone’s volume when it is fully submerged.']
+      ],
+      [
+        ['Reason from a comparison', 'Two solid cubes have exactly the same volume. One has more mass. Which is denser, and how do you know?', 'The cube with more mass is denser because more matter is packed into the same volume. We need both mass and volume to compare density.'],
+        ['Explain a change', 'A ball of modelling clay sinks. The same clay shaped into a wide hollow boat may float. How can changing its shape change the result?', 'Its mass stays about the same, but the boat shape includes air space and displaces more water before filling. The clay-and-air shape has a lower overall density, and water can support it.'],
+        ['Challenge a claim', 'A classmate says only small things float. What example and explanation could you give?', 'A large ship can float while a small metal bolt sinks. Floating depends on overall density compared with the water and on the upward buoyant force, not on size alone.']
+      ],
+      [
+        ['Explain what remains', 'An ice cube melts into a puddle. What evidence helps you decide whether a new substance has been made?', 'It is water before and after. Its state and shape change, and cooling can freeze it again. Melting is a physical change because no new substance is made.'],
+        ['Predict from a model', 'Salt seems to disappear in water. What do you predict will remain if all the water evaporates? Explain.', 'Salt can remain as a solid. Dissolving spreads its particles through the water; it does not make the salt stop being matter.'],
+        ['Compare changes', 'Torn paper is hard to put back exactly as it was. Does that mean tearing is a chemical change?', 'No. Reversibility alone is not the test. The pieces are still paper; tearing changes size and shape without making a new substance.']
+      ],
+      [
+        ['Explain the process', 'Why must water be removed from pulp before it becomes a useful notebook page?', 'Wet pulp is a loose mixture of fibres and water. Draining, pressing and drying bring the fibres together into a sheet that can hold its shape and be written on.'],
+        ['Connect properties and purpose', 'Why might a manufacturer choose recovered paper for a new box? What would still need to be tested?', 'Recovered fibres can be used again and can reduce waste and the need for new wood. The box must still be tested for strength and whether it protects what is inside.'],
+        ['Compare transformations', 'Pressing paper pulp and making soap both change materials. How are the changes different?', 'Pressing removes water and changes the form of the fibres. Soap making includes a chemical reaction that creates new substances. Manufacturers must control and test both processes.']
+      ]
+    ];
+    chapters.forEach((chapter, index) => {
+      chapter.image = `assets/chapter-${index + 1}.jpg`;
+      chapter.imageAlt = chapterImages[index][0];
+      chapter.caption = chapterImages[index][1];
+      chapter.quiz = conceptualChecks[index];
+      chapter.wordFile = `word/Grade_3_Unit_1_Chapter_${index + 1}.docx`;
+    });
+
+    const chapterSelect = document.querySelector('#chapter-select');
+    // Both reading and practice stay in the left column; support never overlays them.
+    const readerLayout = document.querySelector('.reader-layout');
+    const readerRail = document.querySelector('.side-rail');
+    const readerTools = document.querySelector('.tools-panel');
+    readerTools.querySelector('summary').innerHTML = '<span>Reading tools<span class="tool-status" id="tool-status">Click to open</span></span>';
+    readerTools.querySelector('summary').after(document.querySelector('.reading-bar'));
+    readerRail.prepend(readerTools);
+    const readerMain = document.createElement('div');
+    readerMain.className = 'reader-main';
+    [...readerLayout.children].filter(node => node !== readerRail).forEach(node => readerMain.append(node));
+    readerLayout.prepend(readerMain);
+    readerMain.append(document.querySelector('.site-footer'));
+    const measureReaderHeader = () => document.documentElement.style.setProperty('--reader-header-height', document.querySelector('.site-header').getBoundingClientRect().height + 'px');
+    new ResizeObserver(measureReaderHeader).observe(document.querySelector('.site-header'));
+    measureReaderHeader();
+    const article = document.querySelector('#chapter-article');
+    const readingText = document.querySelector('#reading-text');
+    const root = document.documentElement;
+    let currentChapter = Math.max(0, Math.min(chapters.length - 1, location.hash.match(/chapter-(\d+)/) ? Number(location.hash.match(/chapter-(\d+)/)[1]) - 1 : Number(localStorage.getItem('g3u1-reader-chapter') || 0)));
+    let activeSentence = -1;
+    let textSize = 1.125;
+    let speaking = false;
+    let together = false;
+    let cardOrder = [], cardIndex = 0, cardFlipped = false;
+
+    chapters.forEach((chapter, index) => {
+      const option = document.createElement('option');
+      option.value = index;
+      option.textContent = `Chapter ${index + 1}: ${chapter.title}`;
+      chapterSelect.append(option);
+    });
+
+    function labelFor(term) {
+      return term.replaceAll('_', ' ');
+    }
+
+    function vocabMarkup(text) {
+      const terms = Object.keys(chapters[currentChapter].keywords).map(labelFor).sort((a, b) => b.length - a.length);
+      const variants = { state: 'states?', solid: 'solids?', liquid: 'liquids?', gas: 'gas(?:es)?', property: 'propert(?:y|ies)', fibre: 'fibres?', raw_material: 'raw materials?', physical_change: 'physical changes?', manufacture: 'manufactur(?:e|ed|ing|ers?)', melt: 'melt(?:s|ed|ing)?', freeze: 'freez(?:e|es|ing)|frozen', dissolve: 'dissolv(?:e|es|ed|ing)', recycle: 'recycl(?:e|es|ed|ing|able)' };
+      const patterns = terms.map(term => variants[term.replaceAll(' ', '_')] || term);
+      return text.replace(new RegExp(`\\b(${patterns.join('|')})\\b`, 'gi'), '<strong class="vocab-word">$1</strong>');
+    }
+    function sentenceMarkup(sentences) {
+      const chunks = sentences.flatMap(sentence => typeof Intl.Segmenter === 'function' ? [...new Intl.Segmenter('en-CA', {granularity: 'sentence'}).segment(sentence)].map(part => part.segment.trim()) : sentence.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [sentence]);
+      return chunks.map(sentence => `<span class="reader-sentence">${vocabMarkup(sentence)}</span>`).join(' ');
+    }
+
+    function renderChapter(index) {
+      currentChapter = index;
+      activeSentence = -1;
+      stopSpeech();
+      const chapter = chapters[index];
+      chapterSelect.value = String(index);
+      localStorage.setItem('g3u1-reader-chapter', String(index));
+      document.title = `Chapter ${index + 1}: ${chapter.title} — Grade 3 Science Reader`;
+      document.querySelector('#progress-fill').style.width = `${((index + 1) / chapters.length) * 100}%`;
+      document.querySelector('#chapter-position').textContent = `Chapter ${index + 1} of ${chapters.length} · ${chapter.lesson}`;
+      document.querySelector('#chapter-title').textContent = chapter.title;
+      document.querySelector('#learning-goal').textContent = chapter.goal;
+      document.querySelector('#lesson-connection').textContent = `${chapter.lesson}. Read this chapter before or during the lesson, then use the investigation to test the ideas.`;
+
+      document.querySelector('#keyword-list').innerHTML = Object.entries(chapter.keywords).map(([term, definition]) =>
+        `<div><dt>${labelFor(term)}</dt><dd>${definition}</dd></div>`
+      ).join('');
+
+      let content = `<p class="chapter-intro">${sentenceMarkup([chapter.intro])}</p>`;
+      chapter.sections.forEach((section, sectionIndex) => {
+        content += `<section><h2>${section.heading}</h2>`;
+        section.paragraphs.forEach(paragraph => { content += `<p>${sentenceMarkup(paragraph)}</p>`; });
+        if (sectionIndex === 0) {
+          content += `<figure class="science-figure"><img src="${chapter.image}" alt="${chapter.imageAlt}" width="1536" height="1024"><figcaption>${chapter.caption}</figcaption></figure>`;
+        }
+        content += `</section>`;
+      });
+      content += `<aside class="think-prompt"><strong>Stop and think</strong>${vocabMarkup(chapter.think)}</aside>`;
+      content += `<section class="chapter-summary"><h2>What to remember</h2><ul>${chapter.summary.map(item => `<li>${sentenceMarkup([item])}</li>`).join('')}</ul></section>`;
+      readingText.innerHTML = content;
+
+      cardOrder = Object.entries(chapter.keywords); cardIndex = 0; cardFlipped = false; renderCard();
+      document.querySelector('#reading-count').textContent = 'Choose a sentence to begin';
+
+      renderQuiz(chapter.quiz);
+      document.querySelector('#previous-chapter').disabled = index === 0;
+      document.querySelector('#next-chapter').disabled = index === chapters.length - 1;
+      document.querySelector('#previous-chapter').textContent = index === 0 ? 'Previous chapter' : `Previous: ${chapters[index - 1].title}`;
+      document.querySelector('#next-chapter').textContent = index === chapters.length - 1 ? 'End of reader' : `Next: ${chapters[index + 1].title}`;
+      bindSentences();
+      if (together) activateSentence(0, false);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderQuiz(questions) {
+      document.querySelector('#check-body').innerHTML = '<p>Think first, then explain aloud, sketch, or write. Use an idea or example from the chapter as evidence.</p>' + questions.map(([kind, question, explanation], qIndex) => `<section class="concept-question"><p class="question-kind">${qIndex + 1} · ${kind}</p><h3>${question}</h3><label for="response-${qIndex}">My thinking (optional — stays on this page until I change chapters)</label><textarea id="response-${qIndex}" placeholder="I think… because…"></textarea><details class="reasoning"><summary>Discuss the reasoning</summary><p>${explanation}</p></details></section>`).join('');
+    }
+
+    function renderCard(preserveTurn = false) {
+      if (!preserveTurn) {
+        clearTimeout(cardTurnTimer);
+        cardTurnTimer = null;
+        document.querySelector('#flashcard').classList.remove('is-turning');
+      }
+      const [term, definition] = cardOrder[cardIndex];
+      const wordFirst = document.querySelector('#flashcard-mode').value === 'word';
+      const showWord = cardFlipped ? !wordFirst : wordFirst;
+      document.querySelector('#flashcard-face').textContent = showWord ? labelFor(term) : definition;
+      document.querySelector('#flashcard-hint').textContent = cardFlipped ? 'Say an example. Turn the card to try again.' : 'Think of the answer. Click or press Enter to turn.';
+      document.querySelector('#flashcard-status').textContent = `Card ${cardIndex + 1} of ${cardOrder.length}`;
+      document.querySelector('#flashcard').setAttribute('aria-label', `${showWord ? 'Word' : 'Meaning'}: ${showWord ? labelFor(term) : definition}. Turn the card.`);
+    }
+
+    function bindSentences() {
+      sentenceNodes().forEach((sentence, index) => {
+        sentence.addEventListener('click', () => { setTogether(true); activateSentence(index); });
+      });
+    }
+
+    function sentenceNodes() { return [...readingText.querySelectorAll('.reader-sentence')]; }
+
+    function activateSentence(index, scroll = true) {
+      const sentences = sentenceNodes();
+      if (!sentences.length) return;
+      activeSentence = Math.max(0, Math.min(sentences.length - 1, index));
+      sentences.forEach((sentence, sentenceIndex) => sentence.classList.toggle('is-active', sentenceIndex === activeSentence));
+      if (scroll) sentences[activeSentence].scrollIntoView({ block: 'center', behavior: 'smooth' });
+      document.querySelector('#tool-status').textContent = `Sentence ${activeSentence + 1} of ${sentences.length}`;
+      document.querySelector('#reading-count').textContent = `Sentence ${activeSentence + 1} of ${sentences.length}${activeSentence === sentences.length - 1 ? ' · Last sentence' : ''}`;
+    }
+    function setTogether(value) {
+      together = value;
+      const button = document.querySelector('#read-together');
+      button.setAttribute('aria-pressed', String(value));
+      button.textContent = value ? 'Finish reading together' : 'Read together';
+      if (value) { article.setAttribute('tabindex', '-1'); article.focus({preventScroll: true}); }
+      else { activeSentence = -1; sentenceNodes().forEach(node => node.classList.remove('is-active')); document.querySelector('#reading-count').textContent = 'Choose a sentence to begin'; }
+    }
+
+    function preferredVoice() {
+      const voices = speechSynthesis.getVoices();
+      return voices.find(voice => voice.lang === 'en-CA') || voices.find(voice => voice.lang.startsWith('en')) || null;
+    }
+
+    function speak(text, onEnd) {
+      if (!('speechSynthesis' in window)) {
+        document.querySelector('#tool-status').textContent = 'Read-aloud is not available in this browser.';
+        return;
+      }
+      speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-CA';
+      utterance.rate = Number(document.querySelector('#speech-speed').value);
+      utterance.voice = preferredVoice();
+      utterance.onend = () => { speaking = false; document.querySelector('#read-aloud').textContent = 'Read chapter aloud'; if (onEnd) onEnd(); };
+      utterance.onerror = utterance.onend;
+      speaking = true;
+      speechSynthesis.speak(utterance);
+    }
+
+    function stopSpeech() {
+      if ('speechSynthesis' in window) speechSynthesis.cancel();
+      speaking = false;
+      const button = document.querySelector('#read-aloud');
+      if (button) button.textContent = 'Read chapter aloud';
+    }
+
+    function chapterPlainText() {
+      const chapter = chapters[currentChapter];
+      const body = chapter.sections.map(section => `${section.heading}\n${section.paragraphs.flat().join(' ')}`).join('\n\n');
+      return `${chapter.title}\n\nLearning goal: ${chapter.goal}\n\n${chapter.intro}\n\n${body}\n\nStop and think: ${chapter.think}\n\nWhat to remember:\n${chapter.summary.map(item => `• ${item}`).join('\n')}`;
+    }
+
+    function downloadChapter() {
+      const chapter = chapters[currentChapter];
+      const link = document.createElement('a');
+      link.href = chapter.wordFile;
+      link.download = `Grade_3_Unit_1_Chapter_${currentChapter + 1}.docx`;
+      document.body.append(link);
+      link.click();
+      link.remove();
+    }
+
+    chapterSelect.addEventListener('change', event => renderChapter(Number(event.target.value)));
+    document.querySelector('#previous-chapter').addEventListener('click', () => { if (currentChapter > 0) renderChapter(currentChapter - 1); });
+    document.querySelector('#next-chapter').addEventListener('click', () => { if (currentChapter < chapters.length - 1) renderChapter(currentChapter + 1); });
+    document.querySelector('#next-sentence').addEventListener('click', () => activateSentence(activeSentence + 1));
+    document.querySelector('#previous-sentence').addEventListener('click', () => activateSentence(activeSentence < 0 ? 0 : activeSentence - 1));
+    document.querySelector('#clear-highlight').addEventListener('click', () => {
+      setTogether(false);
+      activeSentence = -1;
+      sentenceNodes().forEach(sentence => sentence.classList.remove('is-active'));
+      document.querySelector('#tool-status').textContent = 'Optional supports';
+    });
+    document.querySelector('#spotlight').addEventListener('click', event => {
+      const active = event.currentTarget.getAttribute('aria-pressed') !== 'true';
+      event.currentTarget.setAttribute('aria-pressed', String(active));
+      readingText.classList.toggle('spotlight', active);
+      if (active && activeSentence < 0) activateSentence(0);
+    });
+    document.querySelector('#read-sentence').addEventListener('click', () => {
+      if (activeSentence < 0) activateSentence(0);
+      const sentence = sentenceNodes()[activeSentence];
+      if (sentence) speak(sentence.textContent);
+    });
+    document.querySelector('#read-aloud').addEventListener('click', event => {
+      if (speaking) { stopSpeech(); return; }
+      event.currentTarget.textContent = 'Stop reading';
+      speak(chapterPlainText());
+    });
+    document.querySelector('#larger-text').addEventListener('click', () => {
+      textSize = Math.min(1.5, textSize + 0.125);
+      root.style.setProperty('--reader-size', `${textSize}rem`);
+    });
+    document.querySelector('#smaller-text').addEventListener('click', () => {
+      textSize = Math.max(1, textSize - 0.125);
+      root.style.setProperty('--reader-size', `${textSize}rem`);
+    });
+    document.querySelector('#print-chapter').addEventListener('click', () => window.print());
+    document.querySelector('#download-chapter').addEventListener('click', downloadChapter);
+    document.querySelector('#read-together').addEventListener('click', () => { setTogether(!together); if (together) activateSentence(activeSentence < 0 ? 0 : activeSentence); });
+    document.querySelector('#class-next').addEventListener('click', () => { setTogether(true); activateSentence(activeSentence + 1); });
+    document.querySelector('#class-previous').addEventListener('click', () => { setTogether(true); activateSentence(activeSentence < 0 ? 0 : activeSentence - 1); });
+    let cardTurnTimer = null;
+    document.querySelector('#flashcard').addEventListener('click', () => {
+      const card = document.querySelector('#flashcard');
+      if (card.classList.contains('is-turning')) return;
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        cardFlipped = !cardFlipped; renderCard(); return;
+      }
+      card.classList.add('is-turning');
+      cardTurnTimer = setTimeout(() => { cardTurnTimer = null; cardFlipped = !cardFlipped; renderCard(true); }, 176);
+    });
+    document.querySelector('#flashcard').addEventListener('animationend', event => {
+      if (event.animationName === 'card-turn') event.currentTarget.classList.remove('is-turning');
+    });
+    document.querySelector('#next-card').addEventListener('click', () => { cardIndex = (cardIndex + 1) % cardOrder.length; cardFlipped = false; renderCard(); });
+    document.querySelector('#previous-card').addEventListener('click', () => { cardIndex = (cardIndex - 1 + cardOrder.length) % cardOrder.length; cardFlipped = false; renderCard(); });
+    document.querySelector('#flashcard-mode').addEventListener('change', () => { cardFlipped = false; renderCard(); });
+    document.querySelector('#shuffle-cards').addEventListener('click', () => { for (let i = cardOrder.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [cardOrder[i], cardOrder[j]] = [cardOrder[j], cardOrder[i]]; } cardIndex = 0; cardFlipped = false; renderCard(); });
+    window.addEventListener('keydown', event => {
+      if (!together || event.altKey || event.ctrlKey || event.metaKey || event.repeat) return;
+      if (document.activeElement.closest('input, select, textarea, button, summary, a, [contenteditable="true"]')) return;
+      if (event.key === 'Escape') { event.preventDefault(); setTogether(false); document.querySelector('#read-together').focus({preventScroll: true}); }
+      if ([' ', 'ArrowRight', 'ArrowDown'].includes(event.key)) { event.preventDefault(); activateSentence(activeSentence + 1); }
+      if (['ArrowLeft', 'ArrowUp'].includes(event.key)) { event.preventDefault(); activateSentence(activeSentence < 0 ? 0 : activeSentence - 1); }
+    });
+    window.addEventListener('beforeunload', stopSpeech);
+
+    renderChapter(currentChapter);
+  </script>
+</body>
+</html>

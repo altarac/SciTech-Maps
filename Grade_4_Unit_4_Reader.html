@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Short science chapters for Grade 4 Unit 4: Human Impact and Environmental Design.">
+  <title>Grade 4 Science Reader — Human Impact and Environmental Design</title>
+  <style>
+    :root {
+      --sp-blue: #0f6cbd;
+      --sp-blue-dark: #0b4f8a;
+      --sp-blue-soft: #e8f3fb;
+      --ink: #242424;
+      --muted: #616161;
+      --line: #d1d1d1;
+      --line-soft: #e8e8e8;
+      --canvas: #f5f5f5;
+      --white: #ffffff;
+      --success: #107c10;
+      --warning: #8a4b08;
+      --warning-soft: #fff4ce;
+      --focus: #605e5c;
+      --radius: 4px;
+      --content: 1120px;
+      --reading: 720px;
+      --reader-size: 1.125rem;
+      --secondary: #006b68;
+      --secondary-soft: #e6f4f2;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--canvas);
+      font-family: "Segoe UI", SegoeUI, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    button, select { font: inherit; }
+    button, select, summary { cursor: pointer; }
+    a { color: var(--sp-blue); }
+    a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+    .skip-link {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 100;
+      padding: 8px 12px;
+      color: var(--white);
+      background: var(--sp-blue-dark);
+      transform: translateY(-160%);
+    }
+    .skip-link:focus { transform: none; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 5px 16px rgba(0, 0, 0, 0.08);
+    }
+    .header-inner, .page-shell, .footer-inner {
+      width: min(calc(100% - 40px), var(--content));
+      margin-inline: auto;
+    }
+    .header-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: max-content;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      color: var(--white);
+      background: var(--sp-blue);
+      font-weight: 700;
+    }
+    .brand-copy { line-height: 1.15; }
+    .brand-copy strong { display: block; font-size: 18px; }
+    .brand-copy span { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; }
+    .chapter-picker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .chapter-picker label { font-size: 14px; font-weight: 600; }
+    .chapter-picker select {
+      width: min(390px, 46vw);
+      padding: 9px 34px 9px 11px;
+      color: var(--ink);
+      background: var(--white);
+      border: 1px solid #8a8886;
+      border-radius: var(--radius);
+    }
+
+    .page-shell { padding: 24px 0 72px; }
+    .breadcrumb { margin: 0 0 16px; color: var(--muted); font-size: 14px; }
+    .breadcrumb a { text-decoration: none; }
+    .breadcrumb span { padding: 0 8px; }
+    .unit-band {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 24px;
+      padding: 26px 30px;
+      background: var(--white);
+      border-top: 5px solid var(--sp-blue);
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      margin-bottom: 8px;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      font-weight: 650;
+    }
+    .unit-question { max-width: 70ch; margin: 0; color: #3b3a39; font-size: 18px; }
+    .unit-meta { color: var(--muted); font-size: 14px; text-align: right; }
+    .progress-track { height: 5px; background: #dbeaf5; }
+    .progress-fill { width: 16.666%; height: 100%; background: var(--sp-blue); }
+
+    .reader-layout {
+      display: grid;
+      grid-template-columns: minmax(0, var(--reading)) 300px;
+      justify-content: center;
+      align-items: start;
+      gap: 28px;
+      margin-top: 28px;
+    }
+    .chapter-page {
+      min-width: 0;
+      padding: clamp(26px, 5vw, 52px);
+      background: var(--white);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+    .chapter-position { margin-bottom: 10px; color: var(--sp-blue-dark); font-size: 14px; font-weight: 700; }
+    .chapter-title {
+      margin-bottom: 18px;
+      font-size: clamp(30px, 5vw, 46px);
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      font-weight: 650;
+    }
+    .learning-goal {
+      margin: 0 0 32px;
+      padding: 18px 20px;
+      background: var(--sp-blue-soft);
+    }
+    .learning-goal strong { display: block; margin-bottom: 4px; color: var(--sp-blue-dark); }
+    .learning-goal p { margin: 0; font-size: 17px; }
+    .chapter-intro { font-size: 20px; line-height: 1.5; font-weight: 600; }
+    .reading-text { font-size: var(--reader-size); line-height: 1.72; }
+    .reading-text h2 {
+      margin: 42px 0 12px;
+      font-size: 25px;
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+      font-weight: 650;
+    }
+    .reading-text p { margin-bottom: 20px; }
+    .reader-sentence {
+      border-radius: 3px;
+      transition: background-color 130ms ease-out, color 130ms ease-out;
+    }
+    .reader-sentence:hover { background: #f0f6fa; }
+    .reader-sentence.is-active {
+      color: #1c1c1c;
+      background: #fff1a8;
+      box-shadow: 0 2px 0 #d6a400;
+    }
+    .reading-text.spotlight .reader-sentence:not(.is-active) { color: #767676; }
+    .reading-text.spotlight .reader-sentence.is-active { color: #1c1c1c; }
+
+    .science-figure {
+      margin: 30px 0 34px;
+      padding: 22px;
+      background: #fafafa;
+      border: 1px solid var(--line);
+    }
+    .science-figure svg { display: block; width: 100%; height: auto; max-height: 310px; }
+    .science-figure img { display: block; width: 100%; height: auto; }
+    .science-figure { padding: 0; background: transparent; border: 0; }
+    .vocab-word { color: var(--secondary); font-weight: 750; }
+    .reading-bar { position: sticky; top: 78px; z-index: 10; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 12px 0; margin-bottom: 22px; background: var(--white); border-bottom: 1px solid var(--line-soft); }
+    .reading-help { width: 100%; margin: 0; color: var(--muted); font-size: 13px; }
+    .reading-count { color: var(--muted); font-size: 13px; }
+    .concept-question { padding: 24px 0; border-top: 1px solid var(--line-soft); }
+    .concept-question h3 { margin: 0 0 10px; font-size: 21px; line-height: 1.35; }
+    .question-kind { color: var(--secondary); font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .concept-question label { display: block; margin-bottom: 7px; color: var(--muted); font-size: 14px; }
+    .concept-question textarea { width: 100%; min-height: 100px; resize: vertical; padding: 12px; border: 1px solid #8a8886; border-radius: 4px; font: inherit; line-height: 1.5; background: #fcfcfc; }
+    textarea:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    .reasoning { margin-top: 14px; }
+    .reasoning summary { color: var(--sp-blue-dark); font-weight: 600; }
+    .reasoning p { margin: 12px 0 0; padding: 16px; background: var(--sp-blue-soft); }
+    .flashcard-panel { grid-column: 1 / -1; width: min(100%, var(--reading)); background: var(--white); }
+    .flashcard-panel > summary { padding: 18px 22px; color: var(--secondary); font-size: 18px; font-weight: 650; }
+    .flashcard-body { padding: 0 22px 24px; }
+    .flashcard-controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+    .flashcard-controls select { max-width: 100%; padding: 8px; background: white; border: 1px solid #8a8886; border-radius: 4px; }
+    .flashcard { width: 100%; min-height: 230px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; padding: 30px; background: var(--secondary-soft); border: 1px solid #9ecac7; border-radius: 4px; color: var(--secondary); text-align: center; }
+    .flashcard-face { font-size: 28px; font-weight: 700; line-height: 1.3; }
+    .flashcard-hint { color: #365c59; font-size: 14px; font-weight: 400; }
+    .flashcard-nav { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; margin-top: 16px; }
+    .flashcard-status { color: var(--muted); font-size: 14px; }
+    @media (max-width: 900px) { .reading-bar { top: 132px; } }
+    @media (max-width: 600px) { .reading-bar { top: 126px; } .reading-bar .tool-button { width: auto; } .flashcard { padding: 22px; } }
+    @media print { .reading-bar, .flashcard-panel { display: none !important; } }
+    .science-figure figcaption { margin-top: 14px; color: #4a4a4a; font-size: 14px; }
+    .science-figure strong { color: var(--ink); }
+    .think-prompt {
+      margin: 30px 0;
+      padding: 18px 20px;
+      color: #4f3204;
+      background: var(--warning-soft);
+    }
+    .think-prompt strong { display: block; margin-bottom: 4px; color: var(--warning); }
+    .chapter-summary {
+      margin: 40px 0 0;
+      padding-top: 24px;
+      border-top: 2px solid var(--sp-blue);
+    }
+    .chapter-summary h2 { margin: 0 0 10px; font-size: 23px; }
+    .chapter-summary ul { margin: 0; padding-left: 22px; }
+    .chapter-summary li + li { margin-top: 8px; }
+
+    :root { --reader-header-height: 76px; }
+    .reader-main { min-width: 0; display: grid; gap: 28px; }
+    .reader-main > * { min-width: 0; width: 100%; }
+    .side-rail {
+      position: sticky; top: calc(var(--reader-header-height) + 16px);
+      max-height: calc(100dvh - var(--reader-header-height) - 80px);
+      overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable;
+      display: grid; gap: 18px; align-self: start; min-width: 0;
+    }
+    .side-rail .tools-panel { margin: 0; grid-column: auto; }
+    .side-rail .tools-panel > summary { gap: 8px; }
+    .side-rail .tool-status { display: block; font-size: 12px; font-weight: 400; }
+    .side-rail .reading-bar { position: static; padding: 0 20px 16px; margin: 0; }
+    .side-rail .reading-help { font-size: 12px; }
+    .side-rail .tools-row { padding: 16px 20px; }
+    .side-rail .tool-button { font-size: 13px; }
+    .flashcard { perspective: 900px; }
+    .flashcard.is-turning { animation: card-turn 360ms cubic-bezier(.16, 1, .3, 1); }
+    @keyframes card-turn {
+      0% { transform: perspective(900px) rotateY(0) scale(1); }
+      49% { transform: perspective(900px) rotateY(85deg) scale(.97); }
+      50% { transform: perspective(900px) rotateY(-85deg) scale(.97); }
+      100% { transform: perspective(900px) rotateY(0) scale(1); }
+    }
+    @media (prefers-reduced-motion: reduce) { .flashcard.is-turning { animation: none; } }
+    .side-section { padding: 20px; background: var(--white); border-top: 3px solid var(--sp-blue); }
+    .side-section h2 { margin-bottom: 12px; font-size: 19px; }
+    .side-section p { color: #4a4a4a; font-size: 14px; }
+    .keyword-list { display: grid; gap: 10px; margin: 0; }
+    .keyword-list div { padding-top: 10px; border-top: 1px solid var(--line-soft); }
+    .keyword-list div:first-child { padding-top: 0; border-top: 0; }
+    .keyword-list dt { color: var(--secondary); font-weight: 700; }
+    .keyword-list dd { margin: 2px 0 0; color: #4a4a4a; font-size: 14px; }
+    .lesson-link { display: inline-flex; margin-top: 6px; font-size: 14px; font-weight: 600; }
+
+    .tools-panel { grid-column: 1 / -1; margin-top: 2px; background: var(--white); }
+    .tools-panel > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 20px;
+      font-weight: 650;
+      list-style: none;
+    }
+    .tools-panel > summary::-webkit-details-marker { display: none; }
+    .tools-panel > summary::after { content: "+"; color: var(--sp-blue); font-size: 22px; }
+    .tools-panel[open] > summary::after { content: "−"; }
+    .tools-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      padding: 0 20px 20px;
+      border-top: 1px solid var(--line-soft);
+    }
+    .tools-row:first-of-type { padding-top: 18px; }
+    .tool-button {
+      min-height: 40px;
+      padding: 8px 12px;
+      color: var(--ink);
+      background: var(--white);
+      border: 1px solid #8a8886;
+      border-radius: var(--radius);
+      font-weight: 600;
+    }
+    .tool-button:hover { background: #f3f2f1; }
+    .tool-button.primary { color: var(--white); background: var(--sp-blue); border-color: var(--sp-blue); }
+    .tool-button.primary:hover { background: var(--sp-blue-dark); }
+    .tool-button[aria-pressed="true"] { color: var(--white); background: var(--sp-blue-dark); border-color: var(--sp-blue-dark); }
+    .tool-status { color: var(--muted); font-size: 14px; }
+
+    .knowledge-check, .glossary-panel {
+      grid-column: 1 / -1;
+      width: min(100%, var(--reading));
+      justify-self: start;
+      background: var(--white);
+    }
+    .knowledge-check > summary, .glossary-panel > summary {
+      padding: 18px 22px;
+      color: var(--sp-blue-dark);
+      font-size: 18px;
+      font-weight: 650;
+    }
+    .check-body, .glossary-body { padding: 0 22px 24px; }
+    .question { margin: 0; padding: 18px 0; border: 0; border-top: 1px solid var(--line-soft); }
+    .question legend { padding: 0; font-weight: 650; }
+    .option { display: flex; align-items: flex-start; gap: 10px; margin-top: 11px; }
+    .option input { margin-top: 6px; }
+    .feedback { min-height: 24px; margin: 14px 0 0; font-weight: 600; }
+    .feedback.correct { color: var(--success); }
+    .feedback.try-again { color: #a4262c; }
+    .glossary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 24px; }
+    .glossary-entry { padding: 14px 0; border-top: 1px solid var(--line-soft); }
+    .glossary-entry strong { display: block; color: var(--sp-blue-dark); }
+    .glossary-entry span { color: #4a4a4a; font-size: 14px; }
+
+    .chapter-nav {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 4px;
+    }
+    .chapter-nav button {
+      min-height: 44px;
+      padding: 9px 16px;
+      color: var(--sp-blue-dark);
+      background: var(--white);
+      border: 1px solid var(--sp-blue);
+      border-radius: var(--radius);
+      font-weight: 650;
+    }
+    .chapter-nav button:hover { background: var(--sp-blue-soft); }
+    .chapter-nav button:disabled { color: #8a8886; background: #ededed; border-color: #d1d1d1; cursor: not-allowed; }
+
+    .site-footer { padding: 34px 0; color: #4a4a4a; background: #ededed; border-top: 1px solid var(--line); }
+    .footer-inner { font-size: 13px; }
+    .footer-inner p { max-width: 90ch; margin-bottom: 10px; }
+
+    @media (max-width: 900px) {
+      .header-inner { align-items: flex-start; flex-direction: column; padding: 14px 0; }
+      .chapter-picker { width: 100%; }
+      .chapter-picker select { flex: 1; width: auto; }
+      .unit-band { grid-template-columns: 1fr; }
+      .unit-meta { text-align: left; }
+      .reader-layout { grid-template-columns: 1fr; }
+      .side-rail { position: static; grid-template-columns: 1fr; max-height: none; overflow: visible; }
+      .tools-panel, .knowledge-check, .glossary-panel, .chapter-nav { grid-column: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .header-inner, .page-shell, .footer-inner { width: min(calc(100% - 24px), var(--content)); }
+      .brand-copy span, .chapter-picker label { display: none; }
+      .chapter-picker select { width: 100%; }
+      .page-shell { padding-top: 16px; }
+      .unit-band { padding: 22px 20px; }
+      .chapter-page { padding: 26px 20px 34px; }
+      .side-rail { grid-template-columns: 1fr; }
+      .glossary-grid { grid-template-columns: 1fr; }
+      .chapter-nav { flex-direction: column; }
+      .chapter-nav button { width: 100%; }
+      .tools-row { align-items: stretch; flex-direction: column; }
+      .tool-button { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; }
+    }
+
+    @media print {
+      .site-header, .breadcrumb, .tools-panel, .knowledge-check, .glossary-panel, .chapter-nav, .side-rail { display: none !important; }
+      body { background: var(--white); }
+      .page-shell { width: 100%; padding: 0; }
+      .unit-band { border-top-width: 3px; }
+      .reader-layout { display: block; margin-top: 16px; }
+      .chapter-page { box-shadow: none; padding: 0; }
+      .science-figure { break-inside: avoid; }
+      .reader-sentence.is-active { background: transparent; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <!--
+  THESIS: One calm chapter at a time; the reader refuses the crowded control wall that competes with science text.
+  OWN-WORLD: The curriculum map's SharePoint blue, white teaching surfaces, square details, and restrained Segoe UI hierarchy.
+  STORY: A Grade 3 reader sees the learning goal, reads a short Québec-centred chapter, checks understanding, and moves on.
+  FIRST VIEWPORT: A familiar curriculum header, unit title, chapter goal, and the opening paragraph; optional tools remain collapsed.
+  FORM: Focused digital textbook, extending the established curriculum-map world; seed key not required for an inherited surface.
+  FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+  -->
+  <a class="skip-link" href="#chapter-article">Skip to the chapter</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../mockups/SciTech_Curriculum_Map_Grades_3_to_6.html#g4u4" aria-label="Return to the Grade 4 Unit 4 curriculum map">
+        <span class="brand-mark" aria-hidden="true">ST</span>
+        <span class="brand-copy"><strong>Elementary SciTech Reader</strong><span>Grade 4 · Unit 4</span></span>
+      </a>
+      <div class="chapter-picker">
+        <label for="chapter-select">Choose a chapter</label>
+        <select id="chapter-select" aria-label="Choose a chapter"></select>
+      </div>
+    </div>
+    <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progress-fill"></div></div>
+  </header>
+
+  <main class="page-shell">
+    <p class="breadcrumb"><a href="Reader_Library_Grades_3_to_6.html">Reader library</a><span>›</span><a href="../mockups/SciTech_Curriculum_Map_Grades_3_to_6.html#g4u4">Grade 4 Unit 4</a><span>›</span>Science reader</p>
+
+    <section class="unit-band" aria-labelledby="unit-title">
+      <div>
+        <h1 id="unit-title">Human Impact and Environmental Design</h1>
+        <p class="unit-question">How can we meet human needs while protecting the systems that support life?</p>
+      </div>
+      <div class="unit-meta"><strong>4 short chapters</strong><br>Short readings for lesson discussion</div>
+    </section>
+
+    <div class="reader-layout">
+      <article class="chapter-page" id="chapter-article" aria-labelledby="chapter-title">
+        <p class="chapter-position" id="chapter-position"></p>
+        <h2 class="chapter-title" id="chapter-title"></h2>
+        <section class="learning-goal" aria-labelledby="goal-label">
+          <strong id="goal-label">Learning goal</strong>
+          <p id="learning-goal"></p>
+        </section>
+        <div class="reading-bar" aria-label="Classroom sentence highlighting">
+          <button class="tool-button primary" id="read-together" type="button" aria-pressed="false">Read together</button>
+          <button class="tool-button" id="class-previous" type="button" aria-label="Highlight the previous sentence">Previous</button>
+          <button class="tool-button" id="class-next" type="button" aria-label="Highlight the next sentence">Next</button>
+          <button class="tool-button" id="download-chapter" type="button">Download Word</button>
+          <span class="reading-count" id="reading-count" aria-live="polite">Choose a sentence to begin</span>
+          <p class="reading-help">Space / Right / Down: next sentence · Left / Up: previous · Escape: finish. You can also click a sentence.</p>
+        </div>
+        <div class="reading-text" id="reading-text"></div>
+      </article>
+
+      <aside class="side-rail" aria-label="Chapter support">
+        <section class="side-section">
+          <h2>Words to know</h2>
+          <dl class="keyword-list" id="keyword-list"></dl>
+        </section>
+        <section class="side-section">
+          <h2>Lesson connection</h2>
+          <p id="lesson-connection"></p><details><summary>Map POL focus</summary><ul id="chapter-pol"></ul></details>
+          <a class="lesson-link" href="../mockups/SciTech_Curriculum_Map_Grades_3_to_6.html#g4u4">Open the unit map</a>
+        </section>
+      </aside>
+
+      <details class="tools-panel">
+        <summary>Reading tools <span class="tool-status" id="tool-status">Optional supports</span></summary>
+        <div class="tools-row">
+          <button class="tool-button primary" id="read-aloud" type="button">Read chapter aloud</button>
+          <button class="tool-button" id="read-sentence" type="button">Read highlighted sentence</button>
+          <label for="speech-speed">Speed</label>
+          <select id="speech-speed">
+            <option value="0.8">Slow</option>
+            <option value="0.92" selected>Comfortable</option>
+            <option value="1">Standard</option>
+          </select>
+        </div>
+        <div class="tools-row">
+          <button class="tool-button" id="previous-sentence" type="button">Previous sentence</button>
+          <button class="tool-button" id="next-sentence" type="button">Next sentence</button>
+          <button class="tool-button" id="spotlight" type="button" aria-pressed="false">Sentence spotlight</button>
+          <button class="tool-button" id="clear-highlight" type="button">Clear highlight</button>
+        </div>
+        <div class="tools-row">
+          <button class="tool-button" id="smaller-text" type="button" aria-label="Make reading text smaller">Smaller text</button>
+          <button class="tool-button" id="larger-text" type="button" aria-label="Make reading text larger">Larger text</button>
+          <button class="tool-button" id="print-chapter" type="button">Print chapter</button>
+        </div>
+      </details>
+
+      <details class="knowledge-check" id="knowledge-check">
+        <summary>Check my understanding</summary>
+        <div class="check-body" id="check-body"></div>
+      </details>
+
+      <details class="flashcard-panel" id="flashcard-panel">
+        <summary>Practise words with flashcards</summary>
+        <div class="flashcard-body">
+          <p>Say the meaning before you turn the card. Try an example from the chapter, too.</p>
+          <div class="flashcard-controls"><label for="flashcard-mode">Practise</label><select id="flashcard-mode"><option value="word">Word → meaning</option><option value="meaning">Meaning → word</option></select><button class="tool-button" id="shuffle-cards" type="button">Shuffle cards</button></div>
+          <button class="flashcard" id="flashcard" type="button" aria-label="Turn the flashcard"><span class="flashcard-face" id="flashcard-face"></span><span class="flashcard-hint" id="flashcard-hint">Click or press Enter to turn the card</span></button>
+          <div class="flashcard-nav"><button class="tool-button" id="previous-card" type="button">Previous card</button><span class="flashcard-status" id="flashcard-status" aria-live="polite"></span><button class="tool-button" id="next-card" type="button">Next card</button></div>
+        </div>
+      </details>
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <button id="previous-chapter" type="button">Previous chapter</button>
+        <button id="next-chapter" type="button">Next chapter</button>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p><strong>About this reader:</strong> Written for the Sir Wilfrid Laurier School Board elementary SciTech curriculum. Canadian spelling, metric units and familiar Québec settings are used throughout.</p>
+      <p>This reader contains original short readings informed by Core Knowledge Foundation science materials including Using Natural Resources, Protecting Earths Resources. Source works are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>. This adaptation is shared under the same licence and does not imply endorsement by the Core Knowledge Foundation.</p>
+    </div>
+  </footer>
+
+  <script>
+    const chapters = [{"title":"Environmental Systems Are Connected","lessons":[1,2],"pol":[1],"goal":"I can explain how a human change can affect water, soil, air and living things.","keywords":{"system":"connected parts that affect one another","biodiversity":"the variety of living things","pollution":"harmful materials or changes introduced into an environment"},"intro":"Rain washes across a paved schoolyard differently than across a planted garden.","sections":[{"heading":"One change can spread","paragraphs":[["Water, soil, air and organisms interact. Paving can reduce infiltration and increase runoff. Runoff can carry particles and pollutants to streams. Removing plant cover can also reduce habitat."],["Urbanization, agriculture and resource use change these systems in different ways. People need homes and food, so the question is how to meet needs while reducing harmful effects."]]},{"heading":"Trace a cause and an effect","paragraphs":[["A useful explanation names a specific change and follows its path. More pavement can mean more runoff, which can change stream conditions."],["Not every change has the same effect everywhere. Soil, slope, weather and the design itself matter. Observation helps test whether a proposed explanation fits the place."],["Compare both benefits and costs. A planted strip may support organisms and absorb some rainwater, but it also needs a suitable location and care."]]}],"think":"Why can a schoolyard change affect a stream outside the school?","summary":["Environmental systems connect water, soil, air and living things.","A local human change can have effects beyond its immediate site."],"quiz":[["Explain your thinking","Why can a schoolyard change affect a stream outside the school?","Runoff connects the places and can carry materials from the schoolyard to the stream."],["Apply the idea","Why is it useful to consider both a paved path and planted space?","People need access, while plants can support infiltration and habitats. A design can balance these needs."]],"lesson":"Lesson 1 · Environmental systems / Lesson 2 · Human pressures","mapPol":["Describe environmental effects of resource use, pollution, waste management, land use, urbanization and agriculture."],"image":"assets/g4u4-chapter-1.jpg","imageOriginal":"assets/g4u4-chapter-1-original.png","imageAlt":"Runoff near a paved schoolyard, a drain and a planted strip.","caption":"Runoff near a paved schoolyard, a drain and a planted strip. Environmental systems connect water, soil, air and living things. Generated contextual illustration; not a scale model.","wordFile":"word/g4u4-chapter-1.docx"},{"title":"A Product Has a Life Cycle","lessons":[3],"pol":[1],"goal":"I can trace the environmental effects of making, using and disposing of a product.","keywords":{"raw_material":"matter used to make a product","life_cycle":"stages from a product’s materials to its final use or disposal","durable":"able to remain useful for a long time"},"intro":"A lunch container has environmental effects before it becomes waste.","sections":[{"heading":"Look beyond the bin","paragraphs":[["Its materials must be obtained, transported and manufactured. Each step can use energy and water or create pollution. The container is then used, cleaned, repaired or replaced."],["After use, it may be reused, recycled or disposed of. Calling a product recyclable tells us about one possible stage, not its whole life cycle."]]},{"heading":"Compare the whole job","paragraphs":[["A durable container used many times can avoid some disposable packaging. Its production and cleaning still have effects. The useful comparison considers how often it is used and what it replaces."],["Resource extraction, waste management and land use can affect habitats and communities. A design decision should connect an effect to a stage."],["Draw the path of a familiar product and identify where reducing material, repairing or reusing could help. Avoid a claim that one material is always best in every situation."]]}],"think":"Why does recyclable not mean a product has no environmental effects?","summary":["A product’s environmental effects extend from raw materials through use and disposal.","Durability, reuse and repair can change the whole-life comparison."],"quiz":[["Explain your thinking","Why does recyclable not mean a product has no environmental effects?","Obtaining materials, manufacturing, transport and processing still use resources and affect surroundings."],["Apply the idea","Why does number of uses matter when comparing containers?","A durable product’s production is spread over repeated uses, changing the comparison with disposable alternatives."]],"lesson":"Lesson 3 · Product and material life cycles","mapPol":["Describe environmental effects of resource use, pollution, waste management, land use, urbanization and agriculture."],"image":"assets/g4u4-chapter-2.jpg","imageOriginal":"assets/g4u4-chapter-2-original.png","imageAlt":"A composite product life-cycle illustration showing materials, manufacturing, washing, reuse and disposal.","caption":"A composite product life-cycle illustration showing materials, manufacturing, washing, reuse and disposal. A product’s environmental effects extend from raw materials through use and disposal. Generated contextual illustration; not a scale model.","wordFile":"word/g4u4-chapter-2.docx"},{"title":"Recycling Changes Materials","lessons":[4],"pol":[2],"goal":"I can explain how sorting and material properties affect recycling.","keywords":{"recycling":"processing used material so it can be used again","sorting":"separating materials by useful categories","property":"a feature of a material"},"intro":"Putting paper in a collection bin is not the same as making new paper.","sections":[{"heading":"A bin is the beginning","paragraphs":[["Recycling needs collection, sorting and processing. Materials must be identified by their properties. Paper fibres can be made into pulp and formed into new sheets. Metals may be separated and melted."],["These steps use energy and can involve physical changes. Different materials need different processes; not every plastic follows the same recycling path."]]},{"heading":"Reduce confusion and waste","paragraphs":[["Food residue or unsuitable materials can interfere with sorting and processing. Follow the collection instructions for your school or municipality rather than guessing from appearance."],["Recycling can recover useful matter, but avoiding unnecessary products and reusing items can prevent waste before processing is needed."],["Compare a sorting design using safe, clean samples. Explain which property helps the separation and how you know it works. Do not assume all items placed in a bin are automatically recovered."]]}],"think":"Why should different materials be separated before processing?","summary":["Recycling needs sorting and processing matched to material properties.","Reduction and reuse can prevent some waste before processing is needed."],"quiz":[["Explain your thinking","Why should different materials be separated before processing?","Their properties and suitable processes differ, and mixed materials can interfere with recovery."],["Apply the idea","Why can reuse be useful even when an item is recyclable?","It can keep a product useful without requiring collection and reprocessing after every use."]],"lesson":"Lesson 4 · Recycling","mapPol":["Explain science and technology concepts involved in recycling and composting, including properties, changes, food chains and energy."],"image":"assets/g4u4-chapter-3.jpg","imageOriginal":"assets/g4u4-chapter-3-original.png","imageAlt":"Recovered paper, paper pulp and formed paper sheets beside processing equipment.","caption":"Recovered paper, paper pulp and formed paper sheets beside processing equipment. Recycling needs sorting and processing matched to material properties. Generated contextual illustration; not a scale model.","wordFile":"word/g4u4-chapter-3.docx"},{"title":"Composting and a Local Design","lessons":[5,6],"pol":[1,2],"goal":"I can explain decomposition and justify a school waste-reduction design.","keywords":{"decomposition":"breaking down remains and wastes of organisms","compost":"partly decomposed organic material used to improve soil","decomposer":"an organism that breaks down organic material"},"intro":"An apple core does not disappear when it is composted. Its matter changes and moves.","sections":[{"heading":"Matter returns to systems","paragraphs":[["Decomposers, including microorganisms and fungi, break down suitable organic material. They use food energy and release some as thermal energy. Air, moisture and suitable conditions affect the process."],["Finished compost contains transformed organic material that can improve soil. Not every product labelled natural belongs in a classroom compost system."]]},{"heading":"Design around the cause","paragraphs":[["Find where school waste begins. Could a change prevent waste, encourage reuse or improve sorting? Measure a baseline before judging a solution."],["Use the school’s accepted-material instructions. A classroom model does not guarantee that materials will behave the same in every municipal system."],["State what your design improves and what still needs checking. For example, clearer sorting signs may reduce mistakes, but only observations can show whether people use them successfully."]]}],"think":"Why is composting more than shrinking a pile of scraps?","summary":["Decomposers transform organic matter and use its food energy.","A local design should address a specific cause and be checked with evidence."],"quiz":[["Explain your thinking","Why is composting more than shrinking a pile of scraps?","Organisms transform organic matter and use its energy. Matter moves into new materials and the surroundings."],["Apply the idea","How would you know whether new sorting signs helped?","Compare observed sorting mistakes before and after the signs under similar conditions."]],"lesson":"Lesson 5 · Composting / Lesson 6 · Local design response","mapPol":["Describe environmental effects of resource use, pollution, waste management, land use, urbanization and agriculture.","Explain science and technology concepts involved in recycling and composting, including properties, changes, food chains and energy."],"image":"assets/g4u4-chapter-4.jpg","imageOriginal":"assets/g4u4-chapter-4-original.png","imageAlt":"Organic scraps and decomposed material in a compost setting.","caption":"Organic scraps and decomposed material in a compost setting. Decomposers transform organic matter and use its food energy. Generated contextual illustration; not a scale model.","wordFile":"word/g4u4-chapter-4.docx"}];
+    const chapterSelect = document.querySelector('#chapter-select');
+    // Both reading and practice stay in the left column; support never overlays them.
+    const readerLayout = document.querySelector('.reader-layout');
+    const readerRail = document.querySelector('.side-rail');
+    const readerTools = document.querySelector('.tools-panel');
+    readerTools.querySelector('summary').innerHTML = '<span>Reading tools<span class="tool-status" id="tool-status">Click to open</span></span>';
+    readerTools.querySelector('summary').after(document.querySelector('.reading-bar'));
+    readerRail.prepend(readerTools);
+    const readerMain = document.createElement('div');
+    readerMain.className = 'reader-main';
+    [...readerLayout.children].filter(node => node !== readerRail).forEach(node => readerMain.append(node));
+    readerLayout.prepend(readerMain);
+    readerMain.append(document.querySelector('.site-footer'));
+    const measureReaderHeader = () => document.documentElement.style.setProperty('--reader-header-height', document.querySelector('.site-header').getBoundingClientRect().height + 'px');
+    new ResizeObserver(measureReaderHeader).observe(document.querySelector('.site-header'));
+    measureReaderHeader();
+    const article = document.querySelector('#chapter-article');
+    const readingText = document.querySelector('#reading-text');
+    const root = document.documentElement;
+    let currentChapter = Math.max(0, Math.min(chapters.length - 1, location.hash.match(/chapter-(\d+)/) ? Number(location.hash.match(/chapter-(\d+)/)[1]) - 1 : (location.hash.match(/chapter-(\d+)/) ? Number(location.hash.match(/chapter-(\d+)/)[1]) - 1 : Number(localStorage.getItem('g4u4-reader-chapter') || 0))));
+    let activeSentence = -1;
+    let textSize = 1.125;
+    let speaking = false;
+    let together = false;
+    let cardOrder = [], cardIndex = 0, cardFlipped = false;
+
+    chapters.forEach((chapter, index) => {
+      const option = document.createElement('option');
+      option.value = index;
+      option.textContent = `Chapter ${index + 1}: ${chapter.title}`;
+      chapterSelect.append(option);
+    });
+
+    function labelFor(term) {
+      return term.replaceAll('_', ' ');
+    }
+
+    function vocabMarkup(text) {
+      const terms = Object.keys(chapters[currentChapter].keywords).map(labelFor).sort((a, b) => b.length - a.length);
+      const variants = { state: 'states?', solid: 'solids?', liquid: 'liquids?', gas: 'gas(?:es)?', property: 'propert(?:y|ies)', fibre: 'fibres?', raw_material: 'raw materials?', physical_change: 'physical changes?', manufacture: 'manufactur(?:e|ed|ing|ers?)', melt: 'melt(?:s|ed|ing)?', freeze: 'freez(?:e|es|ing)|frozen', dissolve: 'dissolv(?:e|es|ed|ing)', recycle: 'recycl(?:e|es|ed|ing|able)' };
+      const patterns = terms.map(term => variants[term.replaceAll(' ', '_')] || (term + 's?'));
+      return text.replace(new RegExp(`\\b(${patterns.join('|')})\\b`, 'gi'), '<strong class="vocab-word">$1</strong>');
+    }
+    function sentenceMarkup(sentences) {
+      const chunks = sentences.flatMap(sentence => typeof Intl.Segmenter === 'function' ? [...new Intl.Segmenter('en-CA', {granularity: 'sentence'}).segment(sentence)].map(part => part.segment.trim()) : sentence.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [sentence]);
+      return chunks.map(sentence => `<span class="reader-sentence">${vocabMarkup(sentence)}</span>`).join(' ');
+    }
+
+    function renderChapter(index) {
+      currentChapter = index;
+      activeSentence = -1;
+      stopSpeech();
+      const chapter = chapters[index];
+      chapterSelect.value = String(index);
+      localStorage.setItem('g4u4-reader-chapter', String(index));
+      document.title = `Chapter ${index + 1}: ${chapter.title} — Grade 4 Science Reader`;
+      document.querySelector('#progress-fill').style.width = `${((index + 1) / chapters.length) * 100}%`;
+      document.querySelector('#chapter-position').textContent = `Chapter ${index + 1} of ${chapters.length} · ${chapter.lesson}`;
+      document.querySelector('#chapter-title').textContent = chapter.title;
+      document.querySelector('#learning-goal').textContent = chapter.goal;
+      document.querySelector('#lesson-connection').textContent = `${chapter.lesson}. Read this chapter before or during the lesson, then use the investigation to test the ideas.`;
+
+      document.querySelector('#keyword-list').innerHTML = Object.entries(chapter.keywords).map(([term, definition]) =>
+        `<div><dt>${labelFor(term)}</dt><dd>${definition}</dd></div>`
+      ).join('');
+
+      let content = `<p class="chapter-intro">${sentenceMarkup([chapter.intro])}</p>`;
+      chapter.sections.forEach((section, sectionIndex) => {
+        content += `<section><h2>${section.heading}</h2>`;
+        section.paragraphs.forEach(paragraph => { content += `<p>${sentenceMarkup(paragraph)}</p>`; });
+        if (sectionIndex === 0) {
+          content += `<figure class="science-figure"><img src="${chapter.image}" alt="${chapter.imageAlt}" width="1536" height="1024"><figcaption>${chapter.caption}</figcaption></figure>`;
+        }
+        content += `</section>`;
+      });
+      content += `<aside class="think-prompt"><strong>Stop and think</strong>${vocabMarkup(chapter.think)}</aside>`;
+      content += `<section class="chapter-summary"><h2>What to remember</h2><ul>${chapter.summary.map(item => `<li>${sentenceMarkup([item])}</li>`).join('')}</ul></section>`;
+      readingText.innerHTML = content;
+
+      document.querySelector('#chapter-pol').innerHTML = chapter.mapPol.map(p => '<li>'+p+'</li>').join('');
+      cardOrder = Object.entries(chapter.keywords); cardIndex = 0; cardFlipped = false; renderCard();
+      document.querySelector('#reading-count').textContent = 'Choose a sentence to begin';
+
+      renderQuiz(chapter.quiz);
+      document.querySelector('#previous-chapter').disabled = index === 0;
+      document.querySelector('#next-chapter').disabled = index === chapters.length - 1;
+      document.querySelector('#previous-chapter').textContent = index === 0 ? 'Previous chapter' : `Previous: ${chapters[index - 1].title}`;
+      document.querySelector('#next-chapter').textContent = index === chapters.length - 1 ? 'End of reader' : `Next: ${chapters[index + 1].title}`;
+      bindSentences();
+      if (together) activateSentence(0, false);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderQuiz(questions) {
+      document.querySelector('#check-body').innerHTML = '<p>Think first, then explain aloud, sketch, or write. Use an idea or example from the chapter as evidence.</p>' + questions.map(([kind, question, explanation], qIndex) => `<section class="concept-question"><p class="question-kind">${qIndex + 1} · ${kind}</p><h3>${question}</h3><label for="response-${qIndex}">My thinking (optional — stays on this page until I change chapters)</label><textarea id="response-${qIndex}" placeholder="I think… because…"></textarea><details class="reasoning"><summary>Discuss the reasoning</summary><p>${explanation}</p></details></section>`).join('');
+    }
+
+    function renderCard(preserveTurn = false) {
+      if (!preserveTurn) {
+        clearTimeout(cardTurnTimer);
+        cardTurnTimer = null;
+        document.querySelector('#flashcard').classList.remove('is-turning');
+      }
+      const [term, definition] = cardOrder[cardIndex];
+      const wordFirst = document.querySelector('#flashcard-mode').value === 'word';
+      const showWord = cardFlipped ? !wordFirst : wordFirst;
+      document.querySelector('#flashcard-face').textContent = showWord ? labelFor(term) : definition;
+      document.querySelector('#flashcard-hint').textContent = cardFlipped ? 'Say an example. Turn the card to try again.' : 'Think of the answer. Click or press Enter to turn.';
+      document.querySelector('#flashcard-status').textContent = `Card ${cardIndex + 1} of ${cardOrder.length}`;
+      document.querySelector('#flashcard').setAttribute('aria-label', `${showWord ? 'Word' : 'Meaning'}: ${showWord ? labelFor(term) : definition}. Turn the card.`);
+    }
+
+    function bindSentences() {
+      sentenceNodes().forEach((sentence, index) => {
+        sentence.addEventListener('click', () => { setTogether(true); activateSentence(index); });
+      });
+    }
+
+    function sentenceNodes() { return [...readingText.querySelectorAll('.reader-sentence')]; }
+
+    function activateSentence(index, scroll = true) {
+      const sentences = sentenceNodes();
+      if (!sentences.length) return;
+      activeSentence = Math.max(0, Math.min(sentences.length - 1, index));
+      sentences.forEach((sentence, sentenceIndex) => sentence.classList.toggle('is-active', sentenceIndex === activeSentence));
+      if (scroll) sentences[activeSentence].scrollIntoView({ block: 'center', behavior: 'smooth' });
+      document.querySelector('#tool-status').textContent = `Sentence ${activeSentence + 1} of ${sentences.length}`;
+      document.querySelector('#reading-count').textContent = `Sentence ${activeSentence + 1} of ${sentences.length}${activeSentence === sentences.length - 1 ? ' · Last sentence' : ''}`;
+    }
+    function setTogether(value) {
+      together = value;
+      const button = document.querySelector('#read-together');
+      button.setAttribute('aria-pressed', String(value));
+      button.textContent = value ? 'Finish reading together' : 'Read together';
+      if (value) { article.setAttribute('tabindex', '-1'); article.focus({preventScroll: true}); }
+      else { activeSentence = -1; sentenceNodes().forEach(node => node.classList.remove('is-active')); document.querySelector('#reading-count').textContent = 'Choose a sentence to begin'; }
+    }
+
+    function preferredVoice() {
+      const voices = speechSynthesis.getVoices();
+      return voices.find(voice => voice.lang === 'en-CA') || voices.find(voice => voice.lang.startsWith('en')) || null;
+    }
+
+    function speak(text, onEnd) {
+      if (!('speechSynthesis' in window)) {
+        document.querySelector('#tool-status').textContent = 'Read-aloud is not available in this browser.';
+        return;
+      }
+      speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-CA';
+      utterance.rate = Number(document.querySelector('#speech-speed').value);
+      utterance.voice = preferredVoice();
+      utterance.onend = () => { speaking = false; document.querySelector('#read-aloud').textContent = 'Read chapter aloud'; if (onEnd) onEnd(); };
+      utterance.onerror = utterance.onend;
+      speaking = true;
+      speechSynthesis.speak(utterance);
+    }
+
+    function stopSpeech() {
+      if ('speechSynthesis' in window) speechSynthesis.cancel();
+      speaking = false;
+      const button = document.querySelector('#read-aloud');
+      if (button) button.textContent = 'Read chapter aloud';
+    }
+
+    function chapterPlainText() {
+      const chapter = chapters[currentChapter];
+      const body = chapter.sections.map(section => `${section.heading}\n${section.paragraphs.flat().join(' ')}`).join('\n\n');
+      return `${chapter.title}\n\nLearning goal: ${chapter.goal}\n\n${chapter.intro}\n\n${body}\n\nStop and think: ${chapter.think}\n\nWhat to remember:\n${chapter.summary.map(item => `• ${item}`).join('\n')}`;
+    }
+
+    function downloadChapter() {
+      const chapter = chapters[currentChapter];
+      const link = document.createElement('a');
+      link.href = chapter.wordFile;
+      link.download = `Grade_4_Unit_4_Chapter_${currentChapter + 1}.docx`;
+      document.body.append(link);
+      link.click();
+      link.remove();
+    }
+
+    chapterSelect.addEventListener('change', event => renderChapter(Number(event.target.value)));
+    document.querySelector('#previous-chapter').addEventListener('click', () => { if (currentChapter > 0) renderChapter(currentChapter - 1); });
+    document.querySelector('#next-chapter').addEventListener('click', () => { if (currentChapter < chapters.length - 1) renderChapter(currentChapter + 1); });
+    document.querySelector('#next-sentence').addEventListener('click', () => activateSentence(activeSentence + 1));
+    document.querySelector('#previous-sentence').addEventListener('click', () => activateSentence(activeSentence < 0 ? 0 : activeSentence - 1));
+    document.querySelector('#clear-highlight').addEventListener('click', () => {
+      setTogether(false);
+      activeSentence = -1;
+      sentenceNodes().forEach(sentence => sentence.classList.remove('is-active'));
+      document.querySelector('#tool-status').textContent = 'Optional supports';
+    });
+    document.querySelector('#spotlight').addEventListener('click', event => {
+      const active = event.currentTarget.getAttribute('aria-pressed') !== 'true';
+      event.currentTarget.setAttribute('aria-pressed', String(active));
+      readingText.classList.toggle('spotlight', active);
+      if (active && activeSentence < 0) activateSentence(0);
+    });
+    document.querySelector('#read-sentence').addEventListener('click', () => {
+      if (activeSentence < 0) activateSentence(0);
+      const sentence = sentenceNodes()[activeSentence];
+      if (sentence) speak(sentence.textContent);
+    });
+    document.querySelector('#read-aloud').addEventListener('click', event => {
+      if (speaking) { stopSpeech(); return; }
+      event.currentTarget.textContent = 'Stop reading';
+      speak(chapterPlainText());
+    });
+    document.querySelector('#larger-text').addEventListener('click', () => {
+      textSize = Math.min(1.5, textSize + 0.125);
+      root.style.setProperty('--reader-size', `${textSize}rem`);
+    });
+    document.querySelector('#smaller-text').addEventListener('click', () => {
+      textSize = Math.max(1, textSize - 0.125);
+      root.style.setProperty('--reader-size', `${textSize}rem`);
+    });
+    document.querySelector('#print-chapter').addEventListener('click', () => window.print());
+    document.querySelector('#download-chapter').addEventListener('click', downloadChapter);
+    document.querySelector('#read-together').addEventListener('click', () => { setTogether(!together); if (together) activateSentence(activeSentence < 0 ? 0 : activeSentence); });
+    document.querySelector('#class-next').addEventListener('click', () => { setTogether(true); activateSentence(activeSentence + 1); });
+    document.querySelector('#class-previous').addEventListener('click', () => { setTogether(true); activateSentence(activeSentence < 0 ? 0 : activeSentence - 1); });
+    let cardTurnTimer = null;
+    document.querySelector('#flashcard').addEventListener('click', () => {
+      const card = document.querySelector('#flashcard');
+      if (card.classList.contains('is-turning')) return;
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        cardFlipped = !cardFlipped; renderCard(); return;
+      }
+      card.classList.add('is-turning');
+      cardTurnTimer = setTimeout(() => { cardTurnTimer = null; cardFlipped = !cardFlipped; renderCard(true); }, 176);
+    });
+    document.querySelector('#flashcard').addEventListener('animationend', event => {
+      if (event.animationName === 'card-turn') event.currentTarget.classList.remove('is-turning');
+    });
+    document.querySelector('#next-card').addEventListener('click', () => { cardIndex = (cardIndex + 1) % cardOrder.length; cardFlipped = false; renderCard(); });
+    document.querySelector('#previous-card').addEventListener('click', () => { cardIndex = (cardIndex - 1 + cardOrder.length) % cardOrder.length; cardFlipped = false; renderCard(); });
+    document.querySelector('#flashcard-mode').addEventListener('change', () => { cardFlipped = false; renderCard(); });
+    document.querySelector('#shuffle-cards').addEventListener('click', () => { for (let i = cardOrder.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [cardOrder[i], cardOrder[j]] = [cardOrder[j], cardOrder[i]]; } cardIndex = 0; cardFlipped = false; renderCard(); });
+    window.addEventListener('keydown', event => {
+      if (!together || event.altKey || event.ctrlKey || event.metaKey || event.repeat) return;
+      if (document.activeElement.closest('input, select, textarea, button, summary, a, [contenteditable="true"]')) return;
+      if (event.key === 'Escape') { event.preventDefault(); setTogether(false); document.querySelector('#read-together').focus({preventScroll: true}); }
+      if ([' ', 'ArrowRight', 'ArrowDown'].includes(event.key)) { event.preventDefault(); activateSentence(activeSentence + 1); }
+      if (['ArrowLeft', 'ArrowUp'].includes(event.key)) { event.preventDefault(); activateSentence(activeSentence < 0 ? 0 : activeSentence - 1); }
+    });
+    window.addEventListener('beforeunload', stopSpeech);
+
+    renderChapter(currentChapter);
+  </script>
+</body>
+</html>

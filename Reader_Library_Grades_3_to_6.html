@@ -1,0 +1,402 @@
+<!doctype html><html lang="en-CA"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SciTech Reader Library Grades 3 to 6</title><style>
+    :root {
+      --sp-blue: #0f6cbd;
+      --sp-blue-dark: #0b4f8a;
+      --sp-blue-soft: #e8f3fb;
+      --ink: #242424;
+      --muted: #616161;
+      --line: #d1d1d1;
+      --line-soft: #e8e8e8;
+      --canvas: #f5f5f5;
+      --white: #ffffff;
+      --success: #107c10;
+      --warning: #8a4b08;
+      --warning-soft: #fff4ce;
+      --focus: #605e5c;
+      --radius: 4px;
+      --content: 1120px;
+      --reading: 720px;
+      --reader-size: 1.125rem;
+      --secondary: #006b68;
+      --secondary-soft: #e6f4f2;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--canvas);
+      font-family: "Segoe UI", SegoeUI, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    button, select { font: inherit; }
+    button, select, summary { cursor: pointer; }
+    a { color: var(--sp-blue); }
+    a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+    .skip-link {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 100;
+      padding: 8px 12px;
+      color: var(--white);
+      background: var(--sp-blue-dark);
+      transform: translateY(-160%);
+    }
+    .skip-link:focus { transform: none; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 5px 16px rgba(0, 0, 0, 0.08);
+    }
+    .header-inner, .page-shell, .footer-inner {
+      width: min(calc(100% - 40px), var(--content));
+      margin-inline: auto;
+    }
+    .header-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: max-content;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      color: var(--white);
+      background: var(--sp-blue);
+      font-weight: 700;
+    }
+    .brand-copy { line-height: 1.15; }
+    .brand-copy strong { display: block; font-size: 18px; }
+    .brand-copy span { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; }
+    .chapter-picker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .chapter-picker label { font-size: 14px; font-weight: 600; }
+    .chapter-picker select {
+      width: min(390px, 46vw);
+      padding: 9px 34px 9px 11px;
+      color: var(--ink);
+      background: var(--white);
+      border: 1px solid #8a8886;
+      border-radius: var(--radius);
+    }
+
+    .page-shell { padding: 24px 0 72px; }
+    .breadcrumb { margin: 0 0 16px; color: var(--muted); font-size: 14px; }
+    .breadcrumb a { text-decoration: none; }
+    .breadcrumb span { padding: 0 8px; }
+    .unit-band {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 24px;
+      padding: 26px 30px;
+      background: var(--white);
+      border-top: 5px solid var(--sp-blue);
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      margin-bottom: 8px;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      font-weight: 650;
+    }
+    .unit-question { max-width: 70ch; margin: 0; color: #3b3a39; font-size: 18px; }
+    .unit-meta { color: var(--muted); font-size: 14px; text-align: right; }
+    .progress-track { height: 5px; background: #dbeaf5; }
+    .progress-fill { width: 16.666%; height: 100%; background: var(--sp-blue); }
+
+    .reader-layout {
+      display: grid;
+      grid-template-columns: minmax(0, var(--reading)) 300px;
+      justify-content: center;
+      align-items: start;
+      gap: 28px;
+      margin-top: 28px;
+    }
+    .chapter-page {
+      min-width: 0;
+      padding: clamp(26px, 5vw, 52px);
+      background: var(--white);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+    .chapter-position { margin-bottom: 10px; color: var(--sp-blue-dark); font-size: 14px; font-weight: 700; }
+    .chapter-title {
+      margin-bottom: 18px;
+      font-size: clamp(30px, 5vw, 46px);
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      font-weight: 650;
+    }
+    .learning-goal {
+      margin: 0 0 32px;
+      padding: 18px 20px;
+      background: var(--sp-blue-soft);
+    }
+    .learning-goal strong { display: block; margin-bottom: 4px; color: var(--sp-blue-dark); }
+    .learning-goal p { margin: 0; font-size: 17px; }
+    .chapter-intro { font-size: 20px; line-height: 1.5; font-weight: 600; }
+    .reading-text { font-size: var(--reader-size); line-height: 1.72; }
+    .reading-text h2 {
+      margin: 42px 0 12px;
+      font-size: 25px;
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+      font-weight: 650;
+    }
+    .reading-text p { margin-bottom: 20px; }
+    .reader-sentence {
+      border-radius: 3px;
+      transition: background-color 130ms ease-out, color 130ms ease-out;
+    }
+    .reader-sentence:hover { background: #f0f6fa; }
+    .reader-sentence.is-active {
+      color: #1c1c1c;
+      background: #fff1a8;
+      box-shadow: 0 2px 0 #d6a400;
+    }
+    .reading-text.spotlight .reader-sentence:not(.is-active) { color: #767676; }
+    .reading-text.spotlight .reader-sentence.is-active { color: #1c1c1c; }
+
+    .science-figure {
+      margin: 30px 0 34px;
+      padding: 22px;
+      background: #fafafa;
+      border: 1px solid var(--line);
+    }
+    .science-figure svg { display: block; width: 100%; height: auto; max-height: 310px; }
+    .science-figure img { display: block; width: 100%; height: auto; }
+    .science-figure { padding: 0; background: transparent; border: 0; }
+    .vocab-word { color: var(--secondary); font-weight: 750; }
+    .reading-bar { position: sticky; top: 78px; z-index: 10; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 12px 0; margin-bottom: 22px; background: var(--white); border-bottom: 1px solid var(--line-soft); }
+    .reading-help { width: 100%; margin: 0; color: var(--muted); font-size: 13px; }
+    .reading-count { color: var(--muted); font-size: 13px; }
+    .concept-question { padding: 24px 0; border-top: 1px solid var(--line-soft); }
+    .concept-question h3 { margin: 0 0 10px; font-size: 21px; line-height: 1.35; }
+    .question-kind { color: var(--secondary); font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .concept-question label { display: block; margin-bottom: 7px; color: var(--muted); font-size: 14px; }
+    .concept-question textarea { width: 100%; min-height: 100px; resize: vertical; padding: 12px; border: 1px solid #8a8886; border-radius: 4px; font: inherit; line-height: 1.5; background: #fcfcfc; }
+    textarea:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    .reasoning { margin-top: 14px; }
+    .reasoning summary { color: var(--sp-blue-dark); font-weight: 600; }
+    .reasoning p { margin: 12px 0 0; padding: 16px; background: var(--sp-blue-soft); }
+    .flashcard-panel { grid-column: 1 / -1; width: min(100%, var(--reading)); background: var(--white); }
+    .flashcard-panel > summary { padding: 18px 22px; color: var(--secondary); font-size: 18px; font-weight: 650; }
+    .flashcard-body { padding: 0 22px 24px; }
+    .flashcard-controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+    .flashcard-controls select { max-width: 100%; padding: 8px; background: white; border: 1px solid #8a8886; border-radius: 4px; }
+    .flashcard { width: 100%; min-height: 230px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; padding: 30px; background: var(--secondary-soft); border: 1px solid #9ecac7; border-radius: 4px; color: var(--secondary); text-align: center; }
+    .flashcard-face { font-size: 28px; font-weight: 700; line-height: 1.3; }
+    .flashcard-hint { color: #365c59; font-size: 14px; font-weight: 400; }
+    .flashcard-nav { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; margin-top: 16px; }
+    .flashcard-status { color: var(--muted); font-size: 14px; }
+    @media (max-width: 900px) { .reading-bar { top: 132px; } }
+    @media (max-width: 600px) { .reading-bar { top: 126px; } .reading-bar .tool-button { width: auto; } .flashcard { padding: 22px; } }
+    @media print { .reading-bar, .flashcard-panel { display: none !important; } }
+    .science-figure figcaption { margin-top: 14px; color: #4a4a4a; font-size: 14px; }
+    .science-figure strong { color: var(--ink); }
+    .think-prompt {
+      margin: 30px 0;
+      padding: 18px 20px;
+      color: #4f3204;
+      background: var(--warning-soft);
+    }
+    .think-prompt strong { display: block; margin-bottom: 4px; color: var(--warning); }
+    .chapter-summary {
+      margin: 40px 0 0;
+      padding-top: 24px;
+      border-top: 2px solid var(--sp-blue);
+    }
+    .chapter-summary h2 { margin: 0 0 10px; font-size: 23px; }
+    .chapter-summary ul { margin: 0; padding-left: 22px; }
+    .chapter-summary li + li { margin-top: 8px; }
+
+    :root { --reader-header-height: 76px; }
+    .reader-main { min-width: 0; display: grid; gap: 28px; }
+    .reader-main > * { min-width: 0; width: 100%; }
+    .side-rail {
+      position: sticky; top: calc(var(--reader-header-height) + 16px);
+      max-height: calc(100dvh - var(--reader-header-height) - 80px);
+      overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable;
+      display: grid; gap: 18px; align-self: start; min-width: 0;
+    }
+    .side-rail .tools-panel { margin: 0; grid-column: auto; }
+    .side-rail .tools-panel > summary { gap: 8px; }
+    .side-rail .tool-status { display: block; font-size: 12px; font-weight: 400; }
+    .side-rail .reading-bar { position: static; padding: 0 20px 16px; margin: 0; }
+    .side-rail .reading-help { font-size: 12px; }
+    .side-rail .tools-row { padding: 16px 20px; }
+    .side-rail .tool-button { font-size: 13px; }
+    .flashcard { perspective: 900px; }
+    .flashcard.is-turning { animation: card-turn 360ms cubic-bezier(.16, 1, .3, 1); }
+    @keyframes card-turn {
+      0% { transform: perspective(900px) rotateY(0) scale(1); }
+      49% { transform: perspective(900px) rotateY(85deg) scale(.97); }
+      50% { transform: perspective(900px) rotateY(-85deg) scale(.97); }
+      100% { transform: perspective(900px) rotateY(0) scale(1); }
+    }
+    @media (prefers-reduced-motion: reduce) { .flashcard.is-turning { animation: none; } }
+    .side-section { padding: 20px; background: var(--white); border-top: 3px solid var(--sp-blue); }
+    .side-section h2 { margin-bottom: 12px; font-size: 19px; }
+    .side-section p { color: #4a4a4a; font-size: 14px; }
+    .keyword-list { display: grid; gap: 10px; margin: 0; }
+    .keyword-list div { padding-top: 10px; border-top: 1px solid var(--line-soft); }
+    .keyword-list div:first-child { padding-top: 0; border-top: 0; }
+    .keyword-list dt { color: var(--secondary); font-weight: 700; }
+    .keyword-list dd { margin: 2px 0 0; color: #4a4a4a; font-size: 14px; }
+    .lesson-link { display: inline-flex; margin-top: 6px; font-size: 14px; font-weight: 600; }
+
+    .tools-panel { grid-column: 1 / -1; margin-top: 2px; background: var(--white); }
+    .tools-panel > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 20px;
+      font-weight: 650;
+      list-style: none;
+    }
+    .tools-panel > summary::-webkit-details-marker { display: none; }
+    .tools-panel > summary::after { content: "+"; color: var(--sp-blue); font-size: 22px; }
+    .tools-panel[open] > summary::after { content: "−"; }
+    .tools-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      padding: 0 20px 20px;
+      border-top: 1px solid var(--line-soft);
+    }
+    .tools-row:first-of-type { padding-top: 18px; }
+    .tool-button {
+      min-height: 40px;
+      padding: 8px 12px;
+      color: var(--ink);
+      background: var(--white);
+      border: 1px solid #8a8886;
+      border-radius: var(--radius);
+      font-weight: 600;
+    }
+    .tool-button:hover { background: #f3f2f1; }
+    .tool-button.primary { color: var(--white); background: var(--sp-blue); border-color: var(--sp-blue); }
+    .tool-button.primary:hover { background: var(--sp-blue-dark); }
+    .tool-button[aria-pressed="true"] { color: var(--white); background: var(--sp-blue-dark); border-color: var(--sp-blue-dark); }
+    .tool-status { color: var(--muted); font-size: 14px; }
+
+    .knowledge-check, .glossary-panel {
+      grid-column: 1 / -1;
+      width: min(100%, var(--reading));
+      justify-self: start;
+      background: var(--white);
+    }
+    .knowledge-check > summary, .glossary-panel > summary {
+      padding: 18px 22px;
+      color: var(--sp-blue-dark);
+      font-size: 18px;
+      font-weight: 650;
+    }
+    .check-body, .glossary-body { padding: 0 22px 24px; }
+    .question { margin: 0; padding: 18px 0; border: 0; border-top: 1px solid var(--line-soft); }
+    .question legend { padding: 0; font-weight: 650; }
+    .option { display: flex; align-items: flex-start; gap: 10px; margin-top: 11px; }
+    .option input { margin-top: 6px; }
+    .feedback { min-height: 24px; margin: 14px 0 0; font-weight: 600; }
+    .feedback.correct { color: var(--success); }
+    .feedback.try-again { color: #a4262c; }
+    .glossary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 24px; }
+    .glossary-entry { padding: 14px 0; border-top: 1px solid var(--line-soft); }
+    .glossary-entry strong { display: block; color: var(--sp-blue-dark); }
+    .glossary-entry span { color: #4a4a4a; font-size: 14px; }
+
+    .chapter-nav {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 4px;
+    }
+    .chapter-nav button {
+      min-height: 44px;
+      padding: 9px 16px;
+      color: var(--sp-blue-dark);
+      background: var(--white);
+      border: 1px solid var(--sp-blue);
+      border-radius: var(--radius);
+      font-weight: 650;
+    }
+    .chapter-nav button:hover { background: var(--sp-blue-soft); }
+    .chapter-nav button:disabled { color: #8a8886; background: #ededed; border-color: #d1d1d1; cursor: not-allowed; }
+
+    .site-footer { padding: 34px 0; color: #4a4a4a; background: #ededed; border-top: 1px solid var(--line); }
+    .footer-inner { font-size: 13px; }
+    .footer-inner p { max-width: 90ch; margin-bottom: 10px; }
+
+    @media (max-width: 900px) {
+      .header-inner { align-items: flex-start; flex-direction: column; padding: 14px 0; }
+      .chapter-picker { width: 100%; }
+      .chapter-picker select { flex: 1; width: auto; }
+      .unit-band { grid-template-columns: 1fr; }
+      .unit-meta { text-align: left; }
+      .reader-layout { grid-template-columns: 1fr; }
+      .side-rail { position: static; grid-template-columns: 1fr; max-height: none; overflow: visible; }
+      .tools-panel, .knowledge-check, .glossary-panel, .chapter-nav { grid-column: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .header-inner, .page-shell, .footer-inner { width: min(calc(100% - 24px), var(--content)); }
+      .brand-copy span, .chapter-picker label { display: none; }
+      .chapter-picker select { width: 100%; }
+      .page-shell { padding-top: 16px; }
+      .unit-band { padding: 22px 20px; }
+      .chapter-page { padding: 26px 20px 34px; }
+      .side-rail { grid-template-columns: 1fr; }
+      .glossary-grid { grid-template-columns: 1fr; }
+      .chapter-nav { flex-direction: column; }
+      .chapter-nav button { width: 100%; }
+      .tools-row { align-items: stretch; flex-direction: column; }
+      .tool-button { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; }
+    }
+
+    @media print {
+      .site-header, .breadcrumb, .tools-panel, .knowledge-check, .glossary-panel, .chapter-nav, .side-rail { display: none !important; }
+      body { background: var(--white); }
+      .page-shell { width: 100%; padding: 0; }
+      .unit-band { border-top-width: 3px; }
+      .reader-layout { display: block; margin-top: 16px; }
+      .chapter-page { box-shadow: none; padding: 0; }
+      .science-figure { break-inside: avoid; }
+      .reader-sentence.is-active { background: transparent; box-shadow: none; }
+    }
+  
+.library-grade{margin:40px 0}.library-list{list-style:none;padding:0;margin:0}.library-list li{border-top:1px solid var(--line);padding:20px 0;display:flex;gap:20px;justify-content:space-between;align-items:center}.library-list a{font-size:20px;font-weight:600;color:var(--sp-blue-dark)}.library-list span{color:var(--muted);white-space:nowrap}@media(max-width:640px){.library-list li{display:block}.library-list span{display:block;margin-top:8px}.library-list a{font-size:18px}}.library-map-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;white-space:nowrap;text-decoration:none;font-size:14px}</style></head><body><!-- THESIS: One library points teachers to short readings within the established lesson pathway. OWN-WORLD: Inherited SharePoint blue, vocabulary teal, Segoe UI and white teaching surfaces. STORY: Choose a grade, then a unit; read, discuss and practise. FIRST VIEWPORT: A descriptive title and the first grade’s unit links. FORM: The requested reader family inherits the existing model; no new visual world. FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md --><header class="site-header"><div class="header-inner"><a class="brand" href="../mockups/SciTech_Curriculum_Map_Grades_3_to_6.html"><span class="brand-mark">ST</span><span class="brand-copy"><strong>Elementary SciTech Readers</strong><span>Grades 3–6 · Cycles 2 and 3</span></span></a><a class="tool-button primary library-map-link" href="../mockups/SciTech_Curriculum_Map_Grades_3_to_6.html">Back to curriculum map</a></div></header><main class="page-shell"><section class="unit-band"><div><h1>Science readers for every unit</h1><p class="unit-question">Choose your unit. Each chapter connects reading to the lesson’s science goals.</p></div></section><p>Use Read together for sentence-by-sentence classroom reading. Practise vocabulary with flashcards, discuss conceptual questions, or download an editable Word chapter with its illustration.</p><nav aria-label="Grades"><a href="#grade-3">Grade 3</a> · <a href="#grade-4">Grade 4</a> · <a href="#grade-5">Grade 5</a> · <a href="#grade-6">Grade 6</a></nav><section class="library-grade" id="grade-3"><h2>Grade 3 · Cycle 2</h2><ul class="library-list"><li><a href="Grade_3_Unit_1_Matter_Materials_and_Making_Reader.html">Unit 1: Matter, Materials and Making</a><span>6 chapters</span></li><li><a href="Grade_3_Unit_2_Reader.html">Unit 2: Energy Around Us</a><span>7 chapters</span></li><li><a href="Grade_3_Unit_3_Reader.html">Unit 3: Soil, Water, Air and a Changing Earth</a><span>5 chapters</span></li><li><a href="Grade_3_Unit_4_Reader.html">Unit 4: The Living World</a><span>7 chapters</span></li></ul></section><section class="library-grade" id="grade-4"><h2>Grade 4 · Cycle 2</h2><ul class="library-list"><li><a href="Grade_4_Unit_1_Reader.html">Unit 1: Forces, Motion and Machines</a><span>7 chapters</span></li><li><a href="Grade_4_Unit_2_Reader.html">Unit 2: Earth, Moon, Sky and Weather</a><span>6 chapters</span></li><li><a href="Grade_4_Unit_3_Reader.html">Unit 3: Food, Habitats and Interdependence</a><span>7 chapters</span></li><li><a href="Grade_4_Unit_4_Reader.html">Unit 4: Human Impact and Environmental Design</a><span>4 chapters</span></li></ul></section><section class="library-grade" id="grade-5"><h2>Grade 5 · Cycle 3</h2><ul class="library-list"><li><a href="Grade_5_Unit_1_Reader.html">Unit 1: Matter, Properties and Chemical Change</a><span>6 chapters</span></li><li><a href="Grade_5_Unit_2_Reader.html">Unit 2: Energy, Heat, Light and Electricity</a><span>7 chapters</span></li><li><a href="Grade_5_Unit_3_Reader.html">Unit 3: Plants as Energy-Making Systems</a><span>6 chapters</span></li><li><a href="Grade_5_Unit_4_Reader.html">Unit 4: Growth, Reproduction and Change</a><span>6 chapters</span></li></ul></section><section class="library-grade" id="grade-6"><h2>Grade 6 · Cycle 3</h2><ul class="library-list"><li><a href="Grade_6_Unit_1_Reader.html">Unit 1: Forces, Fields, Pressure and Tides</a><span>7 chapters</span></li><li><a href="Grade_6_Unit_2_Reader.html">Unit 2: Machines, Mechanisms and Robots</a><span>6 chapters</span></li><li><a href="Grade_6_Unit_3_Reader.html">Unit 3: Earth in Space, Seasons and Climate</a><span>7 chapters</span></li><li><a href="Grade_6_Unit_4_Reader.html">Unit 4: Dynamic Earth and Sustainable Technologies</a><span>6 chapters</span></li></ul></section></main><footer class="site-footer"><div class="footer-inner"><p>English-language Québec classroom adaptations. Review readings and especially puberty lessons through your school’s teaching procedures before classroom use. Readers support, rather than replace, investigations and lesson slides.</p><p>Keep the HTML pages with their assets and word folders when moving or uploading this library.</p></div></footer></body></html>
