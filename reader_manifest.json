@@ -1,0 +1,864 @@
+[
+  {
+    "key": "g3u1",
+    "grade": 3,
+    "unit": 1,
+    "title": "Matter, Materials and Making",
+    "file": "Grade_3_Unit_1_Matter_Materials_and_Making_Reader.html",
+    "chapters": [
+      {
+        "title": "Matter Is Everywhere",
+        "lessons": [
+          1
+        ],
+        "file": "word/Grade_3_Unit_1_Chapter_1.docx"
+      },
+      {
+        "title": "Property Detectives",
+        "lessons": [
+          2
+        ],
+        "file": "word/Grade_3_Unit_1_Chapter_2.docx"
+      },
+      {
+        "title": "Measuring Matter",
+        "lessons": [
+          3
+        ],
+        "file": "word/Grade_3_Unit_1_Chapter_3.docx"
+      },
+      {
+        "title": "Why Things Float or Sink",
+        "lessons": [
+          4
+        ],
+        "file": "word/Grade_3_Unit_1_Chapter_4.docx"
+      },
+      {
+        "title": "Same Matter, New Form",
+        "lessons": [
+          5
+        ],
+        "file": "word/Grade_3_Unit_1_Chapter_5.docx"
+      },
+      {
+        "title": "From Materials to Useful Products",
+        "lessons": [
+          6,
+          7
+        ],
+        "file": "word/Grade_3_Unit_1_Chapter_6.docx"
+      }
+    ]
+  },
+  {
+    "key": "g3u2",
+    "grade": 3,
+    "unit": 2,
+    "title": "Energy Around Us",
+    "file": "Grade_3_Unit_2_Reader.html",
+    "chapters": [
+      {
+        "title": "Energy Has Many Forms",
+        "lessons": [
+          1
+        ],
+        "file": "word/g3u2-chapter-1.docx"
+      },
+      {
+        "title": "Finding Evidence of Energy",
+        "lessons": [
+          2
+        ],
+        "file": "word/g3u2-chapter-2.docx"
+      },
+      {
+        "title": "What Makes Sounds Different",
+        "lessons": [
+          3
+        ],
+        "file": "word/g3u2-chapter-3.docx"
+      },
+      {
+        "title": "Energy Changes Form",
+        "lessons": [
+          4
+        ],
+        "file": "word/g3u2-chapter-4.docx"
+      },
+      {
+        "title": "Warm Matter on the Move",
+        "lessons": [
+          5
+        ],
+        "file": "word/g3u2-chapter-5.docx"
+      },
+      {
+        "title": "The Sun and Renewable Sources",
+        "lessons": [
+          6
+        ],
+        "file": "word/g3u2-chapter-6.docx"
+      },
+      {
+        "title": "An Energy Audit at School",
+        "lessons": [
+          7
+        ],
+        "file": "word/g3u2-chapter-7.docx"
+      }
+    ]
+  },
+  {
+    "key": "g3u3",
+    "grade": 3,
+    "unit": 3,
+    "title": "Soil, Water, Air and a Changing Earth",
+    "file": "Grade_3_Unit_3_Reader.html",
+    "chapters": [
+      {
+        "title": "What Is in Soil",
+        "lessons": [
+          1
+        ],
+        "file": "word/g3u3-chapter-1.docx"
+      },
+      {
+        "title": "Where Does the Water Go",
+        "lessons": [
+          2
+        ],
+        "file": "word/g3u3-chapter-2.docx"
+      },
+      {
+        "title": "Rocks Carry Clues",
+        "lessons": [
+          3
+        ],
+        "file": "word/g3u3-chapter-3.docx"
+      },
+      {
+        "title": "Water Travels in a Cycle",
+        "lessons": [
+          4,
+          5
+        ],
+        "file": "word/g3u3-chapter-4.docx"
+      },
+      {
+        "title": "Healthy Water Soil and Air",
+        "lessons": [
+          6,
+          7
+        ],
+        "file": "word/g3u3-chapter-5.docx"
+      }
+    ]
+  },
+  {
+    "key": "g3u4",
+    "grade": 3,
+    "unit": 4,
+    "title": "The Living World",
+    "file": "Grade_3_Unit_4_Reader.html",
+    "chapters": [
+      {
+        "title": "What Living Things Need",
+        "lessons": [
+          1
+        ],
+        "file": "word/g3u4-chapter-1.docx"
+      },
+      {
+        "title": "Grouping the Living World",
+        "lessons": [
+          2
+        ],
+        "file": "word/g3u4-chapter-2.docx"
+      },
+      {
+        "title": "Comparing Animal Groups",
+        "lessons": [
+          3
+        ],
+        "file": "word/g3u4-chapter-3.docx"
+      },
+      {
+        "title": "Plant Parts Working Together",
+        "lessons": [
+          4
+        ],
+        "file": "word/g3u4-chapter-4.docx"
+      },
+      {
+        "title": "Animal Bodies Sense and Move",
+        "lessons": [
+          5,
+          8
+        ],
+        "file": "word/g3u4-chapter-5.docx"
+      },
+      {
+        "title": "Flowers Seeds and New Plants",
+        "lessons": [
+          6
+        ],
+        "file": "word/g3u4-chapter-6.docx"
+      },
+      {
+        "title": "Different Ways to Begin Life",
+        "lessons": [
+          7
+        ],
+        "file": "word/g3u4-chapter-7.docx"
+      }
+    ]
+  },
+  {
+    "key": "g4u1",
+    "grade": 4,
+    "unit": 1,
+    "title": "Forces, Motion and Machines",
+    "file": "Grade_4_Unit_1_Reader.html",
+    "chapters": [
+      {
+        "title": "Pushes Pulls and Static Attraction",
+        "lessons": [
+          1
+        ],
+        "file": "word/g4u1-chapter-1.docx"
+      },
+      {
+        "title": "Describe Motion Precisely",
+        "lessons": [
+          2
+        ],
+        "file": "word/g4u1-chapter-2.docx"
+      },
+      {
+        "title": "Forces Change Structures",
+        "lessons": [
+          3
+        ],
+        "file": "word/g4u1-chapter-3.docx"
+      },
+      {
+        "title": "Machines Trade Force for Distance",
+        "lessons": [
+          4
+        ],
+        "file": "word/g4u1-chapter-4.docx"
+      },
+      {
+        "title": "Parts That Carry Motion",
+        "lessons": [
+          5
+        ],
+        "file": "word/g4u1-chapter-5.docx"
+      },
+      {
+        "title": "Turning and Sliding in a Mechanism",
+        "lessons": [
+          6,
+          7
+        ],
+        "file": "word/g4u1-chapter-6.docx"
+      },
+      {
+        "title": "Designing Useful Technologies",
+        "lessons": [
+          8
+        ],
+        "file": "word/g4u1-chapter-7.docx"
+      }
+    ]
+  },
+  {
+    "key": "g4u2",
+    "grade": 4,
+    "unit": 2,
+    "title": "Earth, Moon, Sky and Weather",
+    "file": "Grade_4_Unit_2_Reader.html",
+    "chapters": [
+      {
+        "title": "Earth Turns and Day Becomes Night",
+        "lessons": [
+          1
+        ],
+        "file": "word/g4u2-chapter-1.docx"
+      },
+      {
+        "title": "Earth and Moon Travel in Orbits",
+        "lessons": [
+          2
+        ],
+        "file": "word/g4u2-chapter-2.docx"
+      },
+      {
+        "title": "Why the Moon Changes Shape",
+        "lessons": [
+          3
+        ],
+        "file": "word/g4u2-chapter-3.docx"
+      },
+      {
+        "title": "When Shadows Make Eclipses",
+        "lessons": [
+          4
+        ],
+        "file": "word/g4u2-chapter-4.docx"
+      },
+      {
+        "title": "Finding Patterns Among Stars",
+        "lessons": [
+          5
+        ],
+        "file": "word/g4u2-chapter-5.docx"
+      },
+      {
+        "title": "Clouds Weather and Observing Tools",
+        "lessons": [
+          6,
+          7
+        ],
+        "file": "word/g4u2-chapter-6.docx"
+      }
+    ]
+  },
+  {
+    "key": "g4u3",
+    "grade": 4,
+    "unit": 3,
+    "title": "Food, Habitats and Interdependence",
+    "file": "Grade_4_Unit_3_Reader.html",
+    "chapters": [
+      {
+        "title": "Food Supplies More Than Energy",
+        "lessons": [
+          1
+        ],
+        "file": "word/g4u3-chapter-1.docx"
+      },
+      {
+        "title": "Different Diets Different Evidence",
+        "lessons": [
+          2
+        ],
+        "file": "word/g4u3-chapter-2.docx"
+      },
+      {
+        "title": "Producers Begin Many Food Paths",
+        "lessons": [
+          3
+        ],
+        "file": "word/g4u3-chapter-3.docx"
+      },
+      {
+        "title": "Read a Food Chain",
+        "lessons": [
+          4
+        ],
+        "file": "word/g4u3-chapter-4.docx"
+      },
+      {
+        "title": "Habitats Meet Needs",
+        "lessons": [
+          5,
+          8
+        ],
+        "file": "word/g4u3-chapter-5.docx"
+      },
+      {
+        "title": "Predators Parasites and Their Hosts",
+        "lessons": [
+          6
+        ],
+        "file": "word/g4u3-chapter-6.docx"
+      },
+      {
+        "title": "Adaptations and Growing Food",
+        "lessons": [
+          7
+        ],
+        "file": "word/g4u3-chapter-7.docx"
+      }
+    ]
+  },
+  {
+    "key": "g4u4",
+    "grade": 4,
+    "unit": 4,
+    "title": "Human Impact and Environmental Design",
+    "file": "Grade_4_Unit_4_Reader.html",
+    "chapters": [
+      {
+        "title": "Environmental Systems Are Connected",
+        "lessons": [
+          1,
+          2
+        ],
+        "file": "word/g4u4-chapter-1.docx"
+      },
+      {
+        "title": "A Product Has a Life Cycle",
+        "lessons": [
+          3
+        ],
+        "file": "word/g4u4-chapter-2.docx"
+      },
+      {
+        "title": "Recycling Changes Materials",
+        "lessons": [
+          4
+        ],
+        "file": "word/g4u4-chapter-3.docx"
+      },
+      {
+        "title": "Composting and a Local Design",
+        "lessons": [
+          5,
+          6
+        ],
+        "file": "word/g4u4-chapter-4.docx"
+      }
+    ]
+  },
+  {
+    "key": "g5u1",
+    "grade": 5,
+    "unit": 1,
+    "title": "Matter, Properties and Chemical Change",
+    "file": "Grade_5_Unit_1_Reader.html",
+    "chapters": [
+      {
+        "title": "Objects Are Made of Materials",
+        "lessons": [
+          1
+        ],
+        "file": "word/g5u1-chapter-1.docx"
+      },
+      {
+        "title": "Properties Help Us Compare",
+        "lessons": [
+          2
+        ],
+        "file": "word/g5u1-chapter-2.docx"
+      },
+      {
+        "title": "Density Explains Floating",
+        "lessons": [
+          3
+        ],
+        "file": "word/g5u1-chapter-3.docx"
+      },
+      {
+        "title": "Changes and Substance Identity",
+        "lessons": [
+          4
+        ],
+        "file": "word/g5u1-chapter-4.docx"
+      },
+      {
+        "title": "Evidence of Chemical Reactions",
+        "lessons": [
+          5
+        ],
+        "file": "word/g5u1-chapter-5.docx"
+      },
+      {
+        "title": "Manufacturing Uses Planned Changes",
+        "lessons": [
+          6,
+          7
+        ],
+        "file": "word/g5u1-chapter-6.docx"
+      }
+    ]
+  },
+  {
+    "key": "g5u2",
+    "grade": 5,
+    "unit": 2,
+    "title": "Energy, Heat, Light and Electricity",
+    "file": "Grade_5_Unit_2_Reader.html",
+    "chapters": [
+      {
+        "title": "Sources Fuels and Energy Paths",
+        "lessons": [
+          1,
+          8
+        ],
+        "file": "word/g5u2-chapter-1.docx"
+      },
+      {
+        "title": "Three Ways Thermal Energy Travels",
+        "lessons": [
+          2,
+          3
+        ],
+        "file": "word/g5u2-chapter-2.docx"
+      },
+      {
+        "title": "Insulation Slows Energy Transfer",
+        "lessons": [
+          4
+        ],
+        "file": "word/g5u2-chapter-3.docx"
+      },
+      {
+        "title": "Electrical Conductors and Insulators",
+        "lessons": [
+          5
+        ],
+        "file": "word/g5u2-chapter-4.docx"
+      },
+      {
+        "title": "A Circuit Needs a Complete Path",
+        "lessons": [
+          6
+        ],
+        "file": "word/g5u2-chapter-5.docx"
+      },
+      {
+        "title": "Light Reflects and Refracts",
+        "lessons": [
+          7
+        ],
+        "file": "word/g5u2-chapter-6.docx"
+      },
+      {
+        "title": "Design an Energy System",
+        "lessons": [
+          9
+        ],
+        "file": "word/g5u2-chapter-7.docx"
+      }
+    ]
+  },
+  {
+    "key": "g5u3",
+    "grade": 5,
+    "unit": 3,
+    "title": "Plants as Energy-Making Systems",
+    "file": "Grade_5_Unit_3_Reader.html",
+    "chapters": [
+      {
+        "title": "What Plants Take In",
+        "lessons": [
+          1
+        ],
+        "file": "word/g5u3-chapter-1.docx"
+      },
+      {
+        "title": "Photosynthesis Stores Energy in Food",
+        "lessons": [
+          2
+        ],
+        "file": "word/g5u3-chapter-2.docx"
+      },
+      {
+        "title": "Plants Respire Too",
+        "lessons": [
+          3
+        ],
+        "file": "word/g5u3-chapter-3.docx"
+      },
+      {
+        "title": "Water and Minerals Move Through Plants",
+        "lessons": [
+          4
+        ],
+        "file": "word/g5u3-chapter-4.docx"
+      },
+      {
+        "title": "Growth Responds to Conditions",
+        "lessons": [
+          5
+        ],
+        "file": "word/g5u3-chapter-5.docx"
+      },
+      {
+        "title": "Plant Energy Supports Ecosystems and Farms",
+        "lessons": [
+          6,
+          7
+        ],
+        "file": "word/g5u3-chapter-6.docx"
+      }
+    ]
+  },
+  {
+    "key": "g5u4",
+    "grade": 5,
+    "unit": 4,
+    "title": "Growth, Reproduction and Change",
+    "file": "Grade_5_Unit_4_Reader.html",
+    "chapters": [
+      {
+        "title": "Metabolism Supports Growth",
+        "lessons": [
+          1
+        ],
+        "file": "word/g5u4-chapter-1.docx"
+      },
+      {
+        "title": "Life Cycles and Metamorphosis",
+        "lessons": [
+          2,
+          3
+        ],
+        "file": "word/g5u4-chapter-2.docx"
+      },
+      {
+        "title": "Sexual Reproduction in Animals",
+        "lessons": [
+          4
+        ],
+        "file": "word/g5u4-chapter-3.docx"
+      },
+      {
+        "title": "Plants Can Reproduce Without Seeds",
+        "lessons": [
+          5
+        ],
+        "file": "word/g5u4-chapter-4.docx"
+      },
+      {
+        "title": "Human Development and Puberty",
+        "lessons": [
+          6
+        ],
+        "file": "word/g5u4-chapter-5.docx"
+      },
+      {
+        "title": "Life Has Changed Over Time",
+        "lessons": [
+          7
+        ],
+        "file": "word/g5u4-chapter-6.docx"
+      }
+    ]
+  },
+  {
+    "key": "g6u1",
+    "grade": 6,
+    "unit": 1,
+    "title": "Forces, Fields, Pressure and Tides",
+    "file": "Grade_6_Unit_1_Reader.html",
+    "chapters": [
+      {
+        "title": "Forces Act Through Contact and Fields",
+        "lessons": [
+          1
+        ],
+        "file": "word/g6u1-chapter-1.docx"
+      },
+      {
+        "title": "Permanent Magnets and Magnetic Fields",
+        "lessons": [
+          2
+        ],
+        "file": "word/g6u1-chapter-2.docx"
+      },
+      {
+        "title": "Electric Current Can Make a Magnet",
+        "lessons": [
+          3
+        ],
+        "file": "word/g6u1-chapter-3.docx"
+      },
+      {
+        "title": "Gravity and Free Fall",
+        "lessons": [
+          4
+        ],
+        "file": "word/g6u1-chapter-4.docx"
+      },
+      {
+        "title": "Pressure Depends on Force and Area",
+        "lessons": [
+          5
+        ],
+        "file": "word/g6u1-chapter-5.docx"
+      },
+      {
+        "title": "Combined Forces Change Motion",
+        "lessons": [
+          6,
+          8
+        ],
+        "file": "word/g6u1-chapter-6.docx"
+      },
+      {
+        "title": "Gravity and the Ebb and Flow of Tides",
+        "lessons": [
+          7
+        ],
+        "file": "word/g6u1-chapter-7.docx"
+      }
+    ]
+  },
+  {
+    "key": "g6u2",
+    "grade": 6,
+    "unit": 2,
+    "title": "Machines, Mechanisms and Robots",
+    "file": "Grade_6_Unit_2_Reader.html",
+    "chapters": [
+      {
+        "title": "Complex Machines Have Connected Jobs",
+        "lessons": [
+          1
+        ],
+        "file": "word/g6u2-chapter-1.docx"
+      },
+      {
+        "title": "Rotation Translation and Transmission",
+        "lessons": [
+          2
+        ],
+        "file": "word/g6u2-chapter-2.docx"
+      },
+      {
+        "title": "Gears Change Direction and Speed",
+        "lessons": [
+          3
+        ],
+        "file": "word/g6u2-chapter-3.docx"
+      },
+      {
+        "title": "Cams Cranks and Connecting Rods",
+        "lessons": [
+          4
+        ],
+        "file": "word/g6u2-chapter-4.docx"
+      },
+      {
+        "title": "Springs Store and Release Energy",
+        "lessons": [
+          5
+        ],
+        "file": "word/g6u2-chapter-5.docx"
+      },
+      {
+        "title": "Feedback Helps Robots Act",
+        "lessons": [
+          6,
+          7
+        ],
+        "file": "word/g6u2-chapter-6.docx"
+      }
+    ]
+  },
+  {
+    "key": "g6u3",
+    "grade": 6,
+    "unit": 3,
+    "title": "Earth in Space, Seasons and Climate",
+    "file": "Grade_6_Unit_3_Reader.html",
+    "chapters": [
+      {
+        "title": "Earth’s Address in Space",
+        "lessons": [
+          1,
+          2
+        ],
+        "file": "word/g6u3-chapter-1.docx"
+      },
+      {
+        "title": "Compare Solar-System Bodies",
+        "lessons": [
+          3
+        ],
+        "file": "word/g6u3-chapter-2.docx"
+      },
+      {
+        "title": "Earth Rotates Revolves and Tilts",
+        "lessons": [
+          4
+        ],
+        "file": "word/g6u3-chapter-3.docx"
+      },
+      {
+        "title": "Why Québec Has Seasons",
+        "lessons": [
+          5
+        ],
+        "file": "word/g6u3-chapter-4.docx"
+      },
+      {
+        "title": "Stars Galaxies and Apparent Patterns",
+        "lessons": [
+          6
+        ],
+        "file": "word/g6u3-chapter-5.docx"
+      },
+      {
+        "title": "Weather and Climate Describe Different Patterns",
+        "lessons": [
+          7
+        ],
+        "file": "word/g6u3-chapter-6.docx"
+      },
+      {
+        "title": "Technology Extends Observation",
+        "lessons": [
+          8
+        ],
+        "file": "word/g6u3-chapter-7.docx"
+      }
+    ]
+  },
+  {
+    "key": "g6u4",
+    "grade": 6,
+    "unit": 4,
+    "title": "Dynamic Earth and Sustainable Technologies",
+    "file": "Grade_6_Unit_4_Reader.html",
+    "chapters": [
+      {
+        "title": "Minerals and Rocks Are Different",
+        "lessons": [
+          1
+        ],
+        "file": "word/g6u4-chapter-1.docx"
+      },
+      {
+        "title": "Rocks Record Different Processes",
+        "lessons": [
+          2
+        ],
+        "file": "word/g6u4-chapter-2.docx"
+      },
+      {
+        "title": "Earth’s Surface Has Connected Features",
+        "lessons": [
+          3
+        ],
+        "file": "word/g6u4-chapter-3.docx"
+      },
+      {
+        "title": "Weathering Erosion and Deposition",
+        "lessons": [
+          4
+        ],
+        "file": "word/g6u4-chapter-4.docx"
+      },
+      {
+        "title": "Rapid Hazards and Reducing Risk",
+        "lessons": [
+          5
+        ],
+        "file": "word/g6u4-chapter-5.docx"
+      },
+      {
+        "title": "Sustainable Responses Need Whole-System Thinking",
+        "lessons": [
+          6,
+          7
+        ],
+        "file": "word/g6u4-chapter-6.docx"
+      }
+    ]
+  }
+]
