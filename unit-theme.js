@@ -12,6 +12,16 @@
     document.documentElement.dataset.unitTheme = units[key] || 'slate';
   };
   document.addEventListener('DOMContentLoaded', function () {
+    const rail = document.querySelector('.persistent-map-layout > .toolkit-column');
+    if (rail) {
+      const fitRail = function () {
+        rail.dataset.fitsViewport = String(rail.getBoundingClientRect().height <= window.innerHeight - 32);
+      };
+      new ResizeObserver(fitRail).observe(rail);
+      window.addEventListener('resize', fitRail);
+      if (document.fonts) document.fonts.ready.then(fitRail);
+      fitRail();
+    }
     const reader = location.pathname.match(/Grade_(\d)_Unit_(\d)/);
     if (reader) window.scitechApplyTheme('g' + reader[1] + 'u' + reader[2]);
     if (document.querySelector('.library-list')) {
