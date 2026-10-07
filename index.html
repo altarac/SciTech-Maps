@@ -875,6 +875,8 @@
       .coverage-list { columns: 1; }
     }
 </style>
+<link rel="stylesheet" href="./unit-theme.css">
+<script src="./unit-theme.js"></script>
 </head>
 <body>
   <!--
@@ -1072,7 +1074,7 @@
     function renderUnitChoices(selected) {
       const gradeUnits = units.filter(function (unit) { return unit.grade === selected.grade; });
       unitGrid.innerHTML = gradeUnits.map(function (unit) {
-        return '<button type="button" class="unit-choice" data-unit-key="' + unit.key + '" aria-current="' + (unit.key === selected.key) + '">' +
+        return '<button type="button" class="unit-choice" data-unit-key="' + unit.key + '" data-unit-theme="' + window.scitechUnitThemes[unit.key] + '" aria-current="' + (unit.key === selected.key) + '">' +
           '<span class="unit-choice-number">' + unit.unit + '</span>' +
           '<span><span class="unit-choice-title">' + escapeHtml(unit.title) + '</span><span class="unit-choice-time">' + escapeHtml(unit.classes) + ' classes</span></span></button>';
       }).join('');
@@ -1189,6 +1191,7 @@
     function selectUnit(key, updateHash) {
       const selected = units.find(function (unit) { return unit.key === key; }) || units[0];
       currentUnit = selected;
+      window.scitechApplyTheme(selected.key);
       renderGradeTabs(selected.grade);
       renderUnitChoices(selected);
       document.querySelectorAll('[data-grade-link]').forEach(function (link) {

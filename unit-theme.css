@@ -1,0 +1,68 @@
+/* Exact slide swatches carry identity; darker companion inks carry accessible text/actions. */
+:root, [data-unit-theme="slate"] {
+  --theme-navy: #102b43;
+  --theme-accent: #829bb0;
+  --theme-ink: #40586d;
+  --theme-soft: #edf1f5;
+  --theme-line: #adbfcf;
+  --theme-on-accent: #102b43;
+}
+[data-unit-theme="teal"] {
+  --theme-accent: #4ab8b2; --theme-ink: #166b67;
+  --theme-soft: #e9f6f5; --theme-line: #89cbc7;
+}
+[data-unit-theme="orange"] {
+  --theme-accent: #c86f3b; --theme-ink: #94471d;
+  --theme-soft: #fcf0e8; --theme-line: #daa17e;
+  --theme-on-accent: #071b2b;
+}
+[data-unit-theme="gold"] {
+  --theme-accent: #f1b34b; --theme-ink: #79500d;
+  --theme-soft: #fff5e2; --theme-line: #c49848;
+}
+[data-unit-theme="green"] {
+  --theme-accent: #72b08e; --theme-ink: #32664a;
+  --theme-soft: #edf6f0; --theme-line: #9cc8af;
+}
+:root {
+  --sp-blue: var(--theme-ink); --sp-blue-dark: var(--theme-navy);
+  --sp-blue-soft: var(--theme-soft); --secondary: var(--theme-ink);
+  --secondary-soft: var(--theme-soft); --ink: var(--theme-navy);
+  --focus: var(--theme-navy); --canvas: #f4f6f7;
+}
+.suite-bar, .site-header { background: var(--theme-navy); color: white; }
+.site-header .site-title, .site-header .site-nav a,
+.site-header .brand, .site-header .chapter-picker label { color: white; }
+.site-header .brand-copy span { color: #c1d3df; }
+.site-header .site-header-inner, .site-header .site-identity,
+.site-header .site-inner, .site-header .site-bar { background: transparent; }
+.site-header .site-nav a:hover { background: #203e57; }
+.site-header .site-nav a[aria-current="page"] { border-bottom-color: var(--theme-accent); }
+.site-header :is(a, button, select):focus-visible { outline-color: var(--theme-accent); }
+.brand-mark, .site-logo { color: var(--theme-on-accent); background: var(--theme-accent); }
+.title-area, .unit-band { background: var(--theme-soft); border-top-color: var(--theme-accent); }
+.title-area h1, .unit-band h1 { color: var(--theme-navy); }
+.unit-choice[data-unit-theme] { background: white; }
+.unit-choice[data-unit-theme]:hover,
+.unit-choice[data-unit-theme][aria-current="true"] { background: var(--theme-soft); }
+.unit-choice[data-unit-theme] .unit-choice-number,
+.unit-choice[data-unit-theme][aria-current="true"] .unit-choice-number {
+  background: var(--theme-accent); color: var(--theme-on-accent); border-color: var(--theme-ink);
+}
+.roadmap-number, .lesson[open] .lesson-number {
+  background: var(--theme-accent); color: var(--theme-on-accent); border-color: var(--theme-ink);
+}
+.lesson[open] > summary, .learn-content, .learning-goal { background: var(--theme-soft); }
+.progress-track { background: var(--theme-soft); }
+.progress-fill { background: var(--theme-accent); }
+.flashcard { border-color: var(--theme-ink); }
+.flashcard-hint { color: var(--theme-ink); }
+.reader-sentence:hover:not(.is-active) { background: var(--theme-soft); }
+.library-list li[data-unit-theme] { padding-inline: 16px; background: var(--theme-soft); }
+.library-list li[data-unit-theme] a { color: var(--theme-ink); }
+.library-list li[data-unit-theme] span { color: var(--theme-navy); }
+.library-list li[data-unit-theme]:hover { background: var(--theme-soft); }
+@media print {
+  .title-area, .unit-band, .learning-goal, .learn-content,
+  .library-list li[data-unit-theme] { background: white; }
+}
